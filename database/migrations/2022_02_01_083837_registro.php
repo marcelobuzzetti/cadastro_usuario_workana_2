@@ -15,10 +15,10 @@ class Registro extends Migration
             $table->string('Login', 12);
             $table->dateTime('Data_Inicial');
             $table->dateTime('Data_limite');
-            $table->dateTime('Data_ult_ent');
-            $table->integer('Contador');
+            $table->dateTime('Data_ult_ent')->nullable();
+            $table->integer('Contador')->nullable();
             $table->string('Origem_registro', 10);
-            $table->string('Cod_Admin', 33);
+            $table->string('Cod_Admin', 33)->nullable();
             $table->string('Email', 100);
             $table->string('Telefone', 30);
             $table->string('IP', 15);
