@@ -9,7 +9,7 @@ class Registro extends Migration
     public function up()
     {
         Schema::create('registros', function (Blueprint $table) {
-            $table->id('ID_usuario');
+            $table->increments('ID_usuario');
             $table->string('CPF', 16);
             $table->string('Nome', 50);
             $table->string('Login', 12);

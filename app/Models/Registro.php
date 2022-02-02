@@ -22,6 +22,8 @@ class Registro extends Model
         'Cod_Admin',
         'Email',
         'Telefone',
+        'IP',
+        'usuario',
     ];
 
 }

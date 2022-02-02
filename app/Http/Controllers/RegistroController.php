@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Registro;
 use App\Http\Requests\StoreRegistroRequest;
 use App\Http\Requests\UpdateRegistroRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class RegistroController extends Controller
 {
@@ -15,7 +19,11 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        return view('registros.index');
+        $registros = Registro::latest()->paginate(5);
+        /* dd($registros); */
+
+        return view('registros.index',compact('registros'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -25,7 +33,7 @@ class RegistroController extends Controller
      */
     public function create()
     {
-        //
+        return view('registros.create');
     }
 
     /**
@@ -34,9 +42,32 @@ class RegistroController extends Controller
      * @param  \App\Http\Requests\StoreRegistroRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRegistroRequest $request)
+    public function store(Request $request)
     {
-        //
+        $ipAddress = $request->ip();
+
+        $validator = Validator::make($request->all(), [
+            'CPF' => 'required',
+            'Nome' => 'required',
+            'Login' => 'required',
+            'Data_Inicial' => 'required',
+            'Data_limite' => 'required',
+            'Origem_registro' => 'required',
+            'Email' => 'required',
+            'Telefone' => 'required',
+        ]);
+
+       /*  if ($validator->fails()) {
+            return response()->json([
+                'validate_err' => $validator->messages(),
+            ]);
+        } else { */
+
+            Registro::create($request->all() + ['IP' => $ipAddress] + ['usuario' => 1]);
+
+            return redirect()->route('registros.index')
+                        ->with('success','Registro criado com sucesso.');
+       /*  } */
     }
 
     /**
@@ -47,7 +78,7 @@ class RegistroController extends Controller
      */
     public function show(Registro $registro)
     {
-        //
+        return view('registros.show',compact('registro'));
     }
 
     /**
@@ -58,7 +89,8 @@ class RegistroController extends Controller
      */
     public function edit(Registro $registro)
     {
-        //
+        return view('registros.edit',compact('registro'));
+
     }
 
     /**
@@ -70,7 +102,21 @@ class RegistroController extends Controller
      */
     public function update(UpdateRegistroRequest $request, Registro $registro)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'CPF' => 'required',
+            'Nome' => 'required',
+            'Login' => 'required',
+            'Data_Inicial' => 'required',
+            'Data_limite' => 'required',
+            'Origem_registro' => 'required',
+            'Email' => 'required',
+            'Telefone' => 'required',
+        ]);
+
+        $registro->update($request->all());
+
+        return redirect()->route('registros.index')
+                        ->with('success','Registro atualizado com sucesso');
     }
 
     /**
@@ -81,6 +127,9 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
-        //
+        $registro->delete();
+
+        return redirect()->route('registros.index')
+                        ->with('success','Registro apagado com sucesso');
     }
 }

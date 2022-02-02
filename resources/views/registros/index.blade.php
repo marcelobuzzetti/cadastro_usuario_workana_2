@@ -1,107 +1,74 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('registros.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-
-</head>
-
-<body class="antialiased">
-    <div class="flex mb-4">
-        <form class="w-full max-w-lg">
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        CPF
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="text" placeholder="CPF">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        Nome
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="text" placeholder="Nome">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        Login
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="text" placeholder="Login">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        Data Inicial
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="datetime-local">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        Data Limite
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="datetime-local">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        Origem Registro
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="text" placeholder="Origem Registro">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        Email
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="email" placeholder="Email">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-first-name">
-                        Telefone
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name" type="tel" placeholder="Telefone">
-                    <p class="text-red-500 text-xs italic">Por favor, preencha este campo.</p>
-                </div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Button
-                </button>
-        </form>
+@section('content')
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Registros</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-success" href="{{ route('registros.create') }}"> Criar novo Registro</a>
+            </div>
+        </div>
     </div>
-</body>
 
-</html>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
+    <table class="table table-bordered">
+        <tr>
+            <th>ID Usuário</th>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Login</th>
+            <th>Data Inicial</th>
+            <th>Data Limite</th>
+            <th>Data Ultima Entrada</th>
+            <th>Contador</th>
+            <th>Origem Registro</th>
+            <th>Cod Admin</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>IP</th>
+            <th>Usuário que cadastrou</th>
+            <th width="280px">Action</th>
+        </tr>
+        @foreach ($registros as $registro)
+        <tr>
+            <td>{{ $registro->ID_usuario }}</td>
+            <td>{{ $registro->CPF }}</td>
+            <td>{{ $registro->Nome }}</td>
+            <td>{{ $registro->Login }}</td>
+            <td>{{ $registro->Data_Inicial }}</td>
+            <td>{{ $registro->Data_limite }}</td>
+            <td>{{ $registro->Data_ult_ent }}</td>
+            <td>{{ $registro->Contador }}</td>
+            <td>{{ $registro->Origem_registro }}</td>
+            <td>{{ $registro->Cod_Admin }}</td>
+            <td>{{ $registro->Email }}</td>
+            <td>{{ $registro->Telefone }}</td>
+            <td>{{ $registro->IP }}</td>
+            <td>{{ $registro->usuario }}</td>
+            <td>
+                <form action="{{ route('registros.destroy',$registro->ID_usuario) }}" method="POST">
+
+                    <a class="btn btn-info" href="{{ route('registros.show',$registro->ID_usuario) }}">Mostrar</a>
+
+                    <a class="btn btn-primary" href="{{ route('registros.edit',$registro->ID_usuario) }}">Editar</a>
+
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-danger">Apagar</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+
+    {!! $registros->links() !!}
+
+@endsection
