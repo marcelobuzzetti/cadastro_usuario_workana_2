@@ -44,12 +44,20 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols(), /* Rules\Password::defaults() */],
-            'perfil_id' => 'required'
-        ]);
+        $request->validate(
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
+                'perfil_id' => 'required'
+            ],
+            [
+                'name.required' => 'O nome deve ser digitado.',
+                'email.required' => 'O email deve ser digitado.',
+                'password.required' => 'O password deve ser digitado',
+                'perfil_id.required' => 'O perfil deve ser selecionado',
+            ]
+        );
 
         $name = $request->old('name');
         $email = $request->old('email');
@@ -65,7 +73,7 @@ class UsuarioController extends Controller
         ]);
 
         return redirect()->route('usuarios.index')
-                        ->with('success','Usuario criado com sucesso.');
+            ->with('success', 'Usuario criado com sucesso.');
     }
 
     /**
@@ -76,7 +84,7 @@ class UsuarioController extends Controller
      */
     public function show(User $usuario)
     {
-        return view('usuarios.show',compact('usuario'));
+        return view('usuarios.show', compact('usuario'));
     }
 
     /**
@@ -87,7 +95,7 @@ class UsuarioController extends Controller
      */
     public function edit(User $usuario)
     {
-        return view('usuarios.edit',compact('usuario'));
+        return view('usuarios.edit', compact('usuario'));
     }
 
     /**
@@ -102,9 +110,21 @@ class UsuarioController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
             'perfil_id' => 'required'
+        ],
+        [
+            'name.required' => 'O nome deve ser digitado',
+            'email.required' => 'O email deve ser digitado',
+            'password.required' => 'O password deve ser digitado',
+            'perfil_id.required' => 'O perfil deve ser selecionado',
         ]);
+
+        $name = $request->old('name');
+        $email = $request->old('email');
+        $password = $request->old('password');
+        $password_confirmation = $request->old('password_confirmation');
+        $perfil_id = $request->old('perfil_id');
 
         $request->merge([
             'password' => Hash::make($request->password),
@@ -113,8 +133,7 @@ class UsuarioController extends Controller
         $usuario->update($request->all());
 
         return redirect()->route('usuarios.index')
-                        ->with('success','Usuario atualizado com sucesso');
-
+            ->with('success', 'Usuario atualizado com sucesso');
     }
 
     /**
@@ -128,6 +147,6 @@ class UsuarioController extends Controller
         $usuario->delete();
 
         return redirect()->route('usuarios.index')
-                        ->with('success','Usuário apagado com sucesso');
+            ->with('success', 'Usuário apagado com sucesso');
     }
 }
