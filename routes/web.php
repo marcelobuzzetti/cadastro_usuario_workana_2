@@ -24,12 +24,4 @@ Route::get('/dashboard', function () {
 
 Route::resource('registros', RegistroController::class);
 
-/* Route::get('/registros', [RegistroController::class, 'index']);
-
-Route::get('/registros/novo', [RegistroController::class, 'create']);
-
-Route::post('/registros/adiciona', [RegistroController::class, 'store']); */
-
-/* Route::get('/militares/altera/{id}', 'MilitarController@altera')->where('id','[0-9]+'); */
-
 require __DIR__.'/auth.php';

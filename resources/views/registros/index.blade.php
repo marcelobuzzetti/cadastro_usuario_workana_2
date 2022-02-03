@@ -18,8 +18,8 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
-        <tr>
+    <table id="table" name="table" class="table table-bordered">
+        <thead>
             <th>ID Usuário</th>
             <th>CPF</th>
             <th>Nome</th>
@@ -35,7 +35,7 @@
             <th>IP</th>
             <th>Usuário que cadastrou</th>
             <th width="280px">Action</th>
-        </tr>
+        </thead>
         @foreach ($registros as $registro)
         <tr>
             <td>{{ $registro->ID_usuario }}</td>
@@ -67,6 +67,23 @@
             </td>
         </tr>
         @endforeach
+        <tfoot>
+            <th>ID Usuário</th>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Login</th>
+            <th>Data Inicial</th>
+            <th>Data Limite</th>
+            <th>Data Ultima Entrada</th>
+            <th>Contador</th>
+            <th>Origem Registro</th>
+            <th>Cod Admin</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>IP</th>
+            <th>Usuário que cadastrou</th>
+            <th width="280px">Action</th>
+        </tfoot>
     </table>
 
     {!! $registros->links() !!}
