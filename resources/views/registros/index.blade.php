@@ -13,9 +13,7 @@
     </div>
 
     @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
+        <script>toastr.success('{{ $message }}')</script>
     @endif
 
     <hr>

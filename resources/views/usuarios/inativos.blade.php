@@ -6,15 +6,8 @@
             <div class="pull-left">
                 <h2>Usuarios</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('usuarios.create') }}"> Criar novo Usuario</a>
-            </div>
         </div>
     </div>
-    @if ($message = Session::get('success'))
-        <script>toastr.success('{{ $message }}')</script>
-    @endif
-
     <hr>
 
     <table id="table" name="table" class="table table-striped table-bordered" style="width:100%">
@@ -24,7 +17,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Perfil</th>
-                <th width="280px">Action</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -35,19 +28,11 @@
                     <td>{{ $usuario->email }}</td>
                     <td>{{ $usuario->perfil_id }}</td>
                     <td>
-                        <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST">
-
-                            <a class="btn btn-info"
-                                href="{{ route('usuarios.show', $usuario->id) }}">Mostrar</a>
-
-                            <a class="btn btn-primary"
-                                href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a>
-
+                        <form action="/usuarios/ativar" method="POST">
                             @csrf
-                            @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger">Apagar</button>
-                        </form>
+                            @method('PUT')
+                            <input type="hidden" name="id" value="{{ $usuario->id }}">
+                            <button type="submit" class="btn btn-info">Ativar</button>
                     </td>
                 </tr>
             @endforeach
@@ -58,7 +43,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Perfil</th>
-                <th width="280px">Action</th>
+                <th>Action</th>
             </tr>
         </tfoot>
     </table>

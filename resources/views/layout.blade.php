@@ -13,6 +13,16 @@
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script>
+        toastr.options.closeButton = true;
+        toastr.options.closeMethod = 'fadeOut';
+        toastr.options.closeDuration = 300;
+        toastr.options.closeEasing = 'swing';
+        toastr.options.newestOnTop = true;
+    </script>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @auth
@@ -120,8 +130,9 @@
                             Usuários
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/usuarios">Lista de Usuários</a>
-                                <a class="dropdown-item" href="/usuarios/create">Adicionar Usuário</a>
+                            <a class="dropdown-item" href="/usuarios">Lista de Usuários Ativos</a>
+                            <a class="dropdown-item" href="/usuarios/inativos">Lista de Usuários Inativos</a>
+                            <a class="dropdown-item" href="/usuarios/create">Adicionar Usuário</a>
                         </div>
                     </li>
                     @endif
@@ -168,7 +179,6 @@
         @yield('content')
     </div>
 
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>

@@ -23,6 +23,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['auth', 'acl']);
+Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['auth', 'acl']);
+
 Route::resource('registros', RegistroController::class)->middleware(['auth']);
 Route::resource('usuarios', UsuarioController::class)->middleware(['auth', 'acl']);
 

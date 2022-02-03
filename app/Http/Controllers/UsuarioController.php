@@ -21,7 +21,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::all()->where('status', 1);
 
         return view('usuarios.index')->with('usuarios', $usuarios);
     }
@@ -64,6 +64,10 @@ class UsuarioController extends Controller
         $password = $request->old('password');
         $password_confirmation = $request->old('password_confirmation');
         $perfil_id = $request->old('perfil_id');
+
+        $request->merge([
+            'status' => 1,
+        ]);
 
         $user = User::create([
             'name' => $request->name,
@@ -133,7 +137,7 @@ class UsuarioController extends Controller
         $usuario->update($request->all());
 
         return redirect()->route('usuarios.index')
-            ->with('success', 'Usuario atualizado com sucesso');
+            ->with('success', 'Usuário atualizado com sucesso');
     }
 
     /**
@@ -144,9 +148,26 @@ class UsuarioController extends Controller
      */
     public function destroy(User $usuario)
     {
-        $usuario->delete();
+
+        /* $usuario->delete(); */
+        $usuario->update(['status' => 2]);
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuário apagado com sucesso');
+    }
+
+    public function inativos()
+    {
+        $usuarios = User::all()->where('status', 2);
+
+        return view('usuarios.inativos')->with('usuarios', $usuarios);
+    }
+
+    public function ativar(Request $request)
+    {
+        User::where('id', $request->id)->update(['status' => 1]);
+
+        return redirect()->route('usuarios.index')
+            ->with('success', 'Usuário reativado com sucesso');
     }
 }
