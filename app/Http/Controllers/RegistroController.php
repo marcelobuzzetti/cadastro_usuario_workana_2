@@ -68,7 +68,7 @@ class RegistroController extends Controller
         $Email = $request->old('Email');
         $Telefone = $request->old('Telefone');
 
-            Registro::create($request->all() + ['IP' => $ipAddress] + ['usuario' => 1]);
+            Registro::create($request->all() + ['IP' => $ipAddress] + ['usuario' => Auth::id()]);
 
             return redirect()->route('registros.index')
                         ->with('success','Registro criado com sucesso.');

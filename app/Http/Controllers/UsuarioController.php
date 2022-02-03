@@ -106,6 +106,10 @@ class UsuarioController extends Controller
             'perfil_id' => 'required'
         ]);
 
+        $request->merge([
+            'password' => Hash::make($request->password),
+        ]);
+
         $usuario->update($request->all());
 
         return redirect()->route('usuarios.index')
