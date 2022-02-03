@@ -28,4 +28,8 @@ class Registro extends Model
 
     protected $primaryKey = 'ID_usuario';
 
+    protected $table = 'ZeniteLic';
+
+    public $timestamps = false;
+
 }
