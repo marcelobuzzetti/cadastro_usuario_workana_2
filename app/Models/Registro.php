@@ -10,16 +10,15 @@ class Registro extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'CPF',
         'Nome',
         'Login',
-        'Data_Inicial',
+        'Data_inicial',
         'Data_limite',
         'Data_ult_ent',
         'Contador',
         'Origem_registro',
-        'Cod_Admin',
+        'Cod_admin',
         'Email',
         'Telefone',
     ];
