@@ -20,12 +20,15 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        $registros = Registro::all();
+        /* $registros = Registro::all(); */
         /* dd($registros); */
 
+        $registros = DB::table('registros')
+        ->leftJoin('users', 'users.id', '=', 'usuario')
+        ->select(['CPF', 'ID_usuario', 'Nome', 'Login', 'Data_Inicial', 'Data_limite', 'Data_ult_ent', 'Contador', 'Origem_registro', 'Cod_Admin', 'registros.Email', 'Telefone', 'IP', 'users.name'])
+        ->get();
+
         return view('registros.index')->with('registros', $registros);
-        /* return view('registros.index',compact('registros'))
-            ->with('i', (request()->input('page', 1) - 1) * 5); */
     }
 
     /**
@@ -68,9 +71,9 @@ class RegistroController extends Controller
         $Email = $request->old('Email');
         $Telefone = $request->old('Telefone');
 
-            Registro::create($request->all() + ['IP' => $ipAddress] + ['usuario' => Auth::id()]);
+        Registro::create($request->all() + ['IP' => $ipAddress] + ['usuario' => Auth::id()]);
 
-            return redirect()->route('registros.index')
+        return redirect()->route('registros.index')
                         ->with('success','Registro criado com sucesso.');
        /*  } */
     }

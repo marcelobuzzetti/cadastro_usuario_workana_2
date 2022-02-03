@@ -28,9 +28,4 @@ class Registro extends Model
 
     protected $primaryKey = 'ID_usuario';
 
-    /* public function users()
-    {
-        return $this->hasMany(User::class, 'id', 'usuario');
-    } */
-
 }

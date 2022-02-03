@@ -56,7 +56,7 @@
                     <td>{{ $registro->Email }}</td>
                     <td>{{ $registro->Telefone }}</td>
                     <td>{{ $registro->IP }}</td>
-                    <td>{{ $registro->usuario }}</td>
+                    <td>{{ $registro->name }}</td>
                     <td>
                         <form action="{{ route('registros.destroy', $registro->ID_usuario) }}" method="POST">
 
