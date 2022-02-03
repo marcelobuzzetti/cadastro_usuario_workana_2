@@ -1,4 +1,4 @@
-@extends('registros.layout')
+@extends('layout')
 
 @section('content')
     <div class="row">

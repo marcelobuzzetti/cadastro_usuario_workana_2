@@ -1,4 +1,4 @@
-@extends('registros.layout')
+@extends('layout')
 
 @section('content')
     <div class="row">
@@ -30,74 +30,68 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>CPF:</strong>
-                    <input type="text" name="CPF" class="form-control" placeholder="CPF">
+                    <input type="text" name="CPF" class="form-control" placeholder="CPF" value="{{ old('CPF') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Nome:</strong>
-                    <input type="text" name="Nome" class="form-control" placeholder="Nome">
+                    <input type="text" name="Nome" class="form-control" placeholder="Nome" value="{{ old('Nome') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Login:</strong>
-                    <input type="text" name="Login" class="form-control" placeholder="Login">
+                    <input type="text" name="Login" class="form-control" placeholder="Login" value="{{ old('Login') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Data Inicial:</strong>
-                    <input type="datetime-local" name="Data_Inicial" class="form-control" placeholder="Data Inicial">
+                    <input type="datetime-local" name="Data_Inicial" class="form-control" placeholder="Data Inicial" value="{{ old('Data_Inicial') ? date('Y-m-d\TH:i', strtotime(old('Data_Inicial'))) : '' }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Data Limite:</strong>
-                    <input type="datetime-local" name="Data_limite" class="form-control" placeholder="Data Limite">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Data Inicial:</strong>
-                    <input type="datetime-local" name="Data_Inicial" class="form-control" placeholder="Data Inicial">
+                    <input type="datetime-local" name="Data_limite" class="form-control" placeholder="Data Limite" value="{{ old('Data_limite') ? date('Y-m-d\TH:i', strtotime(old('Data_limite'))) : '' }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Data Última Entrada:</strong>
                     <input type="datetime-local" name="Data_ult_ent" class="form-control"
-                        placeholder="Data Última Entrada">
+                        placeholder="Data Última Entrada" value="{{ old('Data_ult_ent') ? date('Y-m-d\TH:i', strtotime(old('Data_ult_ent'))) : ''  }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Contador:</strong>
-                    <input type="number" name="Contador" class="form-control" placeholder="Contador">
+                    <input type="number" name="Contador" class="form-control" placeholder="Contador" value="{{ old('contador') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Origem Registro:</strong>
-                    <input type="text" name="Origem_registro" class="form-control" placeholder="Origem Registro">
+                    <input type="text" name="Origem_registro" class="form-control" placeholder="Origem Registro" value="{{ old('Origem_registro') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Cod Admin:</strong>
-                    <input type="text" name="Cod_Admin" class="form-control" placeholder="Cod Admin">
+                    <input type="text" name="Cod_Admin" class="form-control" placeholder="Cod Admin" value="{{ old('Cod_Admin') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="email" name="Email" class="form-control" placeholder="Email">
+                    <input type="email" name="Email" class="form-control" placeholder="Email" value="{{ old('Email') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Telefone:</strong>
-                    <input type="tel" name="Telefone" class="form-control" placeholder="Telefone">
+                    <input type="tel" name="Telefone" class="form-control" placeholder="Telefone" value="{{ old('Telefone') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

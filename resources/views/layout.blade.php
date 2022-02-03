@@ -112,77 +112,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @auth
+                    @if (Auth::user()->perfil_id == 1)
                     <li
-                        class="nav-item dropdown {{ Request::path() == 'materiais/novo' || Request::path() == 'materiais' ? 'active' : '' }}">
+                        class="nav-item dropdown {{ Request::path() == 'usuarios/create' || Request::path() == 'usuarios' ? 'active' : '' }}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                            Materiais
+                            Usuários
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/materiais">Lista de Materiais</a>
-                            @if (Auth::user()->perfil == 1)
-                                <a class="dropdown-item" href="/materiais/novo">Adicionar Material</a>
-                            @endif
+                            <a class="dropdown-item" href="/usuarios">Lista de Usuários</a>
+                                <a class="dropdown-item" href="/usuarios/create">Adicionar Usuário</a>
                         </div>
                     </li>
-                    <li
-                        class="nav-item dropdown {{ Request::path() == 'cautelas/novo' || Request::path() == 'cautelas' ? 'active' : '' }} ">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Cautelas
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/cautelas">Lista de Cautelas</a>
-                            <a class="dropdown-item" href="/cautelas/novo">Adicionar Cautela</a>
-                        </div>
-                    </li>
-                    <li
-                        class="nav-item dropdown {{ Request::path() == 'pelotoes/novo' || Request::path() == 'pelotoes' ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pelotões
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/pelotoes">Lista de Pelotões</a>
-                            <a class="dropdown-item" href="/pelotoes/novo">Adicionar Pelotão</a>
-                        </div>
-                    </li>
-                    <li
-                        class="nav-item dropdown {{ Request::path() == 'militares/novo' || Request::path() == 'militares' ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Militares
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/militares">Lista de Militares</a>
-                            <a class="dropdown-item" href="/militares/novo">Adicionar Militar</a>
-                        </div>
-                    </li>
-                    @if (Auth::user()->perfil == 1)
-                        <li
-                            class="nav-item dropdown {{ Request::path() == 'reservas/novo' || Request::path() == 'reservas' ? 'active' : '' }}">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Reservas
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/reservas">Lista de Reservas</a>
-                                <a class="dropdown-item" href="/reservas/novo">Adicionar Reservas</a>
-                            </div>
-                        </li>
-                        <li>
-                        <li
-                            class="nav-item dropdown {{ Request::path() == 'usuarios/lista' || Request::path() == 'registrar' ? 'active' : '' }}">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Usuários
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/usuarios/lista">Lista de Usuários</a>
-                                <a class="dropdown-item" href="/registrar">Registrar Usuário</a>
-                            </div>
-                        </li>
                     @endif
+                    <li
+                        class="nav-item dropdown {{ Request::path() == 'registros/create' || Request::path() == 'registros' ? 'active' : '' }} ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Registros
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/registros">Lista de Registros</a>
+                            <a class="dropdown-item" href="/registros/create">Adicionar Registro</a>
+                        </div>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ">
                     <li class="nav-item dropdown my-2 my-lg-0">

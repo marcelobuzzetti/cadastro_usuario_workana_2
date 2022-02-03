@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class UsuarioController extends Controller
 {
@@ -45,12 +47,14 @@ class UsuarioController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols(), /* Rules\Password::defaults() */],
             'perfil_id' => 'required'
         ]);
 
         $name = $request->old('name');
         $email = $request->old('email');
+        $password = $request->old('password');
+        $password_confirmation = $request->old('password_confirmation');
         $perfil_id = $request->old('perfil_id');
 
         $user = User::create([

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules;
 
 class RegistroController extends Controller
 {
@@ -47,7 +48,7 @@ class RegistroController extends Controller
     {
         $ipAddress = $request->ip();
 
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'CPF' => 'required',
             'Nome' => 'required',
             'Login' => 'required',
@@ -66,12 +67,6 @@ class RegistroController extends Controller
         $Origem_registro = $request->old('Origem_registro');
         $Email = $request->old('Email');
         $Telefone = $request->old('Telefone');
-
-       /*  if ($validator->fails()) {
-            return response()->json([
-                'validate_err' => $validator->messages(),
-            ]);
-        } else { */
 
             Registro::create($request->all() + ['IP' => $ipAddress] + ['usuario' => 1]);
 
@@ -112,7 +107,9 @@ class RegistroController extends Controller
      */
     public function update(Request $request, Registro $registro)
     {
-        $validator = Validator::make($request->all(), [
+        $ipAddress = $request->ip();
+
+        $request->validate([
             'CPF' => 'required',
             'Nome' => 'required',
             'Login' => 'required',
@@ -123,7 +120,7 @@ class RegistroController extends Controller
             'Telefone' => 'required',
         ]);
 
-        $registro->update($request->all());
+        $registro->update($request->all() + ['IP' => $ipAddress]);
 
         return redirect()->route('registros.index')
                         ->with('success','Registro atualizado com sucesso');
