@@ -22,6 +22,7 @@
         toastr.options.closeDuration = 300;
         toastr.options.closeEasing = 'swing';
         toastr.options.newestOnTop = true;
+        toastr.options.progressBar = true;
     </script>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

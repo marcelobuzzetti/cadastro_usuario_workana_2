@@ -45,12 +45,12 @@
                     <td>{{ $registro->CPF }}</td>
                     <td>{{ $registro->Nome }}</td>
                     <td>{{ $registro->Login }}</td>
-                    <td>{{ $registro->Data_Inicial }}</td>
+                    <td>{{ $registro->Data_inicial }}</td>
                     <td>{{ $registro->Data_limite }}</td>
                     <td>{{ $registro->Data_ult_ent }}</td>
                     <td>{{ $registro->Contador }}</td>
                     <td>{{ $registro->Origem_registro }}</td>
-                    <td>{{ $registro->Cod_Admin }}</td>
+                    <td>{{ $registro->Cod_admin }}</td>
                     <td>{{ $registro->Email }}</td>
                     <td>{{ $registro->Telefone }}</td>
                     {{-- <td>{{ $registro->IP }}</td>

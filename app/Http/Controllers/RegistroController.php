@@ -55,7 +55,7 @@ class RegistroController extends Controller
             'CPF' => 'required',
             'Nome' => 'required',
             'Login' => 'required',
-            'Data_Inicial' => 'required',
+            'Data_inicial' => 'required',
             'Data_limite' => 'required',
             'Origem_registro' => 'required',
             'Email' => 'required',
@@ -65,7 +65,7 @@ class RegistroController extends Controller
         $CPF = $request->old('CPF');
         $Nome = $request->old('Nome');
         $Login = $request->old('Login');
-        $Data_Inicial = $request->old('Data_Inicial');
+        $Data_inicial = $request->old('Data_inicial');
         $Data_limite = $request->old('Data_limite');
         $Origem_registro = $request->old('Origem_registro');
         $Email = $request->old('Email');

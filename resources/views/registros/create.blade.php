@@ -48,7 +48,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Data Inicial:</strong>
-                    <input type="datetime-local" name="Data_Inicial" class="form-control" placeholder="Data Inicial" value="{{ old('Data_Inicial') ? date('Y-m-d\TH:i', strtotime(old('Data_Inicial'))) : '' }}">
+                    <input type="datetime-local" name="Data_inicial" class="form-control" placeholder="Data Inicial" value="{{ old('Data_inicial') ? date('Y-m-d\TH:i', strtotime(old('Data_inicial'))) : '' }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -79,7 +79,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Cod Admin:</strong>
-                    <input type="text" name="Cod_Admin" class="form-control" placeholder="Cod Admin" value="{{ old('Cod_Admin') }}">
+                    <input type="text" name="Cod_admin" class="form-control" placeholder="Cod Admin" value="{{ old('Cod_admin') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
