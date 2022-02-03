@@ -21,8 +21,6 @@ class Registro extends Migration
             $table->string('Cod_Admin', 33)->nullable();
             $table->string('Email', 100);
             $table->string('Telefone', 30);
-            $table->string('IP', 15);
-            $table->integer('usuario');
             $table->timestamps();
         });
     }

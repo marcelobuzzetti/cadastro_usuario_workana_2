@@ -65,12 +65,12 @@
                         placeholder="Data Última Entrada" value="{{ date('Y-m-d\TH:i', strtotime($registro->Data_ult_ent)) }}">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
+           {{--  <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Contador:</strong>
                     <input type="number" name="Contador" class="form-control" placeholder="Contador" value="{{ $registro->Contador }}">
                 </div>
-            </div>
+            </div> --}}
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Origem Registro:</strong>

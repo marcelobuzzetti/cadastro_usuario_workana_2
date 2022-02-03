@@ -20,13 +20,13 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        /* $registros = Registro::all(); */
+        $registros = Registro::all();
         /* dd($registros); */
 
-        $registros = DB::table('registros')
+        /* $registros = DB::table('registros')
         ->leftJoin('users', 'users.id', '=', 'usuario')
         ->select(['CPF', 'ID_usuario', 'Nome', 'Login', 'Data_Inicial', 'Data_limite', 'Data_ult_ent', 'Contador', 'Origem_registro', 'Cod_Admin', 'registros.Email', 'Telefone', 'IP', 'users.name'])
-        ->get();
+        ->get(); */
 
         return view('registros.index')->with('registros', $registros);
     }
@@ -71,7 +71,11 @@ class RegistroController extends Controller
         $Email = $request->old('Email');
         $Telefone = $request->old('Telefone');
 
-        Registro::create($request->all() + ['IP' => $ipAddress] + ['usuario' => Auth::id()]);
+        $request->merge([
+            'Contador' => $ipAddress
+        ]);
+
+        Registro::create($request->all() /* + ['IP' => $ipAddress] + ['usuario' => Auth::id()] */);
 
         return redirect()->route('registros.index')
                         ->with('success','Registro criado com sucesso.');
@@ -123,7 +127,7 @@ class RegistroController extends Controller
             'Telefone' => 'required',
         ]);
 
-        $registro->update($request->all() + ['IP' => $ipAddress]);
+        $registro->update($request->all() /* + ['IP' => $ipAddress] */);
 
         return redirect()->route('registros.index')
                         ->with('success','Registro atualizado com sucesso');

@@ -71,15 +71,12 @@ class UsuarioController extends Controller
         $password_confirmation = $request->old('password_confirmation');
         $perfil_id = $request->old('perfil_id');
 
-        $request->merge([
-            'status' => 1,
-        ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'perfil_id' => $request->perfil_id,
+            'status' => 1,
         ]);
 
         return redirect()->route('usuarios.index')

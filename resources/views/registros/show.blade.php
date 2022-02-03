@@ -85,7 +85,7 @@
                 {{ $registro->Telefone }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        {{-- <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>IP:</strong>
                 {{ $registro->IP }}
@@ -96,6 +96,6 @@
                 <strong>Usuário que cadastrou:</strong>
                 {{ $registro->usuario }}
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection
