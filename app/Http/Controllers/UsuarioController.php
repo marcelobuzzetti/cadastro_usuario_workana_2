@@ -27,6 +27,7 @@ class UsuarioController extends Controller
         ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
         ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
         ->where('users.status', '=', 1)
+        ->where('users.id', '!=', Auth::id())
         ->get();
 
         return view('usuarios.index')->with('usuarios', $usuarios);

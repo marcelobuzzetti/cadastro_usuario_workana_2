@@ -22,8 +22,6 @@ class Registro extends Model
         'Cod_Admin',
         'Email',
         'Telefone',
-        'IP',
-        'usuario',
     ];
 
     protected $primaryKey = 'ID_usuario';
