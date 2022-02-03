@@ -16,7 +16,7 @@ class Registro extends Migration
             $table->dateTime('Data_Inicial');
             $table->dateTime('Data_limite');
             $table->dateTime('Data_ult_ent')->nullable();
-            $table->integer('Contador')->nullable();
+            $table->string('Contador', 15)->nullable();
             $table->string('Origem_registro', 10);
             $table->string('Cod_Admin', 33)->nullable();
             $table->string('Email', 100);

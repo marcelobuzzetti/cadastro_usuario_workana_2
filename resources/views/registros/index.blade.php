@@ -33,8 +33,8 @@
                 <th>Cod Admin</th>
                 <th>Email</th>
                 <th>Telefone</th>
-                <th>IP</th>
-                <th>Usuário que cadastrou</th>
+                {{-- <th>IP</th>
+                <th>Usuário que cadastrou</th> --}}
                 <th width="280px">Action</th>
             </tr>
         </thead>
@@ -53,8 +53,8 @@
                     <td>{{ $registro->Cod_Admin }}</td>
                     <td>{{ $registro->Email }}</td>
                     <td>{{ $registro->Telefone }}</td>
-                    <td>{{ $registro->IP }}</td>
-                    <td>{{ $registro->name }}</td>
+                    {{-- <td>{{ $registro->IP }}</td>
+                    <td>{{ $registro->name }}</td> --}}
                     <td>
                         <form action="{{ route('registros.destroy', $registro->ID_usuario) }}" method="POST">
 
@@ -87,8 +87,8 @@
                 <th>Cod Admin</th>
                 <th>Email</th>
                 <th>Telefone</th>
-                <th>IP</th>
-                <th>Usuário que cadastrou</th>
+                {{-- <th>IP</th>
+                <th>Usuário que cadastrou</th> --}}
                 <th width="280px">Action</th>
             </tr>
         </tfoot>
