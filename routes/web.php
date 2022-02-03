@@ -24,6 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('registros', RegistroController::class)->middleware(['auth']);
-Route::resource('usuarios', UsuarioController::class)->middleware(['auth']);
+Route::resource('usuarios', UsuarioController::class)->middleware(['auth', 'acl']);
 
 require __DIR__.'/auth.php';

@@ -43,14 +43,14 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Password:</strong>
-                    <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password') }}>
+                    <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Confirmação do Password:</strong>
                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"
-                        placeholder="Confirmação do Password" value="{{ old('password_confirmation') }}>
+                        placeholder="Confirmação do Password" value="{{ old('password_confirmation') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
