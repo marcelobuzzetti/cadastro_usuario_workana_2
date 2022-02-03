@@ -19,11 +19,12 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        $registros = Registro::latest()->paginate(5);
+        $registros = Registro::all();
         /* dd($registros); */
 
-        return view('registros.index',compact('registros'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('registros.index')->with('registros', $registros);
+        /* return view('registros.index',compact('registros'))
+            ->with('i', (request()->input('page', 1) - 1) * 5); */
     }
 
     /**
@@ -56,6 +57,15 @@ class RegistroController extends Controller
             'Email' => 'required',
             'Telefone' => 'required',
         ]);
+
+        $CPF = $request->old('CPF');
+        $Nome = $request->old('Nome');
+        $Login = $request->old('Login');
+        $Data_Inicial = $request->old('Data_Inicial');
+        $Data_limite = $request->old('Data_limite');
+        $Origem_registro = $request->old('Origem_registro');
+        $Email = $request->old('Email');
+        $Telefone = $request->old('Telefone');
 
        /*  if ($validator->fails()) {
             return response()->json([

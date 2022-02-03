@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('registros', RegistroController::class)->middleware(['auth']);
+Route::resource('usuarios', UsuarioController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';
