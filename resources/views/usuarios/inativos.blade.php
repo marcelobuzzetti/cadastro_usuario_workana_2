@@ -26,7 +26,7 @@
                     <td>{{ $usuario->id }}</td>
                     <td>{{ $usuario->name }}</td>
                     <td>{{ $usuario->email }}</td>
-                    <td>{{ $usuario->perfil_id }}</td>
+                    <td>{{ $usuario->perfil }}</td>
                     <td>
                         <form action="/usuarios/ativar" method="POST">
                             @csrf

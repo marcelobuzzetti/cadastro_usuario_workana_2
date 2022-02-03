@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -21,7 +22,12 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = User::all()->where('status', 1);
+        /* $usuarios = User::all()->where('status', 1); */
+        $usuarios = DB::table('users')
+        ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
+        ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
+        ->where('users.status', '=', 1)
+        ->get();
 
         return view('usuarios.index')->with('usuarios', $usuarios);
     }
@@ -158,7 +164,11 @@ class UsuarioController extends Controller
 
     public function inativos()
     {
-        $usuarios = User::all()->where('status', 2);
+        $usuarios = DB::table('users')
+        ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
+        ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
+        ->where('users.status', '=', 2)
+        ->get();
 
         return view('usuarios.inativos')->with('usuarios', $usuarios);
     }
