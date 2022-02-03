@@ -16,7 +16,7 @@ use App\Http\Controllers\UsuarioController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect('/registros');
 });
 
 Route::get('/dashboard', function () {
