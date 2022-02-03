@@ -26,4 +26,6 @@ class Registro extends Model
         'usuario',
     ];
 
+    protected $primaryKey = 'ID_usuario';
+
 }

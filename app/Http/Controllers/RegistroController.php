@@ -100,7 +100,7 @@ class RegistroController extends Controller
      * @param  \App\Models\Registro  $registro
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRegistroRequest $request, Registro $registro)
+    public function update(Request $request, Registro $registro)
     {
         $validator = Validator::make($request->all(), [
             'CPF' => 'required',
