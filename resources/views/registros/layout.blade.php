@@ -3,8 +3,8 @@
 
 <head>
     <title>Registros</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
-        rel="stylesheet">
+   {{--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
+        rel="stylesheet"> --}}
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -259,8 +259,8 @@
                         last: "Último"
                     },
                     aria: {
-                        sortAscending: ": activer pour trier la colonne par ordre croissant",
-                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                        sortAscending: ": Ative para classificar a coluna em ordem crescente",
+                        sortDescending: ": Ative para classificar a coluna em ordem decrescente"
                     }
                 },
                 /* dom: 'flBrtip',
