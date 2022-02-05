@@ -40,7 +40,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Data Inicial:</strong>
-                {{ $registro->Data_Inicial }}
+                {{ $registro->Data_inicial }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -70,7 +70,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Cod Admin:</strong>
-                {{ $registro->Cod_Admin }}
+                {{ $registro->Cod_admin }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
