@@ -28,7 +28,7 @@
                     <td>{{ $usuario->email }}</td>
                     <td>{{ $usuario->perfil }}</td>
                     <td>
-                        <form action="/usuarios/ativar" method="POST">
+                        <form action="{{ route('ativar') }}" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="id" value="{{ $usuario->id }}">

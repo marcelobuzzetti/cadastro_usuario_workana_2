@@ -114,7 +114,7 @@
 <body>
     <div id="alertaUsuario"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{ route('registros.index') }}">Registros</a>
+        <a class="navbar-brand" href="https://radarzenite.com.br/cadastro_usuario_workana/public/registros">Registros</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -125,27 +125,27 @@
                 @auth
                     @if (Auth::user()->perfil_id == 1)
                     <li
-                        class="nav-item dropdown {{ Request::path() == 'usuarios' ? 'active' : '' }}">
+                        class="nav-item dropdown {{ Request::path() == 'https://radarzenite.com.br/cadastro_usuario_workana/public/usuarios/create' || Request::path() == 'usuarios' ? 'active' : '' }}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             Usuários
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('usuarios.index') }}">Lista de Usuários Ativos</a>
-                            <a class="dropdown-item" href="{{ route('inativos') }}">Lista de Usuários Inativos</a>
-                            <a class="dropdown-item" href="{{ route('usuarios.create') }}">Adicionar Usuário</a>
+                            <a class="dropdown-item" href="https://radarzenite.com.br/cadastro_usuario_workana/public/usuarios">Lista de Usuários Ativos</a>
+                            <a class="dropdown-item" href="https://radarzenite.com.br/cadastro_usuario_workana/public/usuarios/inativos">Lista de Usuários Inativos</a>
+                            <a class="dropdown-item" href="https://radarzenite.com.br/cadastro_usuario_workana/public/usuarios/create">Adicionar Usuário</a>
                         </div>
                     </li>
                     @endif
                     <li
-                        class="nav-item dropdown {{ Request::path() == 'registros' ? 'active' : '' }} ">
+                        class="nav-item dropdown {{ Request::path() == 'registros/create' || Request::path() == 'registros' ? 'active' : '' }} ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Registros
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('registros.index') }}">Lista de Registros</a>
-                            <a class="dropdown-item" href="{{ route('registros.create') }}">Adicionar Registro</a>
+                            <a class="dropdown-item" href="https://radarzenite.com.br/cadastro_usuario_workana/public/registros">Lista de Registros</a>
+                            <a class="dropdown-item" href="https://radarzenite.com.br/cadastro_usuario_workana/public/registros/create">Adicionar Registro</a>
                         </div>
                     </li>
                 </ul>
