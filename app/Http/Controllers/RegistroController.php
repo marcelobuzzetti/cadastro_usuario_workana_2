@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
+use Carbon\Carbon;
 
 class RegistroController extends Controller
 {
@@ -20,13 +21,16 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        $registros = Registro::all();
-        /* dd($registros); */
+        if (Auth::user()->perfil_id === 1) {
+            $registros = Registro::all();
+        }
 
-        /* $registros = DB::table('registros')
-        ->leftJoin('users', 'users.id', '=', 'usuario')
-        ->select(['CPF', 'ID_usuario', 'Nome', 'Login', 'Data_Inicial', 'Data_limite', 'Data_ult_ent', 'Contador', 'Origem_registro', 'Cod_Admin', 'registros.Email', 'Telefone', 'IP', 'users.name'])
-        ->get(); */
+        if (Auth::user()->perfil_id === 2) {
+
+            $registros = DB::select('SELECT * FROM zenitelic, users
+            WHERE users.email = zenitelic.Origem_registro
+            AND users.email =  ?', [Auth::user()->email]);
+        }
 
         return view('registros.index')->with('registros', $registros);
     }
@@ -55,9 +59,7 @@ class RegistroController extends Controller
             'CPF' => 'required',
             'Nome' => 'required',
             'Login' => 'required',
-            'Data_inicial' => 'required',
             'Data_limite' => 'required',
-            'Origem_registro' => 'required',
             'Email' => 'required',
             'Telefone' => 'required',
         ]);
@@ -65,23 +67,23 @@ class RegistroController extends Controller
         $CPF = $request->old('CPF');
         $Nome = $request->old('Nome');
         $Login = $request->old('Login');
-        $Data_inicial = $request->old('Data_inicial');
         $Data_limite = $request->old('Data_limite');
         $Data_ult_ent = $request->old('Data_ult_ent');
         $Cod_admin = $request->old('Cod_admin');
-        $Origem_registro = $request->old('Origem_registro');
         $Email = $request->old('Email');
         $Telefone = $request->old('Telefone');
 
         $request->merge([
-            'Contador' => $ipAddress
+            'Contador' => $ipAddress,
+            'Data_inicial' => now(),
+            'Origem_registro' => Auth::user()->email
         ]);
 
         Registro::create($request->all() /* + ['IP' => $ipAddress] + ['usuario' => Auth::id()] */);
 
         return redirect()->route('registros.index')
-                        ->with('success','Registro criado com sucesso.');
-       /*  } */
+            ->with('success', 'Registro criado com sucesso.');
+        /*  } */
     }
 
     /**
@@ -92,7 +94,7 @@ class RegistroController extends Controller
      */
     public function show(Registro $registro)
     {
-        return view('registros.show',compact('registro'));
+        return view('registros.show', compact('registro'));
     }
 
     /**
@@ -103,8 +105,7 @@ class RegistroController extends Controller
      */
     public function edit(Registro $registro)
     {
-        return view('registros.edit',compact('registro'));
-
+        return view('registros.edit', compact('registro'));
     }
 
     /**
@@ -122,9 +123,7 @@ class RegistroController extends Controller
             'CPF' => 'required',
             'Nome' => 'required',
             'Login' => 'required',
-            'Data_inicial' => 'required',
             'Data_limite' => 'required',
-            'Origem_registro' => 'required',
             'Email' => 'required',
             'Telefone' => 'required',
         ]);
@@ -132,7 +131,7 @@ class RegistroController extends Controller
         $registro->update($request->all() /* + ['IP' => $ipAddress] */);
 
         return redirect()->route('registros.index')
-                        ->with('success','Registro atualizado com sucesso');
+            ->with('success', 'Registro atualizado com sucesso');
     }
 
     /**
@@ -146,6 +145,6 @@ class RegistroController extends Controller
         $registro->delete();
 
         return redirect()->route('registros.index')
-                        ->with('success','Registro apagado com sucesso');
+            ->with('success', 'Registro apagado com sucesso');
     }
 }

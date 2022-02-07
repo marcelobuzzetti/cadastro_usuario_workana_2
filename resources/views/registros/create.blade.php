@@ -47,12 +47,6 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Data Inicial:</strong>
-                    <input type="datetime-local" name="Data_inicial" class="form-control" placeholder="Data Inicial" value="{{ old('Data_inicial') ? date('Y-m-d\TH:i', strtotime(old('Data_inicial'))) : '' }}">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
                     <strong>Data Limite:</strong>
                     <input type="datetime-local" name="Data_limite" class="form-control" placeholder="Data Limite" value="{{ old('Data_limite') ? date('Y-m-d\TH:i', strtotime(old('Data_limite'))) : '' }}">
                 </div>
@@ -62,18 +56,6 @@
                     <strong>Data Última Entrada:</strong>
                     <input type="datetime-local" name="Data_ult_ent" class="form-control"
                         placeholder="Data Última Entrada" value="{{ old('Data_ult_ent') ? date('Y-m-d\TH:i', strtotime(old('Data_ult_ent'))) : ''  }}">
-                </div>
-            </div>
-            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Contador:</strong>
-                    <input type="number" name="Contador" class="form-control" placeholder="Contador" value="{{ old('contador') }}">
-                </div>
-            </div> --}}
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Origem Registro:</strong>
-                    <input type="text" name="Origem_registro" class="form-control" placeholder="Origem Registro" value="{{ old('Origem_registro') }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

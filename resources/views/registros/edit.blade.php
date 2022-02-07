@@ -48,12 +48,6 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Data Inicial:</strong>
-                    <input type="datetime-local" name="Data_inicial" class="form-control" placeholder="Data Inicial" value="{{ date('Y-m-d\TH:i', strtotime($registro->Data_inicial)) }}">
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
                     <strong>Data Limite:</strong>
                     <input type="datetime-local" name="Data_limite" class="form-control" placeholder="Data Limite" value="{{ date('Y-m-d\TH:i', strtotime($registro->Data_limite)) }}">
                 </div>
@@ -62,19 +56,7 @@
                 <div class="form-group">
                     <strong>Data Última Entrada:</strong>
                     <input type="datetime-local" name="Data_ult_ent" class="form-control"
-                        placeholder="Data Última Entrada" value="{{ date('Y-m-d\TH:i', strtotime($registro->Data_ult_ent)) }}">
-                </div>
-            </div>
-           {{--  <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Contador:</strong>
-                    <input type="number" name="Contador" class="form-control" placeholder="Contador" value="{{ $registro->Contador }}">
-                </div>
-            </div> --}}
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Origem Registro:</strong>
-                    <input type="text" name="Origem_registro" class="form-control" placeholder="Origem Registro" value="{{ $registro->Origem_registro }}">
+                        placeholder="Data Última Entrada" value="{{ $registro->Data_ult_ent ? date('Y-m-d\TH:i', strtotime($registro->Data_ult_ent)) : '' }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
