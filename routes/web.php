@@ -19,10 +19,6 @@ Route::get('/', function () {
     return redirect('/registros');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['auth', 'acl'])->name('inativos');
 Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['auth', 'acl'])->name('ativar');
 
