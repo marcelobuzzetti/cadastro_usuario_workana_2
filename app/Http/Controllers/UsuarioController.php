@@ -56,7 +56,7 @@ class UsuarioController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
-                'perfil_id' => 'required'
+                'perfil_id' => 'required',
             ],
             [
                 'name.required' => 'O nome deve ser digitado.',
@@ -78,6 +78,7 @@ class UsuarioController extends Controller
             'password' => Hash::make($request->password),
             'perfil_id' => $request->perfil_id,
             'status' => 1,
+            'usuario_criador_id' => Auth::id(),
         ]);
 
         return redirect()->route('usuarios.index')

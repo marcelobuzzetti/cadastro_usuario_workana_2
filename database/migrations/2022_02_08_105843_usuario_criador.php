@@ -27,7 +27,7 @@ class UsuarioCriador extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_usuario_criador_foreign');
+            $table->dropForeign('users_usuario_criador_id_foreign');
             $table->dropColumn('usuario_criador_id');
         });
     }
