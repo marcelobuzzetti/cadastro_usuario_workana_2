@@ -123,7 +123,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @auth
-                    @if (Auth::user()->perfil_id == 1)
+                    @if (Auth::user()->perfil_id != 2)
                     <li
                         class="nav-item dropdown {{ Request::path() == 'https://radarzenite.com.br/cadastro_usuario_workana/public/usuarios/create' || Request::path() == 'usuarios' ? 'active' : '' }}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
