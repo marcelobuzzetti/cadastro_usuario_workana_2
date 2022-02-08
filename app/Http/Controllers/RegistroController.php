@@ -27,8 +27,8 @@ class RegistroController extends Controller
 
         if (Auth::user()->perfil_id === 2) {
 
-            $registros = DB::select('SELECT * FROM zenitelic, users
-            WHERE users.email = zenitelic.Origem_registro
+            $registros = DB::select('SELECT * FROM ZeniteLic, users
+            WHERE users.email = ZeniteLic.Origem_registro
             AND users.email =  ?', [Auth::user()->email]);
         }
 
