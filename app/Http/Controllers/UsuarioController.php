@@ -25,7 +25,8 @@ class UsuarioController extends Controller
         if (Auth::user()->perfil_id === 1) {
             $usuarios = DB::table('users')
                 ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
-                ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
+                ->leftJoin('users as criador', 'criador.id', '=', 'users.usuario_criador_id')
+                ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil', 'criador.name as criador'])
                 ->where('users.status', '=', 1)
                 ->where('users.id', '!=', Auth::id())
                 ->get();

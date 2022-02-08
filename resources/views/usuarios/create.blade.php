@@ -62,6 +62,8 @@
                             @endif>Admin</option>
                         <option value="2"  @if (old('perfil_id') == 2) selected
                         @endif>Comum</option>
+                        <option value="3"  @if (old('perfil_id') == 2) selected
+                        @endif>Comum Cadastrador</option>
                     </select>
                 </div>
             </div>

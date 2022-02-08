@@ -24,6 +24,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Perfil</th>
+                <th>Criador</th>
                 <th width="280px">Action</th>
             </tr>
         </thead>
@@ -34,6 +35,7 @@
                     <td>{{ $usuario->name }}</td>
                     <td>{{ $usuario->email }}</td>
                     <td>{{ $usuario->perfil }}</td>
+                    <td>{{ $usuario->criador }}</td>
                     <td>
                         <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST">
 
@@ -58,6 +60,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Perfil</th>
+                <th>Criador</th>
                 <th width="280px">Action</th>
             </tr>
         </tfoot>
