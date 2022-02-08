@@ -139,7 +139,11 @@ class RegistroController extends Controller
             'Telefone' => 'required',
         ]);
 
-        $registro->update($request->all() /* + ['IP' => $ipAddress] */);
+        if(Auth::id() === $registro->Origem_registro) {
+            $registro->update($request->all());
+        } else {
+            return redirect()->route('registros.index');
+        }
 
         return redirect()->route('registros.index')
             ->with('success', 'Registro atualizado com sucesso');
