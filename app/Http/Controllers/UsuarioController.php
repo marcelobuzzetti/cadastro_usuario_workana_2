@@ -22,13 +22,24 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        /* $usuarios = User::all()->where('status', 1); */
-        $usuarios = DB::table('users')
-        ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
-        ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
-        ->where('users.status', '=', 1)
-        ->where('users.id', '!=', Auth::id())
-        ->get();
+        if (Auth::user()->perfil_id === 1) {
+            $usuarios = DB::table('users')
+                ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
+                ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
+                ->where('users.status', '=', 1)
+                ->where('users.id', '!=', Auth::id())
+                ->get();
+        }
+
+        if (Auth::user()->perfil_id === 3) {
+            $usuarios = DB::table('users')
+                ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
+                ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
+                ->where('users.status', '=', 1)
+                ->where('users.id', '!=', Auth::id())
+                ->where('users.usuario_criador_id', '=', Auth::id())
+                ->get();
+        }
 
         return view('usuarios.index')->with('usuarios', $usuarios);
     }
@@ -116,18 +127,20 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, User $usuario)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
-            'perfil_id' => 'required'
-        ],
-        [
-            'name.required' => 'O nome deve ser digitado',
-            'email.required' => 'O email deve ser digitado',
-            'password.required' => 'O password deve ser digitado',
-            'perfil_id.required' => 'O perfil deve ser selecionado',
-        ]);
+        $request->validate(
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
+                'perfil_id' => 'required'
+            ],
+            [
+                'name.required' => 'O nome deve ser digitado',
+                'email.required' => 'O email deve ser digitado',
+                'password.required' => 'O password deve ser digitado',
+                'perfil_id.required' => 'O perfil deve ser selecionado',
+            ]
+        );
 
         $name = $request->old('name');
         $email = $request->old('email');
@@ -139,7 +152,11 @@ class UsuarioController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $usuario->update($request->all());
+        if(Auth::id() === $usuario->usuario_criador_id){
+            $usuario->update($request->all());
+        } else {
+            return redirect()->route('usuarios.index');
+        }
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuário atualizado com sucesso');
@@ -154,8 +171,11 @@ class UsuarioController extends Controller
     public function destroy(User $usuario)
     {
 
-        /* $usuario->delete(); */
-        $usuario->update(['status' => 2]);
+        if(Auth::id() === $usuario->usuario_criador_id){
+            $usuario->update(['status' => 2]);
+        } else {
+            return redirect()->route('usuarios.index');
+        }
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuário apagado com sucesso');
@@ -164,10 +184,10 @@ class UsuarioController extends Controller
     public function inativos()
     {
         $usuarios = DB::table('users')
-        ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
-        ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
-        ->where('users.status', '=', 2)
-        ->get();
+            ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
+            ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
+            ->where('users.status', '=', 2)
+            ->get();
 
         return view('usuarios.inativos')->with('usuarios', $usuarios);
     }

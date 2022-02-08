@@ -142,7 +142,11 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
-        $registro->delete();
+        if(Auth::user()->email === $registro->Origem_registro){
+            $registro->delete();
+        } else {
+            return redirect()->route('registros.index');
+        }
 
         return redirect()->route('registros.index')
             ->with('success', 'Registro apagado com sucesso');
