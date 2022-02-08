@@ -25,11 +25,22 @@ class RegistroController extends Controller
             $registros = Registro::all();
         }
 
-        if (Auth::user()->perfil_id === 3) {
+        if (Auth::user()->perfil_id === 2) {
 
             $registros = DB::select('SELECT * FROM ZeniteLic, users
             WHERE users.email = ZeniteLic.Origem_registro
             AND users.email =  ?', [Auth::user()->email]);
+        }
+
+        if (Auth::user()->perfil_id === 3) {
+
+            $emails = DB::select('SELECT email FROM users WHERE usuario_criador_id = ?', [Auth::id()]);
+
+            $registros = DB::select("SELECT ID_usuario, CPF, Nome, Login, Data_inicial, Data_limite, Data_ult_ent, Contador, Origem_registro, Cod_admin, Email, Telefone FROM ZeniteLic
+            WHERE ZeniteLic.Origem_registro IN (SELECT email FROM users WHERE usuario_criador_id = ?)
+            OR ZeniteLic.Origem_registro = ?
+            GROUP BY ZeniteLic.ID_usuario", [Auth::id(), Auth::user()->email]);
+
         }
 
         return view('registros.index')->with('registros', $registros);
@@ -142,7 +153,7 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
-        if(Auth::user()->email === $registro->Origem_registro){
+        if (Auth::user()->email === $registro->Origem_registro) {
             $registro->delete();
         } else {
             return redirect()->route('registros.index');
