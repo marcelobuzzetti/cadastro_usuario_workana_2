@@ -21,6 +21,9 @@ class PerfilSeeder extends Seeder
             [
                 'perfil' => 'Comum'
             ],
+            [
+                'perfil' => 'Comum Cadastrador'
+            ]
         ];
 
         foreach ($perfils as &$perfil) {

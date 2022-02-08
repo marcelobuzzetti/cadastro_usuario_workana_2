@@ -10,7 +10,7 @@ class Perfil extends Migration
     {
         Schema::create('perfils', function (Blueprint $table) {
             $table->id();
-            $table->string('perfil', 16);
+            $table->string('perfil', 30);
             $table->timestamps();
         });
     }
