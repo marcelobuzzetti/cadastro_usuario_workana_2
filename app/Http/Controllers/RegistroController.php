@@ -175,6 +175,14 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
+        $logs = DB::select("SELECT count(ID_usuario) AS count FROM log
+            WHERE ID_usuario = ?", [$registro->ID_usuario]);
+
+        if($logs[0]->count > 0) {
+            return redirect()->route('registros.index')
+            ->with('error', 'Este registro possui logs, não é possível excluí-lo.');
+         }
+
         $criador_usuario = DB::select("SELECT criador.id FROM users, users AS criador
             WHERE users.usuario_criador_id = criador.id
             AND users.email = ?", [$registro->Origem_registro]);
