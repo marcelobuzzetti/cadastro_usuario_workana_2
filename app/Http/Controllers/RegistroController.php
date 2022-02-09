@@ -104,7 +104,14 @@ class RegistroController extends Controller
      */
     public function show(Registro $registro)
     {
-        if (Auth::id() === $registro->Origem_registro || Auth::user()->perfil_id === 1) {
+
+        $criador_usuario = DB::select("SELECT criador.id FROM users, users AS criador
+            WHERE users.usuario_criador_id = criador.id
+            AND users.email = ?", [$registro->Origem_registro]);
+        $criador = DB::select("SELECT usuario_criador_id FROM users
+        WHERE users.email = ?", [$registro->Origem_registro]);
+
+        if (Auth::user()->email === $registro->Origem_registro || Auth::user()->perfil_id === 1 || $criador[0]->usuario_criador_id === $criador_usuario[0]->id) {
             return view('registros.show', compact('registro'));
         } else {
             return redirect()->route('registros.index')
@@ -143,7 +150,13 @@ class RegistroController extends Controller
             'Telefone' => 'required',
         ]);
 
-        if (Auth::id() === $registro->Origem_registro || Auth::user()->perfil_id === 1) {
+        $criador_usuario = DB::select("SELECT criador.id FROM users, users AS criador
+            WHERE users.usuario_criador_id = criador.id
+            AND users.email = ?", [$registro->Origem_registro]);
+        $criador = DB::select("SELECT usuario_criador_id FROM users
+        WHERE users.email = ?", [$registro->Origem_registro]);
+
+        if (Auth::user()->email === $registro->Origem_registro || Auth::user()->perfil_id === 1 || $criador[0]->usuario_criador_id === $criador_usuario[0]->id) {
             $registro->update($request->all());
         } else {
             return redirect()->route('registros.index')
@@ -166,7 +179,7 @@ class RegistroController extends Controller
             $registro->delete();
         } else {
             return redirect()->route('registros.index')
-            ->with('error', 'Você não tem permissão para deletar este registro.');
+                ->with('error', 'Você não tem permissão para deletar este registro.');
         }
 
         return redirect()->route('registros.index')
