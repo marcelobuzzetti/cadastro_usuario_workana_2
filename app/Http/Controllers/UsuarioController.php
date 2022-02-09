@@ -106,7 +106,12 @@ class UsuarioController extends Controller
      */
     public function show(User $usuario)
     {
-        return view('usuarios.show', compact('usuario'));
+        if(Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
+            return view('usuarios.show', compact('usuario'));
+        } else {
+            return redirect()->route('usuarios.index')
+            ->with('error', 'Você não tem permissão para ver este usuário.');
+        }
     }
 
     /**

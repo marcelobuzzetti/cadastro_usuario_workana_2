@@ -104,7 +104,12 @@ class RegistroController extends Controller
      */
     public function show(Registro $registro)
     {
-        return view('registros.show', compact('registro'));
+        if (Auth::id() === $registro->Origem_registro || Auth::user()->perfil_id === 1) {
+            return view('registros.show', compact('registro'));
+        } else {
+            return redirect()->route('registros.index')
+                ->with('error', 'Você não tem permissão para ver este registro.');
+        }
     }
 
     /**
