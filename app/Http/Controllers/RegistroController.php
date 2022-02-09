@@ -40,7 +40,6 @@ class RegistroController extends Controller
             WHERE ZeniteLic.Origem_registro IN (SELECT email FROM users WHERE usuario_criador_id = ?)
             OR ZeniteLic.Origem_registro = ?
             GROUP BY ZeniteLic.ID_usuario", [Auth::id(), Auth::user()->email]);
-
         }
 
         return view('registros.index')->with('registros', $registros);
@@ -139,10 +138,11 @@ class RegistroController extends Controller
             'Telefone' => 'required',
         ]);
 
-        if(Auth::id() === $registro->Origem_registro) {
+        if (Auth::id() === $registro->Origem_registro || Auth::user()->perfil_id === 1) {
             $registro->update($request->all());
         } else {
-            return redirect()->route('registros.index');
+            return redirect()->route('registros.index')
+                ->with('error', 'Você não tem permissão para editar este registro.');
         }
 
         return redirect()->route('registros.index')
@@ -157,10 +157,11 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
-        if (Auth::user()->email === $registro->Origem_registro) {
+        if (Auth::user()->email === $registro->Origem_registro || Auth::user()->perfil_id === 1) {
             $registro->delete();
         } else {
-            return redirect()->route('registros.index');
+            return redirect()->route('registros.index')
+            ->with('error', 'Você não tem permissão para deletar este registro.');
         }
 
         return redirect()->route('registros.index')

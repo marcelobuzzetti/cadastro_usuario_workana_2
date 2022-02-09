@@ -58,8 +58,10 @@
                     <strong>Perfil:</strong>
                     <select id="perfil_id" class="block mt-1 w-full" name="perfil_id">
                         <option value="" selected>Selecione o Perfil</option>
+                        @if (Auth::user()->perfil_id == 1)
                         <option value="1" @if (old('perfil_id') == 1) selected
                             @endif>Admin</option>
+                        @endif
                         <option value="2"  @if (old('perfil_id') == 2) selected
                         @endif>Comum</option>
                         <option value="3"  @if (old('perfil_id') == 2) selected

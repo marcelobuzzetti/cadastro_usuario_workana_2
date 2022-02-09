@@ -154,10 +154,11 @@ class UsuarioController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if(Auth::id() === $usuario->usuario_criador_id){
+        if(Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
             $usuario->update($request->all());
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('usuarios.index')
+            ->with('error', 'Você não tem permissão para editar este usuário.');
         }
 
         return redirect()->route('usuarios.index')
@@ -173,10 +174,11 @@ class UsuarioController extends Controller
     public function destroy(User $usuario)
     {
 
-        if(Auth::id() === $usuario->usuario_criador_id){
+        if(Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
             $usuario->update(['status' => 2]);
         } else {
-            return redirect()->route('usuarios.index');
+            return redirect()->route('usuarios.index')
+            ->with('error', 'Você não tem permissão para excluir este usuário.');
         }
 
         return redirect()->route('usuarios.index')
