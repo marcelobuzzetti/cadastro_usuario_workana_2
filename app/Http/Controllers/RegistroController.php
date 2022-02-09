@@ -175,7 +175,13 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
-        if (Auth::user()->email === $registro->Origem_registro || Auth::user()->perfil_id === 1) {
+        $criador_usuario = DB::select("SELECT criador.id FROM users, users AS criador
+            WHERE users.usuario_criador_id = criador.id
+            AND users.email = ?", [$registro->Origem_registro]);
+        $criador = DB::select("SELECT usuario_criador_id FROM users
+        WHERE users.email = ?", [$registro->Origem_registro]);
+
+        if (Auth::user()->email === $registro->Origem_registro || Auth::user()->perfil_id === 1 || $criador[0]->usuario_criador_id === $criador_usuario[0]->id) {
             $registro->delete();
         } else {
             return redirect()->route('registros.index')
