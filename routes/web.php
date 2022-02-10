@@ -15,14 +15,17 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/registros');
+Route::domain('registro.radarzenite.com.br')->group(function () {
+
+    Route::get('/', function () {
+        return redirect('/registros');
+    });
+
+    Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['auth', 'acl'])->name('inativos');
+    Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['auth', 'acl'])->name('ativar');
+
+    Route::resource('registros', RegistroController::class)->middleware(['auth']);
+    Route::resource('usuarios', UsuarioController::class)->middleware(['auth', 'acl']);
 });
 
-Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['auth', 'acl'])->name('inativos');
-Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['auth', 'acl'])->name('ativar');
-
-Route::resource('registros', RegistroController::class)->middleware(['auth']);
-Route::resource('usuarios', UsuarioController::class)->middleware(['auth', 'acl']);
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
