@@ -58,10 +58,14 @@
                 <div class="form-group">
                     <strong>Perfil:</strong>
                     <select id="perfil_id" class="block mt-1 w-full" name="perfil_id" required>
+                        @if (Auth::user()->perfil_id == 1)
                         <option value="1" @if ($usuario->perfil_id == 1) selected
                             @endif>Admin</option>
+                        @endif
                         <option value="2"  @if ($usuario->perfil_id == 2) selected
-                        @endif>Comum</option>
+                            @endif>Comum</option>
+                        <option value="3" @if ($usuario->perfil_id == 3) selected
+                            @endif>Comum Cadastrador</option>
                     </select>
                 </div>
             </div>
