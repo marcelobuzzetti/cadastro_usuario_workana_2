@@ -36,7 +36,7 @@ class RegistroController extends Controller
 
             $emails = DB::select('SELECT email FROM users WHERE usuario_criador_id = ?', [Auth::id()]);
 
-            $registros = DB::select("SELECT ID_usuario, CPF, Nome, Login, Data_inicial, Data_limite, Data_ult_ent, Contador, Origem_registro, Cod_admin, Email, Telefone FROM ZeniteLic
+            $registros = DB::select("SELECT DISTINCT ID_usuario, CPF, Nome, Login, Data_inicial, Data_limite, Data_ult_ent, Contador, Origem_registro, Cod_admin, Email, Telefone FROM ZeniteLic
             WHERE ZeniteLic.Origem_registro IN (SELECT email FROM users WHERE usuario_criador_id = ? OR ZeniteLic.Origem_registro = ?)"
             , [Auth::id(), Auth::user()->email]);
         }
