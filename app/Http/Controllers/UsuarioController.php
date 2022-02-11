@@ -12,6 +12,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class UsuarioController extends Controller
 {
@@ -64,20 +65,46 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
-                'perfil_id' => 'required',
-            ],
-            [
-                'name.required' => 'O nome deve ser digitado.',
-                'email.required' => 'O email deve ser digitado.',
-                'password.required' => 'O password deve ser digitado',
-                'perfil_id.required' => 'O perfil deve ser selecionado',
-            ]
-        );
+        if (Auth::user()->perfil_id === 1) {
+
+            $request->validate(
+                [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
+                    'perfil_id' => ['required', Rule::in([1, 2, 3])]
+                ],
+                [
+                    'name.required' => 'O nome deve ser digitado.',
+                    'email.required' => 'O email deve ser digitado.',
+                    'password.required' => 'O password deve ser digitado',
+                    'perfil_id.required' => 'O perfil deve ser selecionado',
+                ]
+            );
+        }
+
+        if (Auth::user()->perfil_id === 2) {
+            return redirect()->route('registros.index')
+                ->with('error', 'Você não tem acesso.');
+        }
+
+        if (Auth::user()->perfil_id === 3) {
+
+            $request->validate(
+                [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
+                    'perfil_id' => ['required', Rule::in([2, 3])],
+                ],
+                [
+                    'name.required' => 'O nome deve ser digitado.',
+                    'email.required' => 'O email deve ser digitado.',
+                    'password.required' => 'O password deve ser digitado',
+                    'perfil_id.required' => 'O perfil deve ser selecionado',
+                ]
+            );
+        }
 
         $name = $request->old('name');
         $email = $request->old('email');
@@ -106,11 +133,11 @@ class UsuarioController extends Controller
      */
     public function show(User $usuario)
     {
-        if(Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
+        if (Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
             return view('usuarios.show', compact('usuario'));
         } else {
             return redirect()->route('usuarios.index')
-            ->with('error', 'Você não tem permissão para ver este usuário.');
+                ->with('error', 'Você não tem permissão para ver este usuário.');
         }
     }
 
@@ -134,20 +161,47 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, User $usuario)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255'],
-                'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
-                'perfil_id' => 'required'
-            ],
-            [
-                'name.required' => 'O nome deve ser digitado',
-                'email.required' => 'O email deve ser digitado',
-                'password.required' => 'O password deve ser digitado',
-                'perfil_id.required' => 'O perfil deve ser selecionado',
-            ]
-        );
+
+        if (Auth::user()->perfil_id === 1) {
+            $request->validate(
+                [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255'],
+                    'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
+                    'perfil_id' => ['required', Rule::in([1, 2, 3])]
+                ],
+                [
+                    'name.required' => 'O nome deve ser digitado',
+                    'email.required' => 'O email deve ser digitado',
+                    'password.required' => 'O password deve ser digitado',
+                    'perfil_id.required' => 'O perfil deve ser selecionado',
+                ]
+            );
+        }
+
+        if (Auth::user()->perfil_id === 2) {
+            return redirect()->route('registros.index')
+                ->with('error', 'Você não tem acesso.');
+        }
+
+        if (Auth::user()->perfil_id === 3) {
+
+            $request->validate(
+                [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255'],
+                    'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
+                    'perfil_id' => ['required', Rule::in([2, 3])],
+                ],
+                [
+                    'name.required' => 'O nome deve ser digitado.',
+                    'email.required' => 'O email deve ser digitado.',
+                    'password.required' => 'O password deve ser digitado',
+                    'perfil_id.required' => 'O perfil deve ser selecionado',
+                    'perfil_id.rule' => 'O perfil selecionado é inválido',
+                ]
+            );
+        }
 
         $name = $request->old('name');
         $email = $request->old('email');
@@ -159,11 +213,11 @@ class UsuarioController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if(Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
+        if (Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
             $usuario->update($request->all());
         } else {
             return redirect()->route('usuarios.index')
-            ->with('error', 'Você não tem permissão para editar este usuário.');
+                ->with('error', 'Você não tem permissão para editar este usuário.');
         }
 
         return redirect()->route('usuarios.index')
@@ -179,11 +233,11 @@ class UsuarioController extends Controller
     public function destroy(User $usuario)
     {
 
-        if(Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
+        if (Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
             $usuario->update(['status' => 2]);
         } else {
             return redirect()->route('usuarios.index')
-            ->with('error', 'Você não tem permissão para excluir este usuário.');
+                ->with('error', 'Você não tem permissão para excluir este usuário.');
         }
 
         return redirect()->route('usuarios.index')
