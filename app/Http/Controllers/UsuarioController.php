@@ -166,13 +166,11 @@ class UsuarioController extends Controller
             $request->validate(
                 [
                     'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255'],
                     'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
                     'perfil_id' => ['required', Rule::in([1, 2, 3])]
                 ],
                 [
                     'name.required' => 'O nome deve ser digitado',
-                    'email.required' => 'O email deve ser digitado',
                     'password.required' => 'O password deve ser digitado',
                     'perfil_id.required' => 'O perfil deve ser selecionado',
                 ]
@@ -189,13 +187,11 @@ class UsuarioController extends Controller
             $request->validate(
                 [
                     'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255'],
                     'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
                     'perfil_id' => ['required', Rule::in([2, 3])],
                 ],
                 [
                     'name.required' => 'O nome deve ser digitado.',
-                    'email.required' => 'O email deve ser digitado.',
                     'password.required' => 'O password deve ser digitado',
                     'perfil_id.required' => 'O perfil deve ser selecionado',
                     'perfil_id.rule' => 'O perfil selecionado é inválido',
@@ -214,7 +210,11 @@ class UsuarioController extends Controller
         ]);
 
         if (Auth::id() === $usuario->usuario_criador_id || Auth::user()->perfil_id === 1) {
-            $usuario->update($request->all());
+            $usuario->update([
+                'name' => $request->name,
+                'password' => Hash::make($request->password),
+                'perfil_id' => $request->perfil_id
+            ]);
         } else {
             return redirect()->route('usuarios.index')
                 ->with('error', 'Você não tem permissão para editar este usuário.');
