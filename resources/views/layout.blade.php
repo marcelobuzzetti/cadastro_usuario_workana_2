@@ -126,7 +126,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @auth
-                @if (Auth::user()->perfil_id != 2)
+                @if (Auth::user()->perfil_id == 1)
                     <li
                         class="nav-item dropdown {{ Request::path() == 'usuarios' ? 'active' : '' }}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"

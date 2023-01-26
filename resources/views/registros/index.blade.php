@@ -42,6 +42,7 @@
             </tr>
         </thead>
         <tbody>
+            @if(isset($registros))
             @foreach ($registros as $registro)
                 <tr>
                     <td>{{ $registro->ID_usuario }}</td>
@@ -75,6 +76,7 @@
                     </td>
                 </tr>
             @endforeach
+            @endif
         </tbody>
         <tfoot>
             <tr>

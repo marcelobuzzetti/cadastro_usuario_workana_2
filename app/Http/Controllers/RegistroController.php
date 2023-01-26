@@ -21,6 +21,7 @@ class RegistroController extends Controller
      */
     public function index()
     {
+        $registros = NULL;
         if (Auth::user()->perfil_id === 1) {
             $registros = Registro::all();
         }
