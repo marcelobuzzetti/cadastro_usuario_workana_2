@@ -27,6 +27,16 @@
             toastr.options.newestOnTop = true;
             toastr.options.progressBar = true;
         </script>
+        <style>
+            .ico_site{
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+    </style>
+        </style>
     </head>
     <body>
         @if ($message = Session::get('success'))
