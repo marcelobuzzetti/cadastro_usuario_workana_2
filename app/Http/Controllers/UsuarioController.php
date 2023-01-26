@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MensagemDeAtivacao;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
@@ -12,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class UsuarioController extends Controller
@@ -291,7 +293,11 @@ class UsuarioController extends Controller
 
     public function ativar(Request $request)
     {
-        User::where('id', $request->id)->update(['status' => 1]);
+        $user = User::findOrFail($request->id);
+        $user->update(['status' => 1]);
+        /* User::where('id', $request->id)->update(['status' => 1]); */
+
+        Mail::to($user->email, $user->nome)->send(new MensagemDeAtivacao());
 
         return redirect()->route('usuarios.index')
             ->with('success', 'Usuário reativado com sucesso');
