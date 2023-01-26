@@ -31,6 +31,9 @@
         @if ($message = Session::get('success'))
             <script>toastr.success('{{ $message }}')</script>
         @endif
+        @if ($message = Session::get('error'))
+            <script>toastr.error('{{ $message }}')</script>
+        @endif
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>

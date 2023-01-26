@@ -14,6 +14,14 @@ use Carbon\Carbon;
 
 class RegistroController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if(Auth::user()->status === 2) return redirect()->route('inativo');
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *

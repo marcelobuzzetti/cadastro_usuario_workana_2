@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
 
         /* Verificando se o usuario esta ativo */
 
-        if(Auth::user()->status === 2 ) {
+        if(Auth::user()->status === 2 /* || Auth::user()->perfil_id == NULL */) {
             Auth::guard('web')->logout();
 
             $request->session()->invalidate();

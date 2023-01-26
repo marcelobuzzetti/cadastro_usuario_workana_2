@@ -19,10 +19,17 @@ Route::get('/', function () {
     return redirect('/registros');
 });
 
-Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['auth', 'acl'])->name('inativos');
-Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['auth', 'acl'])->name('ativar');
+Route::get('/inativo', function () {
+    return view('inactive');
+})->name('inativo');
 
-Route::resource('registros', RegistroController::class)->middleware(['auth']);
-Route::resource('usuarios', UsuarioController::class)->middleware(['auth', 'acl']);
+Route::group(['middleware' => ['auth']], function() {
+    
+    Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['acl'])->name('inativos');
+    Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['acl'])->name('ativar');
+    Route::resource('registros', RegistroController::class);
+    Route::resource('usuarios', UsuarioController::class)->middleware(['acl']);
+
+});
 
 require __DIR__.'/auth.php';
