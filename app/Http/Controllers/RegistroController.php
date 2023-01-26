@@ -207,4 +207,12 @@ class RegistroController extends Controller
         return redirect()->route('registros.index')
             ->with('success', 'Registro apagado com sucesso');
     }
+
+    public function acessos()
+    {
+        $acessos = NULL;
+        $acessos = Registro::whereNotNull('Data_ult_ent')->get(['ID_usuario','Nome','Email']);
+        /* dd($acessos); */
+        return view('registros.acessos')->with('acessos', $acessos);
+    }
 }

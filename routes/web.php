@@ -24,11 +24,13 @@ Route::get('/inativo', function () {
 })->name('inativo');
 
 Route::group(['middleware' => ['auth']], function() {
-    
+
     Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['acl'])->name('inativos');
     Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['acl'])->name('ativar');
     Route::resource('registros', RegistroController::class);
     Route::resource('usuarios', UsuarioController::class)->middleware(['acl']);
+
+    Route::get('/acessos', [RegistroController::class, 'acessos'])->middleware(['acl'])->name('acessos');
 
 });
 
