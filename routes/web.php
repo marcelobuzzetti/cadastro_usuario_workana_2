@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/acessos', [RegistroController::class, 'acessos'])->middleware(['acl'])->name('acessos');
     Route::post('/email', [RegistroController::class, 'email'])->name('email');
+    Route::permanentRedirect('/email', '/registros');
 
 });
 
