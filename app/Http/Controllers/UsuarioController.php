@@ -295,7 +295,6 @@ class UsuarioController extends Controller
     {
         $user = User::findOrFail($request->id);
         $user->update(['status' => 1]);
-        /* User::where('id', $request->id)->update(['status' => 1]); */
 
         Mail::to($user->email, $user->nome)->send(new MensagemDeAtivacao());
 
