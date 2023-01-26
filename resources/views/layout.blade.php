@@ -112,6 +112,9 @@
 </head>
 
 <body>
+    @if ($message = Session::get('success'))
+    <script>toastr.success('{{ $message }}')</script>
+@endif
     <div id="alertaUsuario"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="{{ route('registros.index') }}">Registros</a>
