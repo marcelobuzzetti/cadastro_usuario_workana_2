@@ -17,6 +17,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Perfil</th>
+                <th>Cadastro Web</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                     <td>{{ $usuario->name }}</td>
                     <td>{{ $usuario->email }}</td>
                     <td>{{ $usuario->perfil }}</td>
+                    <td>{{ $usuario->is_web ? 'Sim' : 'Não' }}</td>
                     <td>
                         <form action="{{ route('ativar') }}" method="POST">
                             @csrf
@@ -43,6 +45,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Perfil</th>
+                <th>Cadastro Web</th>
                 <th>Action</th>
             </tr>
         </tfoot>

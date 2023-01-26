@@ -284,7 +284,7 @@ class UsuarioController extends Controller
     {
         $usuarios = DB::table('users')
             ->leftJoin('perfils', 'perfils.id', '=', 'perfil_id')
-            ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil'])
+            ->select(['users.id', 'users.name', 'users.email', 'perfils.perfil', 'users.is_web'])
             ->where('users.status', '=', 2)
             ->get();
 
