@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class IsWebColumn extends Migration
+class Logged extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class IsWebColumn extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_web')->nullable();
+            $table->boolean('logged')->nullable();
+            $table->timestamp('last_login')->nullable();
         });
     }
 
@@ -26,7 +27,8 @@ class IsWebColumn extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_web');
+            $table->dropColumn('logged');
+            $table->dropColumn('last_login');
         });
     }
 }
