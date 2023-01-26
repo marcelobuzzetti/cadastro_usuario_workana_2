@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class AuthenticatedSessionController extends Controller
 
         /* Verificando se o usuario esta ativo */
 
-        if(Auth::user()->status === 2 /* || Auth::user()->perfil_id == NULL */) {
+        if(Auth::user()->status === 2) {
             Auth::guard('web')->logout();
 
             $request->session()->invalidate();
@@ -47,6 +48,15 @@ class AuthenticatedSessionController extends Controller
             ]);
 
         }
+
+        $user = User::findOrFail(Auth::user()->id);
+        if($user->logged){
+            $user->last_login = now();
+        } else {
+            $user->logged = TRUE;
+            $user->last_login = now();
+        }
+        $user->save();
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
