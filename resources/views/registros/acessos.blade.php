@@ -81,13 +81,17 @@
                                 <input type="text" class="form-control" id="recipient-nome">
                             </div>
                             <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Assunto:</label>
+                                <input type="text" class="form-control" id="recipient-assunto">
+                            </div>
+                            <div class="form-group">
                                 <label for="message-text" class="col-form-label">Menssagem:</label>
                                 <textarea class="form-control" id="message-text"></textarea>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                         <button type="submit" class="btn btn-primary" id="submit">Enviar</button>
                     </div>
                 </div>
@@ -106,6 +110,7 @@
                     modal.find('.modal-title').text('Email para ' + nome)
                     modal.find('.modal-body #recipient-nome').val(email)
                     modal.find('.modal-body #recipient-id').val(id)
+                    modal.find('.modal-body #recipient-assunto').val("Falta de Acesso")
                 })
 
                 $('#submit').on('click', function(e) {
@@ -114,6 +119,7 @@
 
                     let id = $('#recipient-id').val();
                     let mensagem = $('#message-text').val();
+                    let assunto = $('#recipient-assunto').val();
 
                     $.ajax({
                         url: "/email",
@@ -122,6 +128,7 @@
                             "_token": "{{ csrf_token() }}",
                             id: id,
                             mensagem: mensagem,
+                            assunto: assunto,
                         },
                         success: function(response) {
                             toastr.success(response.success)

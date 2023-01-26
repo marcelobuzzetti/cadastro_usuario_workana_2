@@ -227,8 +227,9 @@ class RegistroController extends Controller
         $registro = Registro::findOrFail($request->id);
         $email = $registro->Email;
         $nome = $registro->Nome;
+        $assunto = $request->assunto;
         $mensagem = $request->mensagem ? $request->mensagem : 'Você não acessou';
-        Mail::to($email, $nome)->send(new FaltaDeAcesso($mensagem));
+        Mail::to($email, $nome)->send(new FaltaDeAcesso($mensagem, $assunto));
 
         if( count(Mail::failures()) > 0 ) {
             $error = [];

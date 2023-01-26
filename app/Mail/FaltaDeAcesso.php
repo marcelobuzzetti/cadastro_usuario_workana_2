@@ -18,10 +18,12 @@ class FaltaDeAcesso extends Mailable
      */
 
     public $mensagem;
+    public $assunto;
 
-    public function __construct($mensagem)
+    public function __construct($mensagem, $assunto)
     {
         $this->mensagem = $mensagem;
+        $this->assunto = $assunto;
     }
 
     /**
@@ -33,6 +35,7 @@ class FaltaDeAcesso extends Mailable
     {
         return $this->view('emails.faltaacesso')
         ->text( 'emails.faltaacesso_text' )
+        ->subject($this->assunto)
         ->with([
             'mensagem' => $this->mensagem
         ]);

@@ -30,6 +30,7 @@ class MensagemDeAtivacao extends Mailable
     {
         return $this->view('emails.mensagemdeativacao')
         ->text( 'emails.mensagemdeativacao_text' )
+        ->subject('Ativação de Conta')
         ->with([
             'mensagem' => 'Sua conta foi ativada'
         ]);
