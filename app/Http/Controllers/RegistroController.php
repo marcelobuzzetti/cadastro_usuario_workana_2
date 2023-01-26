@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Registro;
 use App\Http\Requests\StoreRegistroRequest;
 use App\Http\Requests\UpdateRegistroRequest;
+use App\Mail\FaltaDeAcesso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class RegistroController extends Controller
 {
@@ -214,5 +216,27 @@ class RegistroController extends Controller
         $acessos = Registro::whereNotNull('Data_ult_ent')->get(['ID_usuario','Nome','Email']);
         /* dd($acessos); */
         return view('registros.acessos')->with('acessos', $acessos);
+    }
+
+    public function email(Request $request)
+    {
+        $registro = Registro::findOrFail($request->id);
+        $email = $registro->Email;
+        $nome = $registro->Nome;
+        $mensagem = $request->mensagem ? $request->mensagem : 'Você não acessou';
+        Mail::to($email, $nome)->send(new FaltaDeAcesso($mensagem));
+
+        if( count(Mail::failures()) > 0 ) {
+            $error = [];
+            foreach(Mail::failures() as $email_address) {
+                $error[] = $email_address;
+             }
+            return response()->json(['error'=>json_encode($error)]);
+
+         } else {
+
+            return response()->json(['success'=>"Email enviado com sucesso!!!"]);
+         }
+
     }
 }

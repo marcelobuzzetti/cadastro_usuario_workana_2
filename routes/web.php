@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('usuarios', UsuarioController::class)->middleware(['acl']);
 
     Route::get('/acessos', [RegistroController::class, 'acessos'])->middleware(['acl'])->name('acessos');
+    Route::post('/email', [RegistroController::class, 'email'])->middleware(['acl'])->name('email');
 
 });
 
