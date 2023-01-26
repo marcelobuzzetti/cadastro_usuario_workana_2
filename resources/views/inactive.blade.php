@@ -136,8 +136,8 @@
                 <li>
                     <a class="nav-link" href="{{ route('login') }}">Login</a>
                 </li>
+            @endauth
             </ul>
-        @endauth
     </div>
 </nav>
 <div class="container">
