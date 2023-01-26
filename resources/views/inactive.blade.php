@@ -110,10 +110,10 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav ml-auto">
             @auth
-            <ul class="navbar-nav ">
                 <li class="nav-item dropdown my-2 my-lg-0">
                     <a class="nav-link dropdown-toggle my-2 my-sm-0" href="#" id="navbarDropdown" data-toggle="dropdown"
                         role="button" aria-haspopup="true" aria-expanded="false">
@@ -136,7 +136,7 @@
                 <li>
                     <a class="nav-link" href="{{ route('login') }}">Login</a>
                 </li>
-            @endauth
+                @endauth
             </ul>
     </div>
 </nav>
