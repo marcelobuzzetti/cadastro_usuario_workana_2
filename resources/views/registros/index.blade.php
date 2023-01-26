@@ -29,6 +29,7 @@
                 <th>Cod Admin</th>
                 <th>Email</th>
                 <th>Telefone</th>
+                <th>Enviar Email</th>
                 {{-- <th>IP</th>
                 <th>Usuário que cadastrou</th> --}}
                 <th width="280px">Action</th>
@@ -50,6 +51,7 @@
                     <td>{{ $registro->Cod_admin }}</td>
                     <td>{{ $registro->Email }}</td>
                     <td>{{ $registro->Telefone }}</td>
+                    <td><a class="btn btn-warning"><i class="fa-sharp fa-solid fa-paper-plane"></i></a></td>
                     {{-- <td>{{ $registro->IP }}</td>
                     <td>{{ $registro->name }}</td> --}}
                     <td>
@@ -85,6 +87,7 @@
                 <th>Cod Admin</th>
                 <th>Email</th>
                 <th>Telefone</th>
+                <th>Enviar Email</th>
                 {{-- <th>IP</th>
                 <th>Usuário que cadastrou</th> --}}
                 <th width="280px">Action</th>

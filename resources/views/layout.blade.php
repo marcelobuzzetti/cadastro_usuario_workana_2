@@ -5,6 +5,7 @@
     <title>Registros</title>
    {{--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
         rel="stylesheet"> --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/ico.jpg') }}">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -16,6 +17,7 @@
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
         toastr.options.closeButton = true;
         toastr.options.closeMethod = 'fadeOut';
@@ -108,6 +110,13 @@
             width: 1px;
         }
 
+        .ico_site{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
     </style>
 </head>
 
@@ -120,7 +129,7 @@
 @endif
     <div id="alertaUsuario"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{ route('registros.index') }}">Registros</a>
+        <a class="navbar-brand" href="{{ route('registros.index') }}"><img src="/img/ico.jpg" class="ico_site"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
