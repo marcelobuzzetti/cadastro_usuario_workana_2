@@ -220,6 +220,10 @@ class RegistroController extends Controller
 
     public function email(Request $request)
     {
+        if (! $request->ajax()) {
+            return view('registros.index');
+        }
+
         $registro = Registro::findOrFail($request->id);
         $email = $registro->Email;
         $nome = $registro->Nome;

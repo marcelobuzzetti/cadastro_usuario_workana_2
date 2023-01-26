@@ -128,12 +128,14 @@
                             console.log(response);
                             $('#exampleModal').modal('toggle');
                             $('#loader_email').hide()
+                            $("#email_acesso")[0].reset();
                         },
                         error: function(response) {
                             toastr.error(response.error)
                             console.log(response);
                             $('#exampleModal').modal('toggle');
                             $('#loader_email').hide()
+                            $("#email_acesso")[0].reset();
                         },
                     });
                 });
