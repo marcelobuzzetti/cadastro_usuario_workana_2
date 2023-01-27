@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/acessos', [RegistroController::class, 'acessos'])->middleware(['acl'])->name('acessos');
     Route::post('/email', [RegistroController::class, 'email'])->name('email');
     Route::permanentRedirect('/email', '/registros');
+
+    Route::get('/email-marketing', [EmailController::class, 'emailMarketing'])->middleware(['acl'])->name('email-marketing');
 
 });
 
