@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/email', [RegistroController::class, 'email'])->name('email');
     Route::permanentRedirect('/email', '/registros');
 
-    Route::get('/email-marketing', [EmailController::class, 'emailMarketing'])->middleware(['acl'])->name('email-marketing');
+    Route::resource('emailMarketing', EmailController::class)->middleware(['acl']);
 
 });
 

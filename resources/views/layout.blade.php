@@ -152,6 +152,13 @@
                         </div>
                     </li>
                     @endif
+                    @if (Auth::user()->perfil_id == 1)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link {{ Request::path() == 'emailMarketing' ? 'active' : '' }} " href="{{ url('/emailMarketing') }}">
+                            Email Marketing
+                        </a>
+                    </li>
+                    @endif
                     <li
                         class="nav-item dropdown {{ Request::path() == 'registros' ? 'active' : '' }} ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
