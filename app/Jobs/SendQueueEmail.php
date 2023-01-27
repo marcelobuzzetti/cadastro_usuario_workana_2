@@ -39,6 +39,8 @@ class SendQueueEmail implements ShouldQueue
      */
     public function handle()
     {
-            Mail::to($this->emails)->send(new FaltaDeAcesso($this->mensagem, $this->assunto));
+        foreach($this->emails as $email){
+            Mail::to($email)->send(new FaltaDeAcesso($this->mensagem, $this->assunto));
+        }
     }
 }
