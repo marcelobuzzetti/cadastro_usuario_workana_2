@@ -111,12 +111,14 @@
         }
 
         .ico_site{
-            width: 60px;
-            height: 60px;
+            height: 40px;
             border-radius: 50%;
             margin-right: 10px;
         }
-
+        .avatar {
+            height: 40px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -178,6 +180,9 @@
                     <li class="nav-item dropdown my-2 my-lg-0">
                         <a class="nav-link dropdown-toggle my-2 my-sm-0" href="#" id="navbarDropdown" data-toggle="dropdown"
                             role="button" aria-haspopup="true" aria-expanded="false">
+                            <img class="avatar"
+                            src="<?= 'http://www.gravatar.com/avatar.php?gravatar_id=' . md5(strtolower(trim(Auth::user()->email))) ?>"
+                            alt="user">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
