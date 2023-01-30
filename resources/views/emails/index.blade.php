@@ -13,10 +13,6 @@
             display: none;
         }
     </style>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <lottie-player class="loader_email" id="loader_email"
-        src="https://assets1.lottiefiles.com/datafiles/OisWNdtMtC7TR1b/data.json" background="transparent" speed="1"
-        style="width: 100vw; height: 100vh;" loop autoplay></lottie-player>
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -25,6 +21,14 @@
         </div>
     </div>
 
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
     <hr>
     <form action="{{ route('emailMarketing.store') }}" method="POST">
         @csrf
@@ -32,7 +36,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <label for="emails">Emails</label>
-                    <select name="emails[]" id="emails" class="form-control" multiple>
+                    <select name="emails[]" id="emails" class="selectpicker" multiple data-actions-box="true" data-live-search="true"  data-width="100%">
                         @if (isset($registros))
                                 @foreach ($registros as $registro)
                                     <option value="{{ $registro->Email }}">{{ $registro->Email }}</option>
@@ -96,7 +100,7 @@
     </div>
     <script>
         $(document).ready(function() {
-            $('#loader_email').hide()
+            $('#emails').selectpicker()
             $('#exampleModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget) // Button that triggered the modal
                 var nome = button.data('nome') // Extract info from data-* attributes
