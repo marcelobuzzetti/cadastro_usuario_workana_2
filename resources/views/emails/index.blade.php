@@ -96,6 +96,7 @@
     </div>
     <script>
         $(document).ready(function() {
+            $('#loader_email').hide()
             $('#exampleModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget) // Button that triggered the modal
                 var nome = button.data('nome') // Extract info from data-* attributes
