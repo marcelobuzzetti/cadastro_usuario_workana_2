@@ -52,7 +52,7 @@
             -moz-background-size: 40vw;
             -o-background-size: 40vw;
             background-size: 40vw;
-            text-align: center;
+            /* text-align: center; */
             font-family: 'Noto Sans', sans-serif;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -60,6 +60,11 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+        }
+
+        .butoes,
+        .title {
+            text-align: center;
         }
 
         h1 {
@@ -99,7 +104,7 @@
 
         section {
             padding: 50px;
-            max-width: 300px;
+            max-width: 80vw;
             margin: 30px auto;
             background: white;
             background: rgba(255, 255, 255, 0.9);
@@ -144,50 +149,82 @@
     <div class="container">
 
         <div id="svg_wrap"></div>
+        <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
+            @csrf
+            <h1>Cadastro Online</h1>
+            <section>
+                <p class="title">Informações Pessoais</p>
+                <div class="form-group">
+                    <strong>Nome Completo:</strong>
+                    <input class="form-control" type="text" name="nome_completo" placeholder="Nome Completo" />
+                </div>
+                <div class="form-group">
+                    <strong>Email:</strong>
+                    <input class="form-control" type="text" name="email" placeholder="Email" />
+                </div>
+                <div class="form-group">
+                    <strong>Telefone:</strong>
+                    <input class="form-control" type="text" name="telefone" placeholder="Telefone com WhatsApp" />
+                </div>
+            </section>
 
-        <h1>Online Application</h1>
-        <section>
-            <p>Personal information</p>
-            <input type="text" placeholder="Firstname" />
-            <input type="text" placeholder="Surname" />
-            <input type="text" placeholder="Birthdate" />
-            <input type="text" placeholder="Insurance number" />
-            <input type="text" placeholder="Family status" />
-        </section>
+            <section>
+                <p class="title">Corretora</p>
+                <div class="form-group">
+                    <strong>Tem corretora:</strong>
+                    <select class="form-control" name="has_corretora">
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <strong>Nome da Corretora:</strong>
+                    <input class="form-control" type="text" name="nome_corretora" placeholder="Nome Corretora" />
+                </div>
+                <div class="form-group">
+                    <strong>Número da conta na corretora:</strong>
+                    <input class="form-control" type="text" name="nr_conta_corretora" placeholder="Número da Conta na corretora" />
+                </div>
+            </section>
 
-        <section>
-            <p>Address</p>
-            <input type="text" placeholder="Street, nbr" />
-            <input type="text" placeholder="City" />
-            <input type="text" placeholder="Postcode" />
-            <input type="text" placeholder="Country" />
-        </section>
+            <section>
+                <p class="title">METATRADER</p>
+                <div class="form-group">
+                    <strong>Utiliza a plataforma METATRADER 5?</strong>
+                    <select class="form-control" name="use_metatrader">
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <strong>Está com autorização da corretora para rotear pelo METATRADER 5?</strong>
+                    <select class="form-control" name="has_auth_use_metatrader">
+                    <option value="1">Sim</option>
+                    <option value="0">Não</option>
+                </select>
+                <div class="form-group">
+                    <strong>Tem interesse em qual mercado para o RADAR?</strong>
+                    <select class="form-control" name="mercado">
+                        <option value="Nacional">Nacional</option>
+                        <option value="Internacional">Internacional</option>
+                        <option value="Ambos, mas Nacional por enquanto">Ambos, mas Nacional por enquanto</option>
+                        <option value="Ambos, mas apenas Internacional, quando possível">Ambos, mas apenas Internacional,
+                            quando possível</option>
+                    </select>
+                </div>
+            </section>
 
-        <section>
-            <p>Contact information</p>
-            <input type="text" placeholder="Email address" />
-            <input type="text" placeholder="Phone" />
-            <input type="text" placeholder="Mobile" />
-        </section>
+            <section>
+                <p class="title">Informações Complementares</p>
+                <p>Você receberá uma email com informações assim que sua conta for ativada</p>
+            </section>
 
-        <section>
-            <p>Application</p>
-            <input type="text" placeholder="Preferred entrance date" />
-            <input type="text" placeholder="Number of people" />
-        </section>
-
-        <section>
-            <p>General condtitions</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.</p>
-        </section>
-
-        <div class="button" id="prev">&larr; Previous</div>
-        <div class="button" id="next">Next &rarr;</div>
-        <div class="button" id="submit">Agree and send application</div>
+            <div class="butoes">
+                <div class="button" id="prev">&larr; Anterior</div>
+                <div class="button" id="next">Próximo &rarr;</div>
+                <div class="button" id="submit">Concordo e enviar dados</div>
+            </div>
+        </form>
 
 
     </div>
@@ -300,6 +337,10 @@
                 currentSection.nextAll('section').css('transform', 'translateX(100px)');
                 $('section').not(currentSection).hide();
             });
+
+            $("#submit").on('click', () => {
+                $("#cadastro").submit()
+            })
         })
     </script>
 </body>
