@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\CadastroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Route::get('/inativo', function () {
     return view('inactive');
 })->name('inativo');
+
+Route::resource('cadastros', CadastroController::class);
 
 Route::group(['middleware' => ['auth']], function() {
 
