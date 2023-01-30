@@ -36,7 +36,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <label for="emails">Emails</label>
-                    <select name="emails[]" id="emails" class="selectpicker" multiple data-actions-box="true" data-live-search="true"  data-width="100%">
+                    <select name="emails[]" id="emails" class="form-control selectpicker" multiple data-actions-box="true" data-live-search="true"  data-width="100%" data-none-selected-text="Clique aqui para selecionar os emails" data-select-all-text="Selecionar tudo" data-deselect-all-text="Deselecionar tudo">
                         @if (isset($registros))
                                 @foreach ($registros as $registro)
                                     <option value="{{ $registro->Email }}">{{ $registro->Email }}</option>
