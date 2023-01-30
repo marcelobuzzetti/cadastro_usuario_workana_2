@@ -87,7 +87,7 @@
         }
 
         .button {
-            background: rgb(237, 40, 70);
+            background: rgb(38, 135, 184);
             border-radius: 5px;
             padding: 15px 25px;
             display: inline-block;
@@ -148,10 +148,12 @@
     @endif
     <div class="container">
 
+        <div style=" background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
+        </div>
         <div id="svg_wrap"></div>
         <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
             @csrf
-            <h1>Cadastro Online</h1>
             <section>
                 <p class="title">Informações Pessoais</p>
                 <div class="form-group">
@@ -238,7 +240,7 @@
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var base_color = "rgb(230,230,230)";
+            var base_color = "grey";
             var active_color = "rgb(237, 40, 70)";
 
 
