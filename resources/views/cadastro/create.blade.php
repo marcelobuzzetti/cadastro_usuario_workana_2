@@ -136,15 +136,16 @@
 </head>
 
 <body>
-    @if ($message = Session::get('success'))
-        <script>
-            toastr.success('{{ $message }}')
-        </script>
-    @endif
-    @if ($message = Session::get('error'))
-        <script>
-            toastr.error('{{ $message }}')
-        </script>
+    @if ($message = Session::get('message'))
+        @if ($message['type'] == 'success')
+            <script>
+                toastr.success("<?php echo $message['message']; ?>");
+            </script>
+        @else
+            <script>
+                toastr.error("<?php echo $message['message']; ?>");
+            </script>
+        @endif
     @endif
     <div class="container">
 

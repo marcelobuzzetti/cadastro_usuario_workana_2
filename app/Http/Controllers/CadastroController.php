@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cadastro;
+use Exception;
 use Illuminate\Http\Request;
 
 class CadastroController extends Controller
@@ -36,7 +37,45 @@ class CadastroController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+
+        $request->validate([
+            'nome_completo' => 'required',
+            'email' => 'required|email',
+            'telefone' => 'required',
+            'has_corretora' => 'required',
+            /* 'nome_corretora' => 'required|exists:marcas,id', */
+            /* 'nr_conta_corretora' => 'required|exists:status,id', */
+            'use_metatrader' => 'required',
+            'has_auth_use_metatrader' => 'required',
+            'mercado' => 'required',
+        ]);
+
+        $nome_completo = $request->old('nome_complet0');
+        $email = $request->old('email');
+        $telefone = $request->old('telefone');
+        $has_corretora = $request->old('has_corretora');
+        $nome_corretora = $request->old('nome_corretora');
+        $nr_conta_corretora = $request->old('nr_conta_corretora');
+        $use_metatrader = $request->old('use_metatrader');
+        $has_auth_use_metatrader = $request->old('has_auth_use_metatrader');
+        $mercado = $request->old('mercado');
+
+        try {
+            $cadastro = Cadastro::create($request->all());
+            $cadastroId = $cadastro->id;
+            $message = [
+                "type" => "success",
+                "message" => "Cadastro nº $cadastroId foi criado com sucesso!!!."
+            ];
+        } catch (Exception $e) {
+            $message = [
+                "type" => "error",
+                "message" => $e->getMessage()
+            ];
+        }
+
+        return redirect()->route('cadastros.create')
+                        ->with('message', $message);
     }
 
     /**
