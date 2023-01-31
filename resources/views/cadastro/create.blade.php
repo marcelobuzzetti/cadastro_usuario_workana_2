@@ -173,6 +173,7 @@
                     <div class="form-group">
                         <strong>Telefone:</strong>
                         <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone com WhatsApp" />
+                        <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
                     </div>
                 </section>
 

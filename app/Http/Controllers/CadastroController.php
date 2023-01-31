@@ -43,9 +43,9 @@ class CadastroController extends Controller
             'nome_completo' => 'required',
             'email' => 'required|email',
             'telefone' => 'required',
-            'has_corretora' => 'required',
-            'use_metatrader' => 'required',
-            'has_auth_use_metatrader' => 'required',
+            'has_corretora' => 'boolean',
+            'use_metatrader' => 'boolean',
+            'has_auth_use_metatrader' => 'boolean',
             'mercado' => 'required|between:1,4',
         ]);
 
