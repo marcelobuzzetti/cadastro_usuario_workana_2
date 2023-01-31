@@ -11,31 +11,13 @@
     <!--Import materialize.css-->
     <!-- Compiled and minified CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/toastr.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script>
-        toastr.options.closeButton = true;
-        toastr.options.closeMethod = 'fadeOut';
-        toastr.options.closeDuration = 300;
-        toastr.options.closeEasing = 'swing';
-        toastr.options.newestOnTop = true;
-        toastr.options.progressBar = true;
-    </script>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @auth
-        <script>
-            window.auth = "{{ Auth::user()->name }}";
-            window.count = 0
-        </script>
-    @endauth
 
     <title>Cadastro</title>
     <style>
@@ -156,6 +138,7 @@
         </div>
         <div id="cadastro_radar">
             <div class="alert alert-danger print-error-msg" style="display:none; width: fit-content; margin: 0 auto;">
+                Existem Erros no Formulário
             </div>
             <div id="svg_wrap"></div>
             <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
@@ -245,10 +228,6 @@
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/modernizr-custom.js') }}"></script>
-    <script src="{{ asset('js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             var base_color = "grey";
@@ -359,7 +338,6 @@
                     success: function(response) {
                         if($.isEmptyObject(response.error)){
                             console.log(response)
-                            $('#loader_email').hide()
                             $("#cadastro")[0].reset();
                             $("#cadastro_radar").remove();
                             $(".container").append(
@@ -368,8 +346,6 @@
                                 </div>`);
                         } else {
                             printErrorMsg(response.error);
-                            $(".print-error-msg").append('Existem Erros no Formulário').show();
-
                             var currentSection = $("section:nth-of-type(1)");
                             currentSection.fadeIn();
                             currentSection.css('transform', 'translateX(0)');
@@ -401,11 +377,27 @@
                 function printErrorMsg (msg) {
                     /* $(".print-error-msg").find("ul").html('');
                     $(".print-error-msg").css('display','block'); */
+                    $('input').removeClass('is-invalid')
+                    $('select').removeClass('is-invalid')
+                    $('.invalid-feedback').remove();
+                    $(".print-error-msg").hide();
                     $.each( msg, function( key, value ) {
-                        $(`#${key}`).addClass('is-invalid')
-                            $(`<div class="invalid-feedback">${value}</div>`).insertAfter(`#${key}`)
+                        $(`#${key}`).addClass('is-invalid').after(`<div class="invalid-feedback">${value}</div>`)
                     });
+                    $(".print-error-msg").show();
                 }
+
+                $('input').keypress(function(){
+                    $(this).removeClass('is-invalid');
+                });
+
+                $('input').change(function(){
+                    $(this).removeClass('is-invalid');
+                });
+
+                $('select').change(function(){
+                    $(this).removeClass('is-invalid');
+                });
             })
         })
     </script>
