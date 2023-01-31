@@ -154,84 +154,87 @@
         <div style="z-index:1; background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-top:10px;">
             <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
         </div>
-        <div id="svg_wrap"></div>
-        <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
-            @csrf
-            <section>
-                <p class="title">Informações Pessoais</p>
-                <div class="form-group">
-                    <strong>Nome Completo:</strong>
-                    <input class="form-control" type="text" name="nome_completo" id="nome_completo" placeholder="Nome Completo" />
-                </div>
-                <div class="form-group">
-                    <strong>Email:</strong>
-                    <input class="form-control" type="text" name="email" id="email" placeholder="Email" />
-                </div>
-                <div class="form-group">
-                    <strong>Telefone:</strong>
-                    <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone com WhatsApp" />
-                </div>
-            </section>
-
-            <section>
-                <p class="title">Corretora</p>
-                <div class="form-group">
-                    <strong>Tem corretora:</strong>
-                    <select class="form-control" name="has_corretora" id="has_corretora">
-                        <option value="1">Sim</option>
-                        <option value="0">Não</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <strong>Nome da Corretora:</strong>
-                    <input class="form-control" type="text" name="nome_corretora" id="nome_corretora" placeholder="Nome Corretora" />
-                </div>
-                <div class="form-group">
-                    <strong>Número da conta na corretora:</strong>
-                    <input class="form-control" type="text" name="nr_conta_corretora" id="nr_conta_corretora" placeholder="Número da Conta na corretora" />
-                </div>
-            </section>
-
-            <section>
-                <p class="title">METATRADER</p>
-                <div class="form-group">
-                    <strong>Utiliza a plataforma METATRADER 5?</strong>
-                    <select class="form-control" name="use_metatrader" id="use_metatrader">
-                        <option value="1">Sim</option>
-                        <option value="0">Não</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <strong>Está com autorização da corretora para rotear pelo METATRADER 5?</strong>
-                    <select class="form-control" name="has_auth_use_metatrader" id="has_auth_use_metatrader">
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
-                </select>
-                <div class="form-group">
-                    <strong>Tem interesse em qual mercado para o RADAR?</strong>
-                    <select class="form-control" name="mercado" id="mercado">
-                        <option value="Nacional">Nacional</option>
-                        <option value="Internacional">Internacional</option>
-                        <option value="Ambos, mas Nacional por enquanto">Ambos, mas Nacional por enquanto</option>
-                        <option value="Ambos, mas apenas Internacional, quando possível">Ambos, mas apenas Internacional,
-                            quando possível</option>
-                    </select>
-                </div>
-            </section>
-
-            <section>
-                <p class="title">Informações Complementares</p>
-                <p>Você receberá uma email com informações assim que sua conta for ativada</p>
-            </section>
-
-            <div class="butoes">
-                <div class="button" id="prev">&larr; Anterior</div>
-                <div class="button" id="next">Próximo &rarr;</div>
-                <div class="button" id="submit">Concordo e enviar dados</div>
+        <div id="cadastro_radar">
+            <div class="alert alert-danger print-error-msg" style="display:none">
+                <ul></ul>
             </div>
-        </form>
+            <div id="svg_wrap"></div>
+            <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
+                @csrf
+                <section>
+                    <p class="title">Informações Pessoais</p>
+                    <div class="form-group">
+                        <strong>Nome Completo:</strong>
+                        <input class="form-control" type="text" name="nome_completo" id="nome_completo" placeholder="Nome Completo" />
+                    </div>
+                    <div class="form-group">
+                        <strong>Email:</strong>
+                        <input class="form-control" type="text" name="email" id="email" placeholder="Email" />
+                    </div>
+                    <div class="form-group">
+                        <strong>Telefone:</strong>
+                        <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone com WhatsApp" />
+                    </div>
+                </section>
 
+                <section>
+                    <p class="title">Corretora</p>
+                    <div class="form-group">
+                        <strong>Tem corretora:</strong>
+                        <select class="form-control" name="has_corretora" id="has_corretora">
+                            <option value="1">Sim</option>
+                            <option value="0">Não</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <strong>Nome da Corretora:</strong>
+                        <input class="form-control" type="text" name="nome_corretora" id="nome_corretora" placeholder="Nome Corretora" />
+                    </div>
+                    <div class="form-group">
+                        <strong>Número da conta na corretora:</strong>
+                        <input class="form-control" type="text" name="nr_conta_corretora" id="nr_conta_corretora" placeholder="Número da Conta na corretora" />
+                    </div>
+                </section>
 
+                <section>
+                    <p class="title">METATRADER</p>
+                    <div class="form-group">
+                        <strong>Utiliza a plataforma METATRADER 5?</strong>
+                        <select class="form-control" name="use_metatrader" id="use_metatrader">
+                            <option value="1">Sim</option>
+                            <option value="0">Não</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <strong>Está com autorização da corretora para rotear pelo METATRADER 5?</strong>
+                        <select class="form-control" name="has_auth_use_metatrader" id="has_auth_use_metatrader">
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                    <div class="form-group">
+                        <strong>Tem interesse em qual mercado para o RADAR?</strong>
+                        <select class="form-control" name="mercado" id="mercado">
+                            <option value="Nacional">Nacional</option>
+                            <option value="Internacional">Internacional</option>
+                            <option value="Ambos, mas Nacional por enquanto">Ambos, mas Nacional por enquanto</option>
+                            <option value="Ambos, mas apenas Internacional, quando possível">Ambos, mas apenas Internacional,
+                                quando possível</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section>
+                    <p class="title">Informações Complementares</p>
+                    <p>Você receberá uma email com informações assim que sua conta for ativada</p>
+                </section>
+
+                <div class="butoes">
+                    <div class="button" id="prev">&larr; Anterior</div>
+                    <div class="button" id="next">Próximo &rarr;</div>
+                    <div class="button" id="submit">Concordo e enviar dados</div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
@@ -245,8 +248,6 @@
         $(document).ready(function() {
             var base_color = "grey";
             var active_color = "rgb(237, 40, 70)";
-
-
 
             var child = 1;
             var length = $("section").length - 1;
@@ -351,18 +352,51 @@
                     type: "POST",
                     data: $('#cadastro').serialize(),
                     success: function(response) {
-                        toastr.success(response.success)
-                        console.log(response);
-                        $('#loader_email').hide()
-                        $("#cadastro")[0].reset();
+                        if($.isEmptyObject(response.error)){
+                            $('#loader_email').hide()
+                            $("#cadastro")[0].reset();
+                            $("#cadastro_radar").remove();
+                            $(".container").append(
+                                `<div style="text-align:center; margin-top:10px; background-color: rgba(255,255,255,0.5); border-radius: 10px; box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.5); width: fit-content;">
+                                    <h1>Obrigado por ser cadastrar na Radar Zenite!!!!</h1>
+                                </div>`);
+                        } else {
+                            printErrorMsg(response.error);
+                            var currentSection = $("section:nth-of-type(1)");
+                            currentSection.fadeIn();
+                            currentSection.css('transform', 'translateX(0)');
+                            currentSection.prevAll('section').css('transform', 'translateX(-100px)');
+                            currentSection.nextAll('section').css('transform', 'translateX(100px)');
+                            $('section').not(currentSection).hide();
+
+                            $("#next").removeClass("disabled");
+                            $("#prev").addClass("disabled");
+                            $('#submit').addClass("disabled");
+                            child = 1
+
+                            $("#svg_form_time rect:nth-of-type(n + " + child + ")").css(
+                                "fill",
+                                base_color
+                            );
+                            $("#svg_form_time circle").css(
+                                "fill",
+                                base_color
+                            );
+                        }
                     },
                     error: function(response) {
                         toastr.error(response.error)
                         console.log(response);
-                        $('#loader_email').hide()
-                        $("#cadastro")[0].reset();
                     },
                 });
+
+                function printErrorMsg (msg) {
+                    $(".print-error-msg").find("ul").html('');
+                    $(".print-error-msg").css('display','block');
+                    $.each( msg, function( key, value ) {
+                        $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                    });
+                }
             })
         })
     </script>

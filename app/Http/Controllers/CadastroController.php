@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cadastro;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CadastroController extends Controller
 {
@@ -38,46 +39,29 @@ class CadastroController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'nome_completo' => 'required',
             'email' => 'required|email',
             'telefone' => 'required',
             'has_corretora' => 'required',
-            /* 'nome_corretora' => 'required|exists:marcas,id', */
-            /* 'nr_conta_corretora' => 'required|exists:status,id', */
             'use_metatrader' => 'required',
             'has_auth_use_metatrader' => 'required',
             'mercado' => 'required',
         ]);
 
-        $nome_completo = $request->old('nome_complet0');
-        $email = $request->old('email');
-        $telefone = $request->old('telefone');
-        $has_corretora = $request->old('has_corretora');
-        $nome_corretora = $request->old('nome_corretora');
-        $nr_conta_corretora = $request->old('nr_conta_corretora');
-        $use_metatrader = $request->old('use_metatrader');
-        $has_auth_use_metatrader = $request->old('has_auth_use_metatrader');
-        $mercado = $request->old('mercado');
-
-        try {
-            $cadastro = Cadastro::create($request->all());
-            $cadastroId = $cadastro->id;
-            /* $message = [
-                "type" => "success",
-                "message" => "Cadastro nº $cadastroId foi criado com sucesso!!!."
-            ]; */
-        } catch (Exception $e) {
-            /* $message = [
-                "type" => "error",
-                "message" => $e->getMessage()
-            ]; */
-            return response()->json(['error'=>json_encode($e->getMessage())]);
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->all()
+            ]);
         }
 
-        /* return redirect()->route('cadastros.create')
-                        ->with('message', $message); */
-        return response()->json(['success'=>"Cadastro realizado com sucesso!!!"]);
+        try {
+            Cadastro::create($request->all());
+        } catch (Exception $e) {
+            return response()->json(['error' => json_encode($e->getMessage())]);
+        }
+
+        return response()->json(['success' => "Cadastro realizado com sucesso!!!"]);
     }
 
     /**
