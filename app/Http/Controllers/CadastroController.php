@@ -79,6 +79,21 @@ class CadastroController extends Controller
                 break;
         }
 
+
+        $mensagem = "<p>Você se cadastrou na Radar Zenite</p><br><p>Dados Cadastrados:</p>
+        Nome Completo: $request->nome_completo <br>
+        Email: $request->email <br>
+        Telefone: $request->telefone <br>
+        Tem Corretora?". ($request->has_corretora ? "Sim" : "Não") .
+        "<br>Usa o Metatrader 5? ". ($request->use_metatrader ? "Sim" : "Não") .
+        "<br>Está com autorização da corretora para rotear pelo METATRADER 5? ". ($request->has_auth_use_metatrader ? "Sim" : "Não") .
+        "<br>Tem interesse em qual mercado para o RADAR? ". $request->mercado;
+
+        $job = (new \App\Jobs\CadastroOnlineQueue("Cadastro na Radar Zenite", $request->email, $mensagem, $request->nome_completo))
+        ->delay(now()->addSeconds(2));
+
+        dispatch($job);
+
         try {
             Cadastro::create($request->all());
         } catch (Exception $e) {

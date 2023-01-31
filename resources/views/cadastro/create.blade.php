@@ -363,7 +363,7 @@
                             $("#cadastro")[0].reset();
                             $("#cadastro_radar").remove();
                             $(".container").append(
-                                `<div style="text-align:center; margin-top:10px; background-color: rgba(255,255,255,0.5); border-radius: 10px; box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.5); width: fit-content; margin: 0 auto;">
+                                `<div style="padding: 10px; text-align:center; margin-top:10px; background-color: rgba(255,255,255,0.5); border-radius: 10px; box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.5); width: fit-content; margin: 0 auto;">
                                     <h1>Obrigado por ser cadastrar na Radar Zenite!!!!</h1>
                                 </div>`);
                         } else {

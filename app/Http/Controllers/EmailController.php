@@ -18,7 +18,7 @@ class EmailController extends Controller
         $job = (new \App\Jobs\SendQueueEmail($request->assunto, $request->emails, $request->mensagem))
             	->delay(now()->addSeconds(2));
 
-        dispatch($job)->onQueue('emailmarketing');
+        dispatch($job);
 
         return redirect()->route('emailMarketing.index')->with('success', 'Emails enviados!');
     }
