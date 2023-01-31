@@ -47,7 +47,7 @@
         }
 
         body {
-            background: url("{{ asset('img/ico.jpg') }}")repeat center center fixed;
+            /* background: url("{{ asset('img/ico.jpg') }}")repeat center center fixed; */
             -webkit-background-size: 40vw;
             -moz-background-size: 40vw;
             -o-background-size: 40vw;
@@ -149,7 +149,7 @@
     @endif
     <div class="container">
 
-        <div style=" background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <div style=" background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-top:10px;">
             <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
         </div>
         <div id="svg_wrap"></div>
