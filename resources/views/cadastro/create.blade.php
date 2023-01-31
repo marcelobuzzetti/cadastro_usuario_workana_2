@@ -155,9 +155,9 @@
             <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
         </div>
         <div id="cadastro_radar">
-            <div class="alert alert-danger print-error-msg" style="display:none">
+            {{-- <div class="alert alert-danger print-error-msg" style="display:none">
                 <ul></ul>
-            </div>
+            </div> --}}
             <div id="svg_wrap"></div>
             <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
                 @csrf
@@ -167,7 +167,7 @@
                         <strong>Nome Completo:</strong>
                         <input class="form-control" type="text" name="nome_completo" id="nome_completo" placeholder="Nome Completo" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group email">
                         <strong>Email:</strong>
                         <input class="form-control" type="text" name="email" id="email" placeholder="Email" />
                     </div>
@@ -362,6 +362,7 @@
                                 </div>`);
                         } else {
                             printErrorMsg(response.error);
+
                             var currentSection = $("section:nth-of-type(1)");
                             currentSection.fadeIn();
                             currentSection.css('transform', 'translateX(0)');
@@ -391,10 +392,12 @@
                 });
 
                 function printErrorMsg (msg) {
-                    $(".print-error-msg").find("ul").html('');
-                    $(".print-error-msg").css('display','block');
+                    /* $(".print-error-msg").find("ul").html('');
+                    $(".print-error-msg").css('display','block'); */
                     $.each( msg, function( key, value ) {
                         $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+                        $(`#${key}`).addClass('is-invalid')
+                            $(`<div class="invalid-feedback">${value}</div>`).insertAfter(`#${key}`)
                     });
                 }
             })
