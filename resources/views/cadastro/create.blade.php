@@ -159,15 +159,15 @@
                 <p class="title">Informações Pessoais</p>
                 <div class="form-group">
                     <strong>Nome Completo:</strong>
-                    <input class="form-control" type="text" name="nome_completo" placeholder="Nome Completo" />
+                    <input class="form-control" type="text" name="nome_completo" id="nome_completo" placeholder="Nome Completo" />
                 </div>
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input class="form-control" type="text" name="email" placeholder="Email" />
+                    <input class="form-control" type="text" name="email" id="email" placeholder="Email" />
                 </div>
                 <div class="form-group">
                     <strong>Telefone:</strong>
-                    <input class="form-control" type="text" name="telefone" placeholder="Telefone com WhatsApp" />
+                    <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone com WhatsApp" />
                 </div>
             </section>
 
@@ -175,18 +175,18 @@
                 <p class="title">Corretora</p>
                 <div class="form-group">
                     <strong>Tem corretora:</strong>
-                    <select class="form-control" name="has_corretora">
+                    <select class="form-control" name="has_corretora" id="has_corretora">
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <strong>Nome da Corretora:</strong>
-                    <input class="form-control" type="text" name="nome_corretora" placeholder="Nome Corretora" />
+                    <input class="form-control" type="text" name="nome_corretora" id="nome_corretora" placeholder="Nome Corretora" />
                 </div>
                 <div class="form-group">
                     <strong>Número da conta na corretora:</strong>
-                    <input class="form-control" type="text" name="nr_conta_corretora" placeholder="Número da Conta na corretora" />
+                    <input class="form-control" type="text" name="nr_conta_corretora" id="nr_conta_corretora" placeholder="Número da Conta na corretora" />
                 </div>
             </section>
 
@@ -194,20 +194,20 @@
                 <p class="title">METATRADER</p>
                 <div class="form-group">
                     <strong>Utiliza a plataforma METATRADER 5?</strong>
-                    <select class="form-control" name="use_metatrader">
+                    <select class="form-control" name="use_metatrader" id="use_metatrader">
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <strong>Está com autorização da corretora para rotear pelo METATRADER 5?</strong>
-                    <select class="form-control" name="has_auth_use_metatrader">
+                    <select class="form-control" name="has_auth_use_metatrader" id="has_auth_use_metatrader">
                     <option value="1">Sim</option>
                     <option value="0">Não</option>
                 </select>
                 <div class="form-group">
                     <strong>Tem interesse em qual mercado para o RADAR?</strong>
-                    <select class="form-control" name="mercado">
+                    <select class="form-control" name="mercado" id="mercado">
                         <option value="Nacional">Nacional</option>
                         <option value="Internacional">Internacional</option>
                         <option value="Ambos, mas Nacional por enquanto">Ambos, mas Nacional por enquanto</option>
@@ -341,8 +341,26 @@
                 $('section').not(currentSection).hide();
             });
 
-            $("#submit").on('click', () => {
-                $("#cadastro").submit()
+            $('#submit').on('click', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/cadastros",
+                    type: "POST",
+                    data: $('#cadastro').serialize(),
+                    success: function(response) {
+                        toastr.success(response.success)
+                        console.log(response);
+                        $('#loader_email').hide()
+                        $("#cadastro")[0].reset();
+                    },
+                    error: function(response) {
+                        toastr.error(response.error)
+                        console.log(response);
+                        $('#loader_email').hide()
+                        $("#cadastro")[0].reset();
+                    },
+                });
             })
         })
     </script>

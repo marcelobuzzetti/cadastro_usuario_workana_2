@@ -63,19 +63,21 @@ class CadastroController extends Controller
         try {
             $cadastro = Cadastro::create($request->all());
             $cadastroId = $cadastro->id;
-            $message = [
+            /* $message = [
                 "type" => "success",
                 "message" => "Cadastro nº $cadastroId foi criado com sucesso!!!."
-            ];
+            ]; */
         } catch (Exception $e) {
-            $message = [
+            /* $message = [
                 "type" => "error",
                 "message" => $e->getMessage()
-            ];
+            ]; */
+            return response()->json(['error'=>json_encode($e->getMessage())]);
         }
 
-        return redirect()->route('cadastros.create')
-                        ->with('message', $message);
+        /* return redirect()->route('cadastros.create')
+                        ->with('message', $message); */
+        return response()->json(['success'=>"Cadastro realizado com sucesso!!!"]);
     }
 
     /**
