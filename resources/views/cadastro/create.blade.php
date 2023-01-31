@@ -147,9 +147,11 @@
             </script>
         @endif
     @endif
+    <div style="text-align: center; position: absolute; margin-left: 10px;">
+        <img style="width: 100px; border-radius:50px;" src="{{ asset('img/ico.jpg') }}" alt="">
+    </div>
     <div class="container">
-
-        <div style=" background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-top:10px;">
+        <div style="z-index:1; background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-top:10px;">
             <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
         </div>
         <div id="svg_wrap"></div>
