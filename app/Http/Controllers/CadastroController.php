@@ -46,13 +46,37 @@ class CadastroController extends Controller
             'has_corretora' => 'required',
             'use_metatrader' => 'required',
             'has_auth_use_metatrader' => 'required',
-            'mercado' => 'required',
+            'mercado' => 'required|between:1,4',
         ]);
+
 
         if ($validator->fails()) {
             return response()->json([
                 'error' => $validator->errors()
             ]);
+        }
+
+        switch($request->mercado){
+            case 1:
+                $request->merge([
+                    'mercado' => "Nacional",
+                ]);
+                break;
+            case 2:
+                $request->merge([
+                    'mercado' => "Internacional",
+                ]);
+                break;
+            case 3:
+                $request->merge([
+                    'mercado' => "Ambos, mas Nacional por enquanto",
+                ]);
+                break;
+            case 4:
+                $request->merge([
+                    'mercado' => "Ambos, mas apenas Internacional, quando possível",
+                ]);
+                break;
         }
 
         try {

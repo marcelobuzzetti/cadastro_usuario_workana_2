@@ -155,9 +155,8 @@
             <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
         </div>
         <div id="cadastro_radar">
-            {{-- <div class="alert alert-danger print-error-msg" style="display:none">
-                <ul></ul>
-            </div> --}}
+            <div class="alert alert-danger print-error-msg" style="display:none; width: fit-content; margin: 0 auto;">
+            </div>
             <div id="svg_wrap"></div>
             <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
                 @csrf
@@ -182,6 +181,7 @@
                     <div class="form-group">
                         <strong>Tem corretora:</strong>
                         <select class="form-control" name="has_corretora" id="has_corretora">
+                            <option disabled selected>Selecione uma opção</option>
                             <option value="1">Sim</option>
                             <option value="0">Não</option>
                         </select>
@@ -201,6 +201,7 @@
                     <div class="form-group">
                         <strong>Utiliza a plataforma METATRADER 5?</strong>
                         <select class="form-control" name="use_metatrader" id="use_metatrader">
+                            <option disabled selected>Selecione uma opção</option>
                             <option value="1">Sim</option>
                             <option value="0">Não</option>
                         </select>
@@ -208,16 +209,19 @@
                     <div class="form-group">
                         <strong>Está com autorização da corretora para rotear pelo METATRADER 5?</strong>
                         <select class="form-control" name="has_auth_use_metatrader" id="has_auth_use_metatrader">
-                        <option value="1">Sim</option>
-                        <option value="0">Não</option>
-                    </select>
+                            <option disabled selected>Selecione uma opção</option>
+                            <option value="1">Sim</option>
+                            <option value="0">Não</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <strong>Tem interesse em qual mercado para o RADAR?</strong>
                         <select class="form-control" name="mercado" id="mercado">
-                            <option value="Nacional">Nacional</option>
-                            <option value="Internacional">Internacional</option>
-                            <option value="Ambos, mas Nacional por enquanto">Ambos, mas Nacional por enquanto</option>
-                            <option value="Ambos, mas apenas Internacional, quando possível">Ambos, mas apenas Internacional,
+                            <option disabled selected>Selecione uma opção</option>
+                            <option value="1">Nacional</option>
+                            <option value="2">Internacional</option>
+                            <option value="3">Ambos, mas Nacional por enquanto</option>
+                            <option value="4">Ambos, mas apenas Internacional,
                                 quando possível</option>
                         </select>
                     </div>
@@ -353,15 +357,17 @@
                     data: $('#cadastro').serialize(),
                     success: function(response) {
                         if($.isEmptyObject(response.error)){
+                            console.log(response)
                             $('#loader_email').hide()
                             $("#cadastro")[0].reset();
                             $("#cadastro_radar").remove();
                             $(".container").append(
-                                `<div style="text-align:center; margin-top:10px; background-color: rgba(255,255,255,0.5); border-radius: 10px; box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.5); width: fit-content;">
+                                `<div style="text-align:center; margin-top:10px; background-color: rgba(255,255,255,0.5); border-radius: 10px; box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.5); width: fit-content; margin: 0 auto;">
                                     <h1>Obrigado por ser cadastrar na Radar Zenite!!!!</h1>
                                 </div>`);
                         } else {
                             printErrorMsg(response.error);
+                            $(".print-error-msg").append('Existem Erros no Formulário').show();
 
                             var currentSection = $("section:nth-of-type(1)");
                             currentSection.fadeIn();
@@ -395,7 +401,6 @@
                     /* $(".print-error-msg").find("ul").html('');
                     $(".print-error-msg").css('display','block'); */
                     $.each( msg, function( key, value ) {
-                        $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
                         $(`#${key}`).addClass('is-invalid')
                             $(`<div class="invalid-feedback">${value}</div>`).insertAfter(`#${key}`)
                     });
