@@ -11,14 +11,17 @@ class CadastroOnline extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $mensagem;
+    public $assunto;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($mensagem, $assunto)
     {
-        //
+        $this->mensagem = $mensagem;
+        $this->assunto = $assunto;
     }
 
     /**
@@ -28,6 +31,11 @@ class CadastroOnline extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('emails.cadastroonline')
+        ->text( 'emails.cadastroonline_text' )
+        ->subject($this->assunto)
+        ->with([
+            'mensagem' => $this->mensagem
+        ]);
     }
 }

@@ -80,14 +80,17 @@ class CadastroController extends Controller
         }
 
 
-        $mensagem = "<p>Você se cadastrou na Radar Zenite</p><br><p>Dados Cadastrados:</p>
-        Nome Completo: $request->nome_completo <br>
-        Email: $request->email <br>
-        Telefone: $request->telefone <br>
+        $mensagem = nl2br("Você se cadastrou na Radar Zenite
+        \nDados Cadastrados:
+        Nome Completo: $request->nome_completo \n
+        Email: $request->email \n
+        Telefone: $request->telefone \n
         Tem Corretora?". ($request->has_corretora ? "Sim" : "Não") .
-        "<br>Usa o Metatrader 5? ". ($request->use_metatrader ? "Sim" : "Não") .
-        "<br>Está com autorização da corretora para rotear pelo METATRADER 5? ". ($request->has_auth_use_metatrader ? "Sim" : "Não") .
-        "<br>Tem interesse em qual mercado para o RADAR? ". $request->mercado;
+        "Nome da Corretora: $request->nome_corretora
+        Nr da Corretora: $request->nr_conta_corretora
+        \nUsa o Metatrader 5? ". ($request->use_metatrader ? "Sim" : "Não") .
+        "\nEstá com autorização da corretora para rotear pelo METATRADER 5? ". ($request->has_auth_use_metatrader ? "Sim" : "Não") .
+        "\nTem interesse em qual mercado para o RADAR? ". $request->mercado);
 
         $job = (new \App\Jobs\CadastroOnlineQueue("Cadastro na Radar Zenite", $request->email, $mensagem, $request->nome_completo))
         ->delay(now()->addSeconds(2));
