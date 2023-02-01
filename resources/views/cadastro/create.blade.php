@@ -220,6 +220,7 @@
                     <div class="form-group">
                         <strong>Número da conta na corretora:</strong>
                         <input class="form-control" type="text" name="nr_conta_corretora" id="nr_conta_corretora" placeholder="Número da Conta na corretora" />
+                        <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
                     </div>
                 </section>
 
