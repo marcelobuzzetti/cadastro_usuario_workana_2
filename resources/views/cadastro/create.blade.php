@@ -116,42 +116,48 @@
         }
 
         .lds-facebook {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-facebook div {
-  display: inline-block;
-  position: absolute;
-  left: 8px;
-  width: 16px;
-  background: #fff;
-  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-}
-.lds-facebook div:nth-child(1) {
-  left: 8px;
-  animation-delay: -0.24s;
-}
-.lds-facebook div:nth-child(2) {
-  left: 32px;
-  animation-delay: -0.12s;
-}
-.lds-facebook div:nth-child(3) {
-  left: 56px;
-  animation-delay: 0;
-}
-@keyframes lds-facebook {
-  0% {
-    top: 8px;
-    height: 64px;
-  }
-  50%, 100% {
-    top: 24px;
-    height: 32px;
-  }
-}
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
 
+        .lds-facebook div {
+            display: inline-block;
+            position: absolute;
+            left: 8px;
+            width: 16px;
+            background: #fff;
+            animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+
+        .lds-facebook div:nth-child(1) {
+            left: 8px;
+            animation-delay: -0.24s;
+        }
+
+        .lds-facebook div:nth-child(2) {
+            left: 32px;
+            animation-delay: -0.12s;
+        }
+
+        .lds-facebook div:nth-child(3) {
+            left: 56px;
+            animation-delay: 0;
+        }
+
+        @keyframes lds-facebook {
+            0% {
+                top: 8px;
+                height: 64px;
+            }
+
+            50%,
+            100% {
+                top: 24px;
+                height: 32px;
+            }
+        }
     </style>
 </head>
 
@@ -171,8 +177,10 @@
         <img style="width: 100px; border-radius:50px;" src="{{ asset('img/ico.jpg') }}" alt="">
     </div>
     <div class="container">
-        <div style="z-index:1; background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-top:10px;">
-            <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
+        <div
+            style="z-index:1; background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-top:10px;">
+            <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">
+                Cadastro Online</p>
         </div>
         <div id="cadastro_radar">
             <div class="alert alert-danger print-error-msg" style="display:none">
@@ -185,21 +193,26 @@
                     <p class="title">Informações Pessoais</p>
                     <div class="form-group">
                         <strong>Nome Completo:</strong>
-                        <input class="form-control" type="text" name="nome_completo" id="nome_completo" placeholder="Nome Completo" />
+                        <input class="form-control" type="text" name="nome_completo" id="nome_completo"
+                            placeholder="Nome Completo" />
                     </div>
                     <div class="form-group email">
                         <strong>Email:</strong>
                         <input class="form-control" type="text" name="email" id="email" placeholder="Email" />
                     </div>
-                    <div class="form-group">
-                        <strong>CPF:</strong>
-                        <input class="form-control" type="text" name="cpf" id="cpf" placeholder="Digite o CPF" />
-                        <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
-                    </div>
-                    <div class="form-group">
-                        <strong>Telefone:</strong>
-                        <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone com WhatsApp" />
-                        <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                            <strong>CPF:</strong>
+                            <input class="form-control" type="text" name="cpf" id="cpf"
+                                placeholder="Digite o CPF" />
+                            <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                            <strong>Telefone:</strong>
+                            <input class="form-control" type="text" name="telefone" id="telefone"
+                                placeholder="Telefone com WhatsApp" />
+                            <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
+                        </div>
                     </div>
                 </section>
 
@@ -215,11 +228,13 @@
                     </div>
                     <div class="form-group">
                         <strong>Nome da Corretora:</strong>
-                        <input class="form-control" type="text" name="nome_corretora" id="nome_corretora" placeholder="Nome Corretora" />
+                        <input class="form-control" type="text" name="nome_corretora" id="nome_corretora"
+                            placeholder="Nome Corretora" />
                     </div>
                     <div class="form-group">
                         <strong>Número da conta na corretora:</strong>
-                        <input class="form-control" type="text" name="nr_conta_corretora" id="nr_conta_corretora" placeholder="Número da Conta na corretora" />
+                        <input class="form-control" type="text" name="nr_conta_corretora" id="nr_conta_corretora"
+                            placeholder="Número da Conta na corretora" />
                         <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
                     </div>
                 </section>
@@ -383,7 +398,7 @@
                     type: "POST",
                     data: $('#cadastro').serialize(),
                     success: function(response) {
-                        if($.isEmptyObject(response.error)){
+                        if ($.isEmptyObject(response.error)) {
                             console.log(response)
                             $('#spinner').addClass("disabled");
                             $("#cadastro")[0].reset();
@@ -399,8 +414,10 @@
                             var currentSection = $("section:nth-of-type(1)");
                             currentSection.fadeIn();
                             currentSection.css('transform', 'translateX(0)');
-                            currentSection.prevAll('section').css('transform', 'translateX(-100px)');
-                            currentSection.nextAll('section').css('transform', 'translateX(100px)');
+                            currentSection.prevAll('section').css('transform',
+                                'translateX(-100px)');
+                            currentSection.nextAll('section').css('transform',
+                                'translateX(100px)');
                             $('section').not(currentSection).hide();
 
                             $("#next").removeClass("disabled");
@@ -424,29 +441,30 @@
                     },
                 });
 
-                function printErrorMsg (msg) {
+                function printErrorMsg(msg) {
                     $(".print-error-msg").find("ol").html('');
-                    $(".print-error-msg").css('display','block');
+                    $(".print-error-msg").css('display', 'block');
                     $('input').removeClass('is-invalid')
                     $('select').removeClass('is-invalid')
                     $('.invalid-feedback').remove();
                     $(".print-error-msg").hide();
-                    $.each( msg, function( key, value ) {
-                        $(`#${key}`).addClass('is-invalid').after(`<div class="invalid-feedback">${value}</div>`)
-                         $(".print-error-msg").find("ol").append('<li>'+value+'</li>');
+                    $.each(msg, function(key, value) {
+                        $(`#${key}`).addClass('is-invalid').after(
+                            `<div class="invalid-feedback">${value}</div>`)
+                        $(".print-error-msg").find("ol").append('<li>' + value + '</li>');
                     });
                     $(".print-error-msg").show();
                 }
 
-                $('input').keypress(function(){
+                $('input').keypress(function() {
                     $(this).removeClass('is-invalid');
                 });
 
-                $('input').change(function(){
+                $('input').change(function() {
                     $(this).removeClass('is-invalid');
                 });
 
-                $('select').change(function(){
+                $('select').change(function() {
                     $(this).removeClass('is-invalid');
                 });
             })

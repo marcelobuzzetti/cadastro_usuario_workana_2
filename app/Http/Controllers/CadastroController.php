@@ -40,10 +40,10 @@ class CadastroController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'nome_completo' => 'required',
-            'email' => 'required|email',
-            'telefone' => 'required',
-            'cpf' => 'required|cpf',
+            'nome_completo' => 'required|max:255',
+            'email' => 'required|email|unique:cadastros',
+            'telefone' => 'required|unique:cadastros',
+            'cpf' => 'required|cpf|unique:cadastros|max:11',
             'has_corretora' => 'required|boolean',
             'use_metatrader' => 'required|boolean',
             'has_auth_use_metatrader' => 'required|boolean',
