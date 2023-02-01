@@ -18,7 +18,7 @@ use App\Http\Controllers\CadastroController;
 */
 
 Route::get('/', function () {
-    return redirect('/registros');
+    return redirect('/cadastros');
 });
 
 Route::get('/inativo', function () {

@@ -20,9 +20,14 @@ class CadastroController extends Controller
      */
     public function index()
     {
-        $cadastro = new Cadastro();
-        $cadastros = $cadastro->with(['Registro'])->get();
-        return view('cadastro.index', compact('cadastros'));
+
+        if (Auth::check() && Auth::user()->perfil_id === 1) {
+            $cadastro = new Cadastro();
+            $cadastros = $cadastro->with(['Registro'])->get();
+            return view('cadastro.index', compact('cadastros'));
+        } else {
+            return view('cadastro.create');
+        }
     }
 
     /**
@@ -207,44 +212,52 @@ class CadastroController extends Controller
 
     public function zenitlic($id)
     {
-        $cadastro = Cadastro::findOrFail($id);
-        return view('cadastro.zenitlic', compact('cadastro'));
+        if (Auth::check() && Auth::user()->perfil_id === 1) {
+            $cadastro = Cadastro::findOrFail($id);
+            return view('cadastro.zenitlic', compact('cadastro'));
+        } else {
+            return view('cadastro.create');
+        }
     }
 
     public function cadastrozenitelic(Request $request)
     {
-        $ipAddress = $request->ip();
+        if(Auth::check() && Auth::user()->perfil_id === 1) {
+            $ipAddress = $request->ip();
 
-        $request->validate([
-            'CPF' => 'required',
-            'Nome' => 'required',
-            'Login' => 'required',
-            'Data_limite' => 'required',
-            'Email' => 'required',
-            'Telefone' => 'required',
-        ]);
+            $request->validate([
+                'CPF' => 'required',
+                'Nome' => 'required',
+                'Login' => 'required',
+                'Data_limite' => 'required',
+                'Email' => 'required',
+                'Telefone' => 'required',
+            ]);
 
-        $CPF = $request->old('CPF');
-        $Nome = $request->old('Nome');
-        $Login = $request->old('Login');
-        $Data_limite = $request->old('Data_limite');
-        $Data_ult_ent = $request->old('Data_ult_ent');
-        $Cod_admin = $request->old('Cod_admin');
-        $Email = $request->old('Email');
-        $Telefone = $request->old('Telefone');
+            $CPF = $request->old('CPF');
+            $Nome = $request->old('Nome');
+            $Login = $request->old('Login');
+            $Data_limite = $request->old('Data_limite');
+            $Data_ult_ent = $request->old('Data_ult_ent');
+            $Cod_admin = $request->old('Cod_admin');
+            $Email = $request->old('Email');
+            $Telefone = $request->old('Telefone');
 
-        $request->merge([
-            'Contador' => $ipAddress,
-            'Data_inicial' => now(),
-            'Origem_registro' => Auth::user()->email
-        ]);
+            $request->merge([
+                'Contador' => $ipAddress,
+                'Data_inicial' => now(),
+                'Origem_registro' => Auth::user()->email
+            ]);
 
-        $registro = Registro::create($request->all());
-        Cadastro::where('id', $request->id)->update([
-            'zenitelic_id' => $registro->ID_usuario
-        ]);
+            $registro = Registro::create($request->all());
+            Cadastro::where('id', $request->id)->update([
+                'zenitelic_id' => $registro->ID_usuario
+            ]);
 
-        return redirect()->route('cadastros.index')
-            ->with('success', 'Cadastro criado com sucesso.');
+            return redirect()->route('cadastros.index')
+                ->with('success', 'Cadastro criado com sucesso.');
+        } else {
+            return view('cadastro.create');
+        }
     }
 }
