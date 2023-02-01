@@ -114,6 +114,44 @@
             text-align: justify;
             margin-top: 0;
         }
+
+        .lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #fff;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
     </style>
 </head>
 
@@ -137,8 +175,8 @@
             <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">Cadastro Online</p>
         </div>
         <div id="cadastro_radar">
-            <div class="alert alert-danger print-error-msg" style="display:none; width: fit-content; margin: 0 auto;">
-                Existem Erros no Formulário
+            <div class="alert alert-danger print-error-msg" style="display:none">
+                <ol></ol>
             </div>
             <div id="svg_wrap"></div>
             <form action="{{ route('cadastros.store') }}" method="POST" id="cadastro">
@@ -217,9 +255,10 @@
                 </section>
 
                 <div class="butoes">
-                    <div class="button" id="prev">&larr; Anterior</div>
-                    <div class="button" id="next">Próximo &rarr;</div>
-                    <div class="button" id="submit">Concordo e enviar dados</div>
+                    <div class="btn btn-primary" id="prev">&larr; Anterior</div>
+                    <div class="btn btn-primary" id="next">Próximo &rarr;</div>
+                    <div class="btn btn-primary" id="submit">Concordo e enviar dados</div>
+                    <i class="fa fa-spinner fa-spin disabled" id="spinner"></i>
                 </div>
             </form>
         </div>
@@ -288,7 +327,7 @@
             $("circle:nth-of-type(1)").css("fill", active_color);
 
 
-            $(".button").click(function() {
+            $(".btn").click(function() {
                 $("#svg_form_time rect").css("fill", active_color);
                 $("#svg_form_time circle").css("fill", active_color);
                 var id = $(this).attr("id");
@@ -330,6 +369,8 @@
 
             $('#submit').on('click', function(e) {
                 e.preventDefault();
+                $('#spinner').removeClass("disabled");
+                $('.btn').addClass("disabled");
 
                 $.ajax({
                     url: "/cadastros",
@@ -338,6 +379,7 @@
                     success: function(response) {
                         if($.isEmptyObject(response.error)){
                             console.log(response)
+                            $('#spinner').addClass("disabled");
                             $("#cadastro")[0].reset();
                             $("#cadastro_radar").remove();
                             $(".container").append(
@@ -345,7 +387,9 @@
                                     <h1>Obrigado por ser cadastrar na Radar Zenite!!!!</h1>
                                 </div>`);
                         } else {
+                            $('#spinner').addClass("disabled");
                             printErrorMsg(response.error);
+                            $('.button').removeClass("disabled");
                             var currentSection = $("section:nth-of-type(1)");
                             currentSection.fadeIn();
                             currentSection.css('transform', 'translateX(0)');
@@ -375,14 +419,15 @@
                 });
 
                 function printErrorMsg (msg) {
-                    /* $(".print-error-msg").find("ul").html('');
-                    $(".print-error-msg").css('display','block'); */
+                    $(".print-error-msg").find("ol").html('');
+                    $(".print-error-msg").css('display','block');
                     $('input').removeClass('is-invalid')
                     $('select').removeClass('is-invalid')
                     $('.invalid-feedback').remove();
                     $(".print-error-msg").hide();
                     $.each( msg, function( key, value ) {
                         $(`#${key}`).addClass('is-invalid').after(`<div class="invalid-feedback">${value}</div>`)
+                         $(".print-error-msg").find("ol").append('<li>'+value+'</li>');
                     });
                     $(".print-error-msg").show();
                 }
