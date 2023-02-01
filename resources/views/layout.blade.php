@@ -160,6 +160,11 @@
                             Email Marketing
                         </a>
                     </li>
+                    <li>
+                        <a class="nav-link {{ Request::path() == 'cadastros' ? 'active' : '' }} " href="{{ route('cadastros.index') }}">
+                            Cadastro Web
+                        </a>
+                    </li>
                     @endif
                     <li
                         class="nav-item dropdown {{ Request::path() == 'registros' ? 'active' : '' }} ">

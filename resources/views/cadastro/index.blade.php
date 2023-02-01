@@ -31,6 +31,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>ID na ZenitLic</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Email</th>
@@ -41,7 +42,6 @@
                 <th>Usa Metatrader?</th>
                 <th>Tem Autorização do Metatrader</th>
                 <th>Mercado</th>
-                <th>ID na ZenitLic</th>
                 <th>Criado em</th>
                 <th>Enviar Email</th>
                 <th width="280px">Action</th>
@@ -52,17 +52,17 @@
                 @foreach ($cadastros as $cadastro)
                     <tr>
                         <td>{{ $cadastro->id }}</td>
+                        <td>{{ $cadastro->zenitelic_id ? $cadastro->zenitelic_id : 'Ainda não cadastrado' }}</td>
                         <td>{{ $cadastro->nome_completo }}</td>
                         <td>{{ $cadastro->cpf }}</td>
                         <td>{{ $cadastro->email }}</td>
                         <td>{{ $cadastro->telefone }}</td>
-                        <td>{{ $cadastro->has_corretora ? "Sim" : "Não"}}</td>
-                        <td>{{ $cadastro->nome_corretora ? $cadastro->nome_corretora : "Não Informado"}}</td>
-                        <td>{{ $cadastro->nr_conta_corretora ? $cadastro->nr_conta_corretora : "Não Informado"}}</td>
-                        <td>{{ $cadastro->use_metatrader ? "Sim" : "Não"}}</td>
-                        <td>{{ $cadastro->has_auth_use_metatrader ? "Sim" : "Não"}}</td>
+                        <td>{{ $cadastro->has_corretora ? 'Sim' : 'Não' }}</td>
+                        <td>{{ $cadastro->nome_corretora ? $cadastro->nome_corretora : 'Não Informado' }}</td>
+                        <td>{{ $cadastro->nr_conta_corretora ? $cadastro->nr_conta_corretora : 'Não Informado' }}</td>
+                        <td>{{ $cadastro->use_metatrader ? 'Sim' : 'Não' }}</td>
+                        <td>{{ $cadastro->has_auth_use_metatrader ? 'Sim' : 'Não' }}</td>
                         <td>{{ $cadastro->mercado }}</td>
-                        <td>{{ $cadastro->zenitelic_id ? $cadastro->zenitelic_id : "Ainda não cadastrado" }}</td>
                         <td>{{ $cadastro->created_at }}</td>
                         <td><button type="button" class="btn btn-success flex-inline flex-grow-1" data-toggle="modal"
                                 data-target="#exampleModal" data-nome="{{ $cadastro->nome_completo }}"
@@ -72,15 +72,15 @@
                         <td>
                             {{-- <form action="{{ route('cadastros.destroy', $cadastro->id) }}" method="POST"> --}}
 
-                                @if(!$cadastro->zenitelic_id)
-                                    <a class="btn btn-primary"
-                                        href="{{ route('cadastros.zenitlic', $cadastro->id) }}">Cadastrar ZenitLic</a>
-                                @else
-                                    <a class="btn btn-primary"
+                            @if (!$cadastro->zenitelic_id)
+                                <a class="btn btn-primary"
+                                    href="{{ route('cadastros.zenitlic', $cadastro->id) }}">Cadastrar ZenitLic</a>
+                            @else
+                                <a class="btn btn-primary"
                                     href="{{ route('registros.edit', $cadastro->zenitelic_id) }}">Editar na ZenitLic</a>
-                                @endif
+                            @endif
 
-                                {{-- @csrf
+                            {{-- @csrf
                                 @method('DELETE')
 
                                 <button type="submit" class="btn btn-danger">Apagar</button> --}}
@@ -93,6 +93,7 @@
         <tfoot>
             <tr>
                 <th>Id</th>
+                <th>ID na ZenitLic</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Email</th>
@@ -103,7 +104,6 @@
                 <th>Usa Metatrader?</th>
                 <th>Tem Autorização do Metatrader</th>
                 <th>Mercado</th>
-                <th>ID na ZenitLic</th>
                 <th>Criado em</th>
                 <th>Enviar Email</th>
                 <th width="280px">Action</th>
