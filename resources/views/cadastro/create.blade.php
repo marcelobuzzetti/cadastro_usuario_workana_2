@@ -192,6 +192,11 @@
                         <input class="form-control" type="text" name="email" id="email" placeholder="Email" />
                     </div>
                     <div class="form-group">
+                        <strong>CPF:</strong>
+                        <input class="form-control" type="text" name="cpf" id="cpf" placeholder="Digite o CPF" />
+                        <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>
+                    </div>
+                    <div class="form-group">
                         <strong>Telefone:</strong>
                         <input class="form-control" type="text" name="telefone" id="telefone" placeholder="Telefone com WhatsApp" />
                         <div style="color: grey; font-size: 0.8rem; margin-left: 10px;">Digite somente números</div>

@@ -19,7 +19,8 @@ class Cadastro extends Model
         'use_metatrader',
         'has_auth_use_metatrader',
         'mercado',
-        'zenitelic_id'
+        'zenitelic_id',
+        'cpf'
     ];
 
     protected $table = 'cadastros';
