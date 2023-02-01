@@ -173,7 +173,7 @@
             </script>
         @endif
     @endif
-    <div style="text-align: center; position: absolute; margin-left: 10px;">
+    <div style="text-align: center;">
         <img style="width: 100px; border-radius:50px;" src="{{ asset('img/ico.jpg') }}" alt="">
     </div>
     <div class="container">
