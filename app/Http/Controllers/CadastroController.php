@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FaltaDeAcesso;
 use App\Models\Cadastro;
+use App\Models\Registro;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class CadastroController extends Controller
@@ -16,7 +20,8 @@ class CadastroController extends Controller
      */
     public function index()
     {
-        $cadastros = Cadastro::all();
+        $cadastro = new Cadastro();
+        $cadastros = $cadastro->with(['Registro'])->get();
         return view('cadastro.index', compact('cadastros'));
     }
 
@@ -79,6 +84,27 @@ class CadastroController extends Controller
                 ]);
                 break;
         }
+
+        /* $dados = Array(
+            'CPF' => $request->cpf,
+            'Nome' => $request->nome_completo,
+            'Login' => $request->nr_conta_corretora,
+            'Origem_registro' => "Web",
+            'Email' => $request->email,
+            'Telefone' => $request->telefone,
+        );
+
+        $zenite = new Registro();
+
+        try {
+            $id = $zenite::create($dados);
+            $request->merge([
+                'zenitelic_id' => $id
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => json_encode($e->getMessage())]);
+        } */
+
 
 
         $mensagem = nl2br("Você se cadastrou na Radar Zenite
@@ -150,5 +176,73 @@ class CadastroController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function email(Request $request)
+    {
+        if (! $request->ajax()) {
+            return view('cadastros.index');
+        }
+
+        $email = $request->email;
+        $assunto = $request->assunto;
+        $mensagem = $request->mensagem ? $request->mensagem : 'Você não acessou';
+        Mail::to($email)->send(new FaltaDeAcesso($mensagem, $assunto));
+
+        if( count(Mail::failures()) > 0 ) {
+            $error = [];
+            foreach(Mail::failures() as $email_address) {
+                $error[] = $email_address;
+             }
+            return response()->json(['error'=>json_encode($error)]);
+
+         } else {
+
+            return response()->json(['success'=>"Email enviado com sucesso!!!"]);
+         }
+
+    }
+
+    public function zenitlic($id)
+    {
+        $cadastro = Cadastro::findOrFail($id);
+        return view('cadastro.zenitlic', compact('cadastro'));
+    }
+
+    public function cadastrozenitelic(Request $request)
+    {
+        $ipAddress = $request->ip();
+
+        $request->validate([
+            'CPF' => 'required',
+            'Nome' => 'required',
+            'Login' => 'required',
+            'Data_limite' => 'required',
+            'Email' => 'required',
+            'Telefone' => 'required',
+        ]);
+
+        $CPF = $request->old('CPF');
+        $Nome = $request->old('Nome');
+        $Login = $request->old('Login');
+        $Data_limite = $request->old('Data_limite');
+        $Data_ult_ent = $request->old('Data_ult_ent');
+        $Cod_admin = $request->old('Cod_admin');
+        $Email = $request->old('Email');
+        $Telefone = $request->old('Telefone');
+
+        $request->merge([
+            'Contador' => $ipAddress,
+            'Data_inicial' => now(),
+            'Origem_registro' => Auth::user()->email
+        ]);
+
+        $registro = Registro::create($request->all());
+        Cadastro::where('id', $request->id)->update([
+            'zenitelic_id' => $registro->ID_usuario
+        ]);
+
+        return redirect()->route('cadastros.index')
+            ->with('success', 'Cadastro criado com sucesso.');
     }
 }

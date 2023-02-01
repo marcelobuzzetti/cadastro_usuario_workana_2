@@ -24,4 +24,9 @@ class Cadastro extends Model
     ];
 
     protected $table = 'cadastros';
+
+    public function registro()
+    {
+        return $this->hasOne(Registro::class, 'ID_usuario', 'zenitelic_id');
+    }
 }
