@@ -185,7 +185,7 @@ class RegistroController extends Controller
      */
     public function destroy(Registro $registro)
     {
-        $logs = DB::select("SELECT count(ID_usuario) AS count FROM log
+        $logs = DB::select("SELECT count(ID_usuario) AS count FROM Log
             WHERE ID_usuario = ?", [$registro->ID_usuario]);
 
         if($logs[0]->count > 0) {
