@@ -256,6 +256,12 @@ class CadastroController extends Controller
                 'zenitelic_id' => $registro->ID_usuario
             ]);
 
+            $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo))
+            ->delay(now()->addSeconds(2));
+
+            dispatch($job);
+
+
             return redirect()->route('cadastros.index')
                 ->with('success', 'Cadastro criado com sucesso.');
         } else {
