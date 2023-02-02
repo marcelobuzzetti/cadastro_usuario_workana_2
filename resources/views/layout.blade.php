@@ -160,10 +160,16 @@
                             Email Marketing
                         </a>
                     </li>
-                    <li>
-                        <a class="nav-link {{ Request::path() == 'cadastros' ? 'active' : '' }} " href="{{ route('cadastros.index') }}">
+                    <li
+                        class="nav-item dropdown {{ Request::path() == 'cadastros' ? 'active' : '' }} ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Cadastro Web
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('cadastros.index') }}">Cadastros Inativos</a>
+                            <a class="dropdown-item" href="{{ route('cadastros.ativos') }}">Cadastros Ativos</a>
+                        </div>
                     </li>
                     @endif
                     <li

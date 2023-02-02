@@ -23,7 +23,7 @@ class CadastroController extends Controller
 
         if (Auth::check() && Auth::user()->perfil_id === 1) {
             $cadastro = new Cadastro();
-            $cadastros = $cadastro->with(['Registro'])->get();
+            $cadastros = $cadastro->with(['Registro'])->whereNull("zenitelic_id")->get();
             return view('cadastro.index', compact('cadastros'));
         } else {
             return view('cadastro.create');
@@ -302,4 +302,22 @@ class CadastroController extends Controller
         }
         echo "enviado";
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ativos()
+    {
+        if (Auth::check() && Auth::user()->perfil_id === 1) {
+            /* $cadastro = new Cadastro();
+            $cadastros = $cadastro->with(['Registro'])->get(); */
+            $cadastros = Cadastro::all();
+            return view('cadastro.index', compact('cadastros'));
+        } else {
+            return view('cadastro.create');
+        }
+    }
+
 }
