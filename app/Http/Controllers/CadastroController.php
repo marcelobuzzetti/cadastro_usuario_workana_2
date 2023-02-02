@@ -139,6 +139,11 @@ class CadastroController extends Controller
 
         dispatch($job);
 
+        $job = (new \App\Jobs\NovoCadastroQueue("Novo Cadastro na Radar Zenite", "marcelobuzzetti@gmail.com", $cadastro, $request->nome_completo))
+        ->delay(now()->addSeconds(2));
+
+        dispatch($job);
+
         return response()->json(['success' => "Cadastro realizado com sucesso!!!"]);
     }
 

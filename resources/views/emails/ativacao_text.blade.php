@@ -12,7 +12,7 @@ Liberamos acesso a conta {{ $registro->Login }}
  -
     Uma vez instalado, o uso das telas está explicado no manual. Tendo dúvidas pode nos perguntar.
  -
-    <a href:"https://drive.google.com">Drive</a>
+    <a href="https://drive.google.com">Drive</a>
  -
     Seguimos à disposição para dúvidas etc.
  -
