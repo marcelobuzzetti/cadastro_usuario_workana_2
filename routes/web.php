@@ -21,6 +21,8 @@ Route::get('/', function () {
     return redirect('/cadastros');
 });
 
+Route::get('/teste', [CadastroController::class, 'teste'])->name('teste');
+
 Route::get('/inativo', function () {
     return view('inactive');
 })->name('inativo');

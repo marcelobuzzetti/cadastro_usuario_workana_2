@@ -69,7 +69,7 @@ class CadastroController extends Controller
             ]);
         }
 
-        switch($request->mercado){
+        switch ($request->mercado) {
             case 1:
                 $request->merge([
                     'mercado' => "Nacional",
@@ -119,28 +119,27 @@ class CadastroController extends Controller
         Nome Completo: $request->nome_completo \n
         Email: $request->email \n
         Telefone: $request->telefone \n
-        Tem Corretora?". ($request->has_corretora ? "Sim" : "Não") .
-        "Nome da Corretora: $request->nome_corretora
+        Tem Corretora?" . ($request->has_corretora ? "Sim" : "Não") .
+            "Nome da Corretora: $request->nome_corretora
         Nr da Corretora: $request->nr_conta_corretora
-        \nUsa o Metatrader 5? ". ($request->use_metatrader ? "Sim" : "Não") .
-        "\nEstá com autorização da corretora para rotear pelo METATRADER 5? ". ($request->has_auth_use_metatrader ? "Sim" : "Não") .
-        "\nTem interesse em qual mercado para o RADAR? ". $request->mercado);
+        \nUsa o Metatrader 5? " . ($request->use_metatrader ? "Sim" : "Não") .
+            "\nEstá com autorização da corretora para rotear pelo METATRADER 5? " . ($request->has_auth_use_metatrader ? "Sim" : "Não") .
+            "\nTem interesse em qual mercado para o RADAR? " . $request->mercado);
 
 
         try {
             $cadastro = Cadastro::create($request->all());
         } catch (Exception $e) {
             return response()->json(['error' => json_encode($e->getMessage())]);
-
         }
 
         $job = (new \App\Jobs\CadastroOnlineQueue("Cadastro na Radar Zenite", $request->email, $cadastro, $request->nome_completo))
-        ->delay(now()->addSeconds(2));
+            ->delay(now()->addSeconds(2));
 
         dispatch($job);
 
         $job = (new \App\Jobs\NovoCadastroQueue("Novo Cadastro na Radar Zenite", "marcelobuzzetti@gmail.com", $cadastro, $request->nome_completo))
-        ->delay(now()->addSeconds(2));
+            ->delay(now()->addSeconds(2));
 
         dispatch($job);
 
@@ -194,7 +193,7 @@ class CadastroController extends Controller
 
     public function email(Request $request)
     {
-        if (! $request->ajax()) {
+        if (!$request->ajax()) {
             return view('cadastros.index');
         }
 
@@ -203,18 +202,16 @@ class CadastroController extends Controller
         $mensagem = $request->mensagem ? $request->mensagem : 'Você não acessou';
         Mail::to($email)->send(new FaltaDeAcesso($mensagem, $assunto));
 
-        if( count(Mail::failures()) > 0 ) {
+        if (count(Mail::failures()) > 0) {
             $error = [];
-            foreach(Mail::failures() as $email_address) {
+            foreach (Mail::failures() as $email_address) {
                 $error[] = $email_address;
-             }
-            return response()->json(['error'=>json_encode($error)]);
+            }
+            return response()->json(['error' => json_encode($error)]);
+        } else {
 
-         } else {
-
-            return response()->json(['success'=>"Email enviado com sucesso!!!"]);
-         }
-
+            return response()->json(['success' => "Email enviado com sucesso!!!"]);
+        }
     }
 
     public function zenitlic($id)
@@ -229,7 +226,7 @@ class CadastroController extends Controller
 
     public function cadastrozenitelic(Request $request)
     {
-        if(Auth::check() && Auth::user()->perfil_id === 1) {
+        if (Auth::check() && Auth::user()->perfil_id === 1) {
             $ipAddress = $request->ip();
 
             $request->validate([
@@ -262,7 +259,7 @@ class CadastroController extends Controller
             ]);
 
             $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo))
-            ->delay(now()->addSeconds(2));
+                ->delay(now()->addSeconds(2));
 
             dispatch($job);
 
@@ -272,5 +269,37 @@ class CadastroController extends Controller
         } else {
             return view('cadastro.create');
         }
+    }
+
+    public function teste()
+    {
+        $registro = Registro::first();
+        $data = date('d/m/Y - H:i:s', strtotime($registro->Data_limite));
+        $login = $registro->Login;
+        $link = "https://mafs.website";
+
+        $mensagem = "
+        Liberamos acesso a conta [login] \n
+        Acesso liberado até [data]. Poderemos renovar automaticamente. \n
+        Uma vez logado no MT5 com sua conta (com dados de login e senha fornecidos pela corretora) siga o manual do Radar que consta no link abaixo. \n
+        Qualquer dúvida nos avise. \n
+        Link para download do manual e arquivo de instalação. \n
+        Muitos relatos que a instalação .EXE tem acionado o antivírus. Então subimos também uma .RAR. Basta copiar esse .RAR no local indicado no manual e selecionar o \n arquivo com botão direito e mandar extrair aqui. Seguir o manual. Há vídeos (links) no manual. Há explicação das telas na parte final do manual. \n
+        Uma vez instalado, o uso das telas está explicado no manual. Tendo dúvidas pode nos perguntar. \n
+        [link]\n
+        Seguimos à disposição para dúvidas etc.\n
+        Att.\n
+        Radar Zênite.";
+
+        $mensagem = str_replace("[login]",$login, $mensagem);
+        $mensagem = str_replace("[data]",$data, $mensagem);
+        $mensagem = str_replace("[link]",$link, $mensagem);
+
+        try {
+            Mail::to("marcelobuzzetti@gmail.com", "Marcelo")->send(new FaltaDeAcesso($mensagem, "Teste"));
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        echo "enviado";
     }
 }
