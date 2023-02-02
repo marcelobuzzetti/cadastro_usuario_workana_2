@@ -75,7 +75,7 @@
         <tr><br></tr>
         <tr>
             <td><a style="background-color: blue; border-radius: 50px; color:white; width: fit-content; padding: 10px; text-decoration:none;"
-                href="http://localhost/cadastros/zenitlic/{{ $cadastro->id }}">Cadastrar ZenitLic</a></td>
+                href="https://radarzenite.mafs.website/cadastros/zenitlic/{{ $cadastro->id }}">Cadastrar ZenitLic</a></td>
         </tr>
         <hr>
         <tr class="footer">
