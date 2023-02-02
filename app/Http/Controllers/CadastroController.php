@@ -24,7 +24,9 @@ class CadastroController extends Controller
         if (Auth::check() && Auth::user()->perfil_id === 1) {
             $cadastro = new Cadastro();
             $cadastros = $cadastro->with(['Registro'])->whereNull("zenitelic_id")->get();
-            return view('cadastro.index', compact('cadastros'));
+            return view('cadastro.index', compact('cadastros'))->with([
+                "title" => "Cadastros Onlines Não Ativados"
+            ]);
         } else {
             return view('cadastro.create');
         }
@@ -314,7 +316,9 @@ class CadastroController extends Controller
             /* $cadastro = new Cadastro();
             $cadastros = $cadastro->with(['Registro'])->get(); */
             $cadastros = Cadastro::all();
-            return view('cadastro.index', compact('cadastros'));
+            return view('cadastro.index', compact('cadastros'))->with([
+                "title" => "Cadastros Onlines Ativados"
+            ]);
         } else {
             return view('cadastro.create');
         }
