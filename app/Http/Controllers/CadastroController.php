@@ -56,7 +56,7 @@ class CadastroController extends Controller
             'cpf' => 'required|cpf|unique:cadastros|max:11',
             'has_corretora' => 'required|boolean',
             'nome_corretora' => 'required|max:255',
-            'nr_conta_corretora' => 'required|numeric|max:255',
+            'nr_conta_corretora' => 'required|numeric|digits_between:1,20',
             'use_metatrader' => 'required|boolean',
             'has_auth_use_metatrader' => 'required|boolean',
             'mercado' => 'required|between:1,4',
@@ -126,16 +126,18 @@ class CadastroController extends Controller
         "\nEstá com autorização da corretora para rotear pelo METATRADER 5? ". ($request->has_auth_use_metatrader ? "Sim" : "Não") .
         "\nTem interesse em qual mercado para o RADAR? ". $request->mercado);
 
-        $job = (new \App\Jobs\CadastroOnlineQueue("Cadastro na Radar Zenite", $request->email, $mensagem, $request->nome_completo))
+
+        try {
+            $cadastro = Cadastro::create($request->all());
+        } catch (Exception $e) {
+            return response()->json(['error' => json_encode($e->getMessage())]);
+
+        }
+
+        $job = (new \App\Jobs\CadastroOnlineQueue("Cadastro na Radar Zenite", $request->email, $cadastro, $request->nome_completo))
         ->delay(now()->addSeconds(2));
 
         dispatch($job);
-
-        try {
-            Cadastro::create($request->all());
-        } catch (Exception $e) {
-            return response()->json(['error' => json_encode($e->getMessage())]);
-        }
 
         return response()->json(['success' => "Cadastro realizado com sucesso!!!"]);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Cadastro;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,17 +12,17 @@ class CadastroOnline extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mensagem;
     public $assunto;
+    public $cadastro;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mensagem, $assunto)
+    public function __construct($cadastro, $assunto)
     {
-        $this->mensagem = $mensagem;
         $this->assunto = $assunto;
+        $this->cadastro = $cadastro;
     }
 
     /**
@@ -35,7 +36,7 @@ class CadastroOnline extends Mailable
         ->text( 'emails.cadastroonline_text' )
         ->subject($this->assunto)
         ->with([
-            'mensagem' => $this->mensagem
+            'cadastro' => $this->cadastro
         ]);
     }
 }

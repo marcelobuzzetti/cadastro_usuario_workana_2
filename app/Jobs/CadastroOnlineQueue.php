@@ -2,7 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Mail\FaltaDeAcesso;
+use App\Mail\CadastroOnline;
+use App\Models\Cadastro;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,18 +17,18 @@ class CadastroOnlineQueue implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected $assunto;
     protected $email;
-    protected $mensagem;
+    protected $cadastro;
     protected $nome;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($assunto, $email, $mensagem, $nome)
+    public function __construct($assunto, $email, $cadastro, $nome)
     {
         $this->assunto = $assunto;
         $this->email = $email;
-        $this->mensagem = $mensagem;
+        $this->cadastro = $cadastro;
         $this->nome = $nome;
     }
 
@@ -38,6 +39,6 @@ class CadastroOnlineQueue implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email, $this->nome)->send(new FaltaDeAcesso($this->mensagem, $this->assunto));
+        Mail::to($this->email, $this->nome)->send(new CadastroOnline($this->cadastro, $this->assunto));
     }
 }
