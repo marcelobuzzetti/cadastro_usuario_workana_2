@@ -41,12 +41,10 @@ class ConfigController extends Controller
      */
     public function store(Request $request)
     {
-        /* $config = Config::latest()->first();
+        $config = Config::latest()->first();
         if ($config){
             return redirect()->route('configs.edit', $config->id);
-        } */
-
-        /* dd($request); */
+        }
 
         $request->validate([
             'email' => 'required|email',
