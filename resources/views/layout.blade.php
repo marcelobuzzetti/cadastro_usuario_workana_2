@@ -171,6 +171,11 @@
                             <a class="dropdown-item" href="{{ route('cadastros.ativos') }}">Cadastros Ativos</a>
                         </div>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link {{ Request::path() == 'configs' ? 'active' : '' }} " href="{{ route('configs.create') }}">
+                            Editar Email de Ativação
+                        </a>
+                    </li>
                     @endif
                     <li
                         class="nav-item dropdown {{ Request::path() == 'registros' ? 'active' : '' }} ">
