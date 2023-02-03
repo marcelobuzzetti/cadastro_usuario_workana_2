@@ -29,6 +29,7 @@ class ConfigController extends Controller
         if ($config){
             return redirect()->route('configs.edit', $config->id);
         }
+
         return view('config.create');
     }
 
@@ -45,6 +46,8 @@ class ConfigController extends Controller
             return redirect()->route('configs.edit', $config->id);
         } */
 
+        /* dd($request); */
+
         $request->validate([
             'email' => 'required|email',
             'corpo_email' => 'required',
@@ -56,8 +59,9 @@ class ConfigController extends Controller
         $link = $request->old('link');
 
         try {
-            $config = Config::create($request->all());
+            Config::create($request->all());
         } catch (Exception $e) {
+            dd($e->getMessage());
             return redirect()->route('cadastros.index')
             ->with('error', $e->getMessage());
         }
