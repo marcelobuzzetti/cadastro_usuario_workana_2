@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\FaltaDeAcesso;
 use App\Models\Cadastro;
+use App\Models\Config;
 use App\Models\Registro;
 use Exception;
 use Illuminate\Http\Request;
@@ -296,9 +297,11 @@ class CadastroController extends Controller
         $mensagem = str_replace("[login]",$login, $mensagem);
         $mensagem = str_replace("[data]",$data, $mensagem);
         $mensagem = str_replace("[link]",$link, $mensagem);
+        $config = Config::first()->get();
+        /* dd($config); */
 
         try {
-            Mail::to("marcelobuzzetti@gmail.com", "Marcelo")->send(new FaltaDeAcesso($mensagem, "Teste"));
+            Mail::to($config->first()->email, "Marcelo")->send(new FaltaDeAcesso($mensagem, "Teste"));
         } catch (Exception $e) {
             dd($e->getMessage());
         }

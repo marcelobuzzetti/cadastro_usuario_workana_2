@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CadastroController;
+use App\Http\Controllers\ConfigController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::permanentRedirect('/email', '/registros');
 
     Route::resource('emailMarketing', EmailController::class)->middleware(['acl']);
+    Route::resource('configs', ConfigController::class)->middleware(['acl']);
 
 });
 
