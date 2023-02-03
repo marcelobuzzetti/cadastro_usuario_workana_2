@@ -13,15 +13,16 @@ class Ativacao extends Mailable
 
     public $assunto;
     public $registro;
+    public $mensagem;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($registro, $assunto)
+    public function __construct($mensagem, $assunto)
     {
         $this->assunto = $assunto;
-        $this->registro = $registro;
+        $this->mensagem = $mensagem;
     }
 
     /**
@@ -35,7 +36,7 @@ class Ativacao extends Mailable
         ->text( 'emails.ativacao_text' )
         ->subject($this->assunto)
         ->with([
-            'registro' => $this->registro
+            'mensagem' => $this->mensagem
         ]);
     }
 }

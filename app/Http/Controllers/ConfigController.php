@@ -99,10 +99,11 @@ class ConfigController extends Controller
      */
     public function update(Request $request, Config $config)
     {
+
         $request->validate([
             'email' => 'required|email',
             'corpo_email' => 'required',
-            'link' => 'required|url',
+            'link' => 'required',
         ]);
 
         $email = $request->old('email');
@@ -111,10 +112,6 @@ class ConfigController extends Controller
 
         try {
             $config->update($request->all());
-            $message = [
-                "type" => "success",
-                "message" => "Empresa atualizada com sucesso!!!"
-            ];
         } catch (Exception $e) {
             return redirect()->route('cadastros.index')
             ->with('error', $e->getMessage());

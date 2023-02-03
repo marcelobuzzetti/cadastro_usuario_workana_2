@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\Ativacao;
+use App\Models\Config;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,6 +20,7 @@ class AtivacaoQueue implements ShouldQueue
     protected $email;
     protected $registro;
     protected $nome;
+    protected $mensagem;
     /**
      * Create a new job instance.
      *
@@ -30,6 +32,10 @@ class AtivacaoQueue implements ShouldQueue
         $this->email = $email;
         $this->registro = $registro;
         $this->nome = $nome;
+        $this->mensagem = Config::latest()->first();
+        $this->mensagem = str_replace("[login]",$this->registro->Login, $this->mensagem);
+        $this->mensagem = str_replace("[data]",date('d/m/Y - H:i:s', strtotime($this->registro->Data_limite)), $this->mensagem);
+        /* $this->mensagem = str_replace("[link]",$link, $this->mensagem); */
     }
 
     /**
@@ -39,6 +45,6 @@ class AtivacaoQueue implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email, $this->nome)->send(new Ativacao($this->registro, $this->assunto));
+        Mail::to($this->email, $this->nome)->send(new Ativacao($this->mensagem, $this->assunto));
     }
 }
