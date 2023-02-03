@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Ativacao;
 use App\Mail\FaltaDeAcesso;
 use App\Models\Cadastro;
 use App\Models\Config;
@@ -260,8 +261,11 @@ class CadastroController extends Controller
             Cadastro::where('id', $request->id)->update([
                 'zenitelic_id' => $registro->ID_usuario
             ]);
+            $mensagem = Config::latest()->first();
+            $mensagem->corpo_email = str_replace("[login]", $registro->Login , $mensagem->corpo_email);
+            $mensagem->corpo_email = str_replace("[data]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
 
-            $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo))
+            $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo, $mensagem))
                 ->delay(now()->addSeconds(2));
 
             dispatch($job);
@@ -277,6 +281,22 @@ class CadastroController extends Controller
     public function teste()
     {
         $registro = Registro::first();
+        /* dd($registro->Login); */
+        $mensagem = Config::latest()->first();
+        $mensagem->corpo_email = str_replace("[login]", ($registro->Login) , $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[data]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[link]",$mensagem->link, $mensagem->corpo_email);
+
+
+        try {
+            Mail::to($mensagem->email, "Marcelo")->send(new Ativacao($mensagem, "Teste"));
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+        echo "enviado";
+
+        exit();
+
         $data = date('d/m/Y - H:i:s', strtotime($registro->Data_limite));
         $login = $registro->Login;
         $link = "https://mafs.website";
@@ -318,7 +338,8 @@ class CadastroController extends Controller
         if (Auth::check() && Auth::user()->perfil_id === 1) {
             /* $cadastro = new Cadastro();
             $cadastros = $cadastro->with(['Registro'])->get(); */
-            $cadastros = Cadastro::all();
+            $cadastro = new Cadastro();
+            $cadastros = $cadastro->with(['Registro'])->whereNotNull("zenitelic_id")->get();
             return view('cadastro.index', compact('cadastros'))->with([
                 "title" => "Cadastros Onlines Ativados"
             ]);

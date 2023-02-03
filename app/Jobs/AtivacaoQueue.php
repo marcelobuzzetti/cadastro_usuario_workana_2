@@ -26,16 +26,13 @@ class AtivacaoQueue implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($assunto, $email, $registro, $nome)
+    public function __construct($assunto, $email, $registro, $nome, $mensagem)
     {
         $this->assunto = $assunto;
         $this->email = $email;
         $this->registro = $registro;
         $this->nome = $nome;
-        $this->mensagem = Config::latest()->first();
-        $this->mensagem = str_replace("[login]",$this->registro->Login, $this->mensagem);
-        $this->mensagem = str_replace("[data]",date('d/m/Y - H:i:s', strtotime($this->registro->Data_limite)), $this->mensagem);
-        /* $this->mensagem = str_replace("[link]",$link, $this->mensagem); */
+        $this->mensagem = $mensagem;
     }
 
     /**
