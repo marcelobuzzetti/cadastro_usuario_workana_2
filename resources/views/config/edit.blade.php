@@ -13,7 +13,7 @@
             @csrf
             @method('PUT')
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 mb-2">
+                <div class="col-xs-12 col-sm-12 col-md-12 mb-2">
                     <div class="form-group">
                         <strong>Email para Notificação</strong>
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
@@ -24,18 +24,16 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 mb-2">
+                <div class="col-xs-12 col-sm-12 col-md-12 mb-2">
                     <div class="form-group">
                         <strong>Corpo do Email</strong>
-                        <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
-                            placeholder="Digite a mensagem central do email de Ativação"
-                            value="{{ old('corpo_email') ? old('corpo_email') : $config->corpo_email }}">
-                        @error('email')
+                        <textarea name="corpo_email" class="form-control @error('corpo_email') is-invalid @enderror" rows="10">{{ old('corpo_email') ? old('corpo_email') : $config->corpo_email }}</textarea>
+                        @error('corpo_email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 mb-2">
+                <div class="col-xs-12 col-sm-12 col-md-12 mb-2">
                     <div class="form-group">
                         <strong>Link do Arquivo de Instruções</strong>
                         <input type="url" name="link" class="form-control @error('link') is-invalid @enderror"

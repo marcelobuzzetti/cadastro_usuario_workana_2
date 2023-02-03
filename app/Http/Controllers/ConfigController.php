@@ -25,6 +25,10 @@ class ConfigController extends Controller
      */
     public function create()
     {
+        $config = Config::latest()->first();
+        if ($config){
+            return redirect()->route('configs.edit', $config->id);
+        }
         return view('config.create');
     }
 
@@ -36,6 +40,11 @@ class ConfigController extends Controller
      */
     public function store(Request $request)
     {
+        $config = Config::latest()->first();
+        if ($config){
+            return redirect()->route('configs.edit', $config->id);
+        }
+
         $request->validate([
             'email' => 'required|email',
             'corpo_email' => 'required',
@@ -63,9 +72,10 @@ class ConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Config $config)
+    public function show($id)
     {
-
+        $config = Config::findOrFail($id);
+        return view('config.show', compact('config'));
     }
 
     /**

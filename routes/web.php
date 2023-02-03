@@ -46,7 +46,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::permanentRedirect('/email', '/registros');
 
     Route::resource('emailMarketing', EmailController::class)->middleware(['acl']);
-    Route::resource('configs', ConfigController::class)->middleware(['acl']);
+    Route::resource('configs', ConfigController::class)->middleware(['acl'])->except([
+        'index'
+    ]);
 
 });
 

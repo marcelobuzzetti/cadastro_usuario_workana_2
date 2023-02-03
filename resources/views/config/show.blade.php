@@ -4,7 +4,7 @@
     <div class="card-glass">
         <div class="row">
             <div class="pull-left">
-                <h2>Mostrar Empresa</h2>
+                <h2>Mostrar Email</h2>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
