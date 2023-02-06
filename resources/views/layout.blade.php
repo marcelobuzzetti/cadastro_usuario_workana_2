@@ -191,6 +191,11 @@
                             @endif
                         </div>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link {{ Request::path() == 'relatorio' ? 'active' : '' }} " href="{{ route('relatorio') }}">
+                            Relatório de Acesso
+                        </a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ">
                     <li class="nav-item dropdown my-2 my-lg-0">
