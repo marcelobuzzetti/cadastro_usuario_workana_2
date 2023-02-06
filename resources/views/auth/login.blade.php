@@ -46,11 +46,11 @@
                         {{ __('Esqueceu a Senha?') }}
                     </a>
                 @endif
-                @if (Route::has('register'))
+                {{-- @if (Route::has('register'))
                     <a class="ml-2 underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
                         {{ __('Cadastra-se') }}
                     </a>
-                @endif
+                @endif --}}
 
                 <x-button class="ml-3">
                     {{ __('Log in') }}
