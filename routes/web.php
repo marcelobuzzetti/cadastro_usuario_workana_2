@@ -19,7 +19,8 @@ use App\Http\Controllers\ConfigController;
 */
 
 Route::get('/', function () {
-    return redirect('/cadastros');
+    /* return redirect('/cadastros'); */
+    return view('cadastro.create');
 });
 
 Route::get('/teste', [CadastroController::class, 'teste'])->name('teste');
