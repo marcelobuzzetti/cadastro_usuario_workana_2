@@ -6,6 +6,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\RelatorioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['acl'])->name('ativar');
     Route::resource('registros', RegistroController::class);
     Route::resource('usuarios', UsuarioController::class)->middleware(['acl']);
-
     Route::get('/acessos', [RegistroController::class, 'acessos'])->middleware(['acl'])->name('acessos');
     Route::post('/email', [RegistroController::class, 'email'])->name('email');
     Route::post('/emailcadastro', [CadastroController::class, 'email'])->name('emailcadastro');
@@ -45,12 +45,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/cadastros/zenitlic/{id}', [CadastroController::class, 'zenitlic'])->name('cadastros.zenitlic')->middleware(['acl']);
     Route::get('/ativos', [CadastroController::class, 'ativos'])->name('cadastros.ativos')->middleware(['acl']);
     Route::permanentRedirect('/email', '/registros');
-
     Route::resource('emailMarketing', EmailController::class)->middleware(['acl']);
     Route::resource('configs', ConfigController::class)->middleware(['acl'])->except([
         'index'
     ]);
-
+    Route::get('/relatorio', [RelatorioController::class, 'index'])->middleware(['acl'])->name('relatorio');
+    Route::post('/relatorio', [RelatorioController::class, 'search'])->middleware(['acl'])->name('search');
 });
 
 require __DIR__.'/auth.php';
