@@ -32,7 +32,7 @@ class RelatorioController extends Controller
                 'end_date'   => 'required|date|after:start_date',
             ]);
             if (Auth::user()->perfil_id === 1) {
-                $registros = Registro::whereBetween('Data_ult_ent',[$request->start_date, $request->end_date]);
+                $registros = Registro::whereBetween('Data_ult_ent',[$request->start_date, $request->end_date])->get();
             }
 
             if (Auth::user()->perfil_id === 2) {
@@ -52,8 +52,7 @@ class RelatorioController extends Controller
 
         } else {
             if (Auth::user()->perfil_id === 1) {
-                $registros = Registro::where('Data_ult_ent', ">=",$request->start_date);
-                dd($registros);
+                $registros = Registro::where('Data_ult_ent', ">=",$request->start_date)->get();
             }
 
             if (Auth::user()->perfil_id === 2) {
