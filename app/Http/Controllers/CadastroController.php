@@ -142,7 +142,9 @@ class CadastroController extends Controller
 
         dispatch($job);
 
-        $job = (new \App\Jobs\NovoCadastroQueue("Novo Cadastro na Radar Zenite", "marcelobuzzetti@gmail.com", $cadastro, $request->nome_completo))
+        $mensagem = Config::latest()->first();
+
+        $job = (new \App\Jobs\NovoCadastroQueue("Novo Cadastro na Radar Zenite", $mensagem->email, $cadastro, $request->nome_completo))
             ->delay(now()->addSeconds(2));
 
         dispatch($job);
@@ -262,8 +264,12 @@ class CadastroController extends Controller
                 'zenitelic_id' => $registro->ID_usuario
             ]);
             $mensagem = Config::latest()->first();
+            $mensagem->corpo_email = str_replace("[nome]", $registro->Nome , $mensagem->corpo_email);
             $mensagem->corpo_email = str_replace("[login]", $registro->Login , $mensagem->corpo_email);
-            $mensagem->corpo_email = str_replace("[data]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
+            $mensagem->corpo_email = str_replace("[cpf]", $registro->CPF , $mensagem->corpo_email);
+            $mensagem->corpo_email = str_replace("[data_inicial]",date('d/m/Y - H:i:s', strtotime($registro->Data_inicial)), $mensagem->corpo_email);
+            $mensagem->corpo_email = str_replace("[data_limite]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
+            $mensagem->corpo_email = str_replace("[data_ult_ent]",date('d/m/Y - H:i:s', strtotime($registro->Data_ult_ent)), $mensagem->corpo_email);
 
             $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo, $mensagem))
                 ->delay(now()->addSeconds(2));

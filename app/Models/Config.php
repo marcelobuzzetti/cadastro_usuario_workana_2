@@ -12,7 +12,6 @@ class Config extends Model
     protected $fillable = [
         'email',
         'corpo_email',
-        'link',
     ];
 
     protected $table = 'configs';

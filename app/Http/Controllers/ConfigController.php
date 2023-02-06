@@ -49,22 +49,20 @@ class ConfigController extends Controller
         $request->validate([
             'email' => 'required|email',
             'corpo_email' => 'required',
-            'link' => 'required|url',
         ]);
 
         $email = $request->old('email');
         $corpo_email = $request->old('corpo_email');
-        $link = $request->old('link');
 
         try {
-            Config::create($request->all());
+            $config = Config::create($request->all());
         } catch (Exception $e) {
             dd($e->getMessage());
             return redirect()->route('cadastros.index')
             ->with('error', $e->getMessage());
         }
 
-        return redirect()->route('cadastros.index')
+        return redirect()->route('config.show', $config->id)
             ->with('success', "Config criada com sucesso!!!");
     }
 
@@ -105,12 +103,10 @@ class ConfigController extends Controller
         $request->validate([
             'email' => 'required|email',
             'corpo_email' => 'required',
-            'link' => 'required',
         ]);
 
         $email = $request->old('email');
         $corpo_email = $request->old('corpo_email');
-        $link = $request->old('link');
 
         try {
             $config->update($request->all());
@@ -119,7 +115,7 @@ class ConfigController extends Controller
             ->with('error', $e->getMessage());
         }
 
-        return redirect()->route('cadastros.index')
+        return redirect()->route('configs.show', $config->id)
             ->with('success', "Configs Atualizadas");
     }
 
