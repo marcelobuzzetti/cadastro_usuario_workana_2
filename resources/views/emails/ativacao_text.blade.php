@@ -1,1 +1,1 @@
-{{ $mensagem->corpo_email }}
+{!! $mensagem->corpo_email !!}
