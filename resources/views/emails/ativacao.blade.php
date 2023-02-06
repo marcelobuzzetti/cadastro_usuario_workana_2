@@ -40,7 +40,7 @@
         </tr>
         <hr>
         <tr>
-            <td><div style="white-space: pre-wrap;">{{ $mensagem->corpo_email }}</div></td>
+            <td><div style="white-space: pre-wrap;">{!! $mensagem->corpo_email !!}</div></td>
         </tr>
         {{-- <tr>
             <td>Liberamos acesso a conta {{ $registro->Login }}</td>
