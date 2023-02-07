@@ -34,24 +34,29 @@ Route::resource('cadastros', CadastroController::class);
 
 Route::group(['middleware' => ['auth']], function() {
 
-    Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['acl'])->name('inativos');
-    Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['acl'])->name('ativar');
-    Route::resource('registros', RegistroController::class);
-    Route::resource('usuarios', UsuarioController::class)->middleware(['acl']);
-    Route::get('/acessos', [RegistroController::class, 'acessos'])->middleware(['acl'])->name('acessos');
-    Route::post('/email', [RegistroController::class, 'email'])->name('email');
-    Route::post('/emailcadastro', [CadastroController::class, 'email'])->name('emailcadastro');
-    Route::post('/cadastros/zenitlic', [CadastroController::class, 'cadastrozenitelic'])->name('cadastrozenitelic')->middleware(['acl']);
-    Route::get('/cadastros/zenitlic/{id}', [CadastroController::class, 'zenitlic'])->name('cadastros.zenitlic')->middleware(['acl']);
-    Route::get('/ativos', [CadastroController::class, 'ativos'])->name('cadastros.ativos')->middleware(['acl']);
-    Route::permanentRedirect('/email', '/registros');
-    Route::resource('emailMarketing', EmailController::class)->middleware(['acl']);
+    Route::group(['middleware' => ['emailAtivacao']], function() {
+
+        Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['acl'])->name('inativos');
+        Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['acl'])->name('ativar');
+        Route::resource('registros', RegistroController::class);
+        Route::resource('usuarios', UsuarioController::class)->middleware(['acl']);
+        Route::get('/acessos', [RegistroController::class, 'acessos'])->middleware(['acl'])->name('acessos');
+        Route::post('/email', [RegistroController::class, 'email'])->name('email');
+        Route::post('/emailcadastro', [CadastroController::class, 'email'])->name('emailcadastro');
+        Route::post('/cadastros/zenitlic', [CadastroController::class, 'cadastrozenitelic'])->name('cadastrozenitelic')->middleware(['acl']);
+        Route::get('/cadastros/zenitlic/{id}', [CadastroController::class, 'zenitlic'])->name('cadastros.zenitlic')->middleware(['acl']);
+        Route::get('/ativos', [CadastroController::class, 'ativos'])->name('cadastros.ativos')->middleware(['acl']);
+        Route::permanentRedirect('/email', '/registros');
+        Route::resource('emailMarketing', EmailController::class)->middleware(['acl']);
+        Route::get('/relatorio', [RelatorioController::class, 'index'])->name('relatorio');
+        Route::post('/relatorio', [RelatorioController::class, 'search'])->name('search');
+        Route::post('/naoacessou', [RelatorioController::class, 'naoAcessou'])->name('naoacessou');
+
+    });
+
     Route::resource('configs', ConfigController::class)->middleware(['acl'])->except([
         'index'
     ]);
-    Route::get('/relatorio', [RelatorioController::class, 'index'])->middleware(['acl'])->name('relatorio');
-    Route::post('/naoacessou', [RelatorioController::class, 'naoAcessou'])->middleware(['acl'])->name('naoacessou');
-    Route::post('/relatorio', [RelatorioController::class, 'search'])->middleware(['acl'])->name('search');
 });
 
 require __DIR__.'/auth.php';

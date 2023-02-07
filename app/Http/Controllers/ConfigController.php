@@ -62,7 +62,7 @@ class ConfigController extends Controller
             ->with('error', $e->getMessage());
         }
 
-        return redirect()->route('config.show', $config->id)
+        return redirect()->route('configs.show', $config->id)
             ->with('success', "Config criada com sucesso!!!");
     }
 

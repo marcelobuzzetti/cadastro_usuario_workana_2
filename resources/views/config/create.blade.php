@@ -1,6 +1,9 @@
 @extends('layout')
 
 @section('content')
+@if (isset($error))
+<script>toastr.error('{{ $error }}')</script>
+@endif
     <div class="container">
         <div class="row">
             <div class="col-lg-12 margin-tb">
