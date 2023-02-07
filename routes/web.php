@@ -7,6 +7,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\CKEditorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('configs', ConfigController::class)->middleware(['acl'])->except([
         'index'
     ]);
+
+    Route::post('ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.image-upload');
+
 });
 
 require __DIR__.'/auth.php';

@@ -30,7 +30,7 @@
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
     <hr>
-    <form action="{{ route('emailMarketing.store') }}" method="POST">
+    <form action="{{ route('emailMarketing.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -54,7 +54,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <label for="mensagem">Mensagem</label>
-                    <textarea class="form-control" id="mensagem" name="mensagem" rows="3"></textarea>
+                    <textarea name="mensagem" id="mensagem" rows="10" cols="80"></textarea>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -147,6 +147,11 @@
                         $("#email_acesso")[0].reset();
                     },
                 });
+            });
+
+            CKEDITOR.replace( 'mensagem', {
+                filebrowserUploadUrl: "{{route('ckeditor.image-upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form'
             });
         })
     </script>
