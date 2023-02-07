@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 mb-2">
                     <div class="form-group">
-                        <strong>Email para Notificação de Novo Cadastro</strong>
+                        <strong>Email para qual será enviado a Notificação de Novo Cadastro</strong>
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                             placeholder="Digite o Email para Notificação"
                             value="{{ old('email') ? old('email') : $config->email }}">
