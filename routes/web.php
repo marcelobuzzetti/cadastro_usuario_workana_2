@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function() {
         'index'
     ]);
     Route::get('/relatorio', [RelatorioController::class, 'index'])->middleware(['acl'])->name('relatorio');
+    Route::post('/naoacessou', [RelatorioController::class, 'naoAcessou'])->middleware(['acl'])->name('naoacessou');
     Route::post('/relatorio', [RelatorioController::class, 'search'])->middleware(['acl'])->name('search');
 });
 

@@ -34,5 +34,13 @@
                 <button type="submit" class="btn btn-primary d-flex-inline"><i class="icofont-ui-calendar"></i> Gerar</button>
             </div>
         </form>
+        <hr>
+        <h2 style="text-align: center;">Relatório de usuários que ainda não acessaram</h2>
+        <form action="{{ route('naoacessou') }}" method="POST">
+            @csrf
+            <div class="col-xs-12 col-sm-12 col-md-12 mb-2 text-center d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary d-flex-inline"><i class="icofont-ui-calendar"></i> Gerar</button>
+            </div>
+        </form>
     </div>
 @endsection
