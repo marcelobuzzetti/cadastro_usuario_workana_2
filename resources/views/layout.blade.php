@@ -140,6 +140,20 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li
+                    class="nav-item dropdown {{ Request::path() == 'registros' ? 'active' : '' }} ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Registros
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('registros.index') }}">Lista de Registros</a>
+                        <a class="dropdown-item" href="{{ route('registros.create') }}">Adicionar Registro</a>
+                        @if (Auth::user()->perfil_id == 1)
+                            <a class="dropdown-item" href="{{ url('/acessos') }}">Usuários que ainda não acessaram</a>
+                        @endif
+                    </div>
+                </li>
                 @auth
                 @if (Auth::user()->perfil_id == 1)
                     <li
@@ -178,20 +192,6 @@
                         </a>
                     </li>
                     @endif
-                    <li
-                        class="nav-item dropdown {{ Request::path() == 'registros' ? 'active' : '' }} ">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Registros
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('registros.index') }}">Lista de Registros</a>
-                            <a class="dropdown-item" href="{{ route('registros.create') }}">Adicionar Registro</a>
-                            @if (Auth::user()->perfil_id == 1)
-                                <a class="dropdown-item" href="{{ url('/acessos') }}">Usuários que ainda não acessaram</a>
-                            @endif
-                        </div>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link {{ Request::path() == 'relatorio' ? 'active' : '' }} " href="{{ route('relatorio') }}">
                             Relatório de Acesso
