@@ -25,16 +25,11 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="row">
-                        Para que sejam exbidas informações do banco de dados favor inserir conforme abaixo:
-                    </div>
-                    <p>[cpf] = Exibe o CPF do usuário</p>
-                    <p>[nome] = Exibe o Nome do usuário</p>
-                    <p>[login] = Exibe o Login do usuário</p>
-                    <p>[data_inicial] = Exibe a Data Inicial do usuário</p>
-                    <p>[data_limite] = Exibe a Data Limite do usuário</p>
-                    <p>[data_ult_ent] = Exibe a Data da última entrada do usuário</p>
-                    <p>Exemplo: Nome do Usuário [nome]</p>
+                    <p>Para que sejam exbidas informações do banco de dados favor inserir conforme abaixo:</p>
+                    <p>[cpf] = Exibe o CPF do usuário - [nome] = Exibe o Nome do usuário</p>
+                    <p>[login] = Exibe o Login do usuário - [data_inicial] = Exibe a Data Inicial do usuário</p>
+                    <p>[data_limite] = Exibe a Data Limite do usuário - [data_ult_ent] = Exibe a Data da última entrada do usuário</p>
+                    <p>Exemplo: Nome do Usuário [nome], irá aparecer Nome de Usuário 1234567</p>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 mb-2">
                     <div class="form-group">
