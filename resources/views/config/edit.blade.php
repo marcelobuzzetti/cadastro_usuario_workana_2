@@ -9,7 +9,7 @@
                 </div>
             </div>
         </div>
-        <form action="{{ route('configs.update', $config->id) }}" method="POST">
+        <form action="{{ route('configs.update', $config->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
@@ -39,7 +39,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 mb-2">
                     <div class="form-group">
                         <strong>Corpo do Email</strong>
-                        <textarea name="corpo_email" class="form-control @error('corpo_email') is-invalid @enderror" rows="10">{{ old('corpo_email') ? old('corpo_email') : $config->corpo_email }}</textarea>
+                        {{-- <textarea name="corpo_email" class="form-control @error('corpo_email') is-invalid @enderror" rows="10">{{ old('corpo_email') ? old('corpo_email') : $config->corpo_email }}</textarea> --}}
+                        <textarea name="corpo_email" id="corpo_email" rows="10" cols="80">{{ old('corpo_email') ? old('corpo_email') : $config->corpo_email }}</textarea>
                         @error('corpo_email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -51,4 +52,11 @@
                 </div>
             </div>
         </form>
+        <script>$(document).ready(function() {
+            CKEDITOR.replace( 'corpo_email', {
+                    filebrowserUploadUrl: "{{route('ckeditor.image-upload', ['_token' => csrf_token() ])}}",
+                    filebrowserUploadMethod: 'form'
+                });
+        });
+    </script>
     @endsection

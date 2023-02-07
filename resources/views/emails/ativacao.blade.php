@@ -42,47 +42,6 @@
         <tr>
             <td><div style="white-space: pre-wrap;">{!! $mensagem->corpo_email !!}</div></td>
         </tr>
-        {{-- <tr>
-            <td>Liberamos acesso a conta {{ $registro->Login }}</td>
-        </tr>
-        <tr>
-            <td>Acesso liberado até {{ date('d/m/Y - H:i:s', strtotime($registro->Data_limite)) }}. Poderemos renovar automaticamente.</td>
-        </tr>
-        <tr>
-            <td>Uma vez logado no MT5 com sua conta (com dados de login e senha fornecidos pela corretora) siga o manual do Radar que consta no link abaixo.</td>
-        </tr>
-        <tr>
-            <td>Qualquer dúvida nos avise.</td>
-        </tr>
-        <tr>
-            <td>Link para download do manual e arquivo de instalação.</td>
-        </tr>
-        <tr>
-            <td>Muitos relatos que a instalação .EXE tem acionado o antivírus. Então subimos também uma .RAR. Basta copiar esse .RAR no local indicado no manual e selecionar o arquivo com botão direito e mandar extrair aqui. Seguir o manual. Há vídeos (links) no manual. Há explicação das telas na parte final do manual.</td>
-        </tr>
-        <tr>
-            <td>Uma vez instalado, o uso das telas está explicado no manual. Tendo dúvidas pode nos perguntar.</td>
-        </tr>
-        Liberamos acesso a conta [login]
-
-Acesso liberado até [data]. Poderemos renovar automaticamente.
-Uma vez logado no MT5 com sua conta (com dados de login e senha fornecidos pela corretora) siga o manual do Radar que consta no link abaixo.
-Qualquer dúvida nos avise.
-
-Link para download do manual e arquivo de instalação.
-[link]
-
-Muitos relatos que a instalação .EXE tem acionado o antivírus. Então subimos também uma .RAR. Basta copiar esse .RAR no local indicado no manual e selecionar o arquivo com botão direito e mandar extrair aqui. Seguir o manual. Há vídeos (links) no manual. Há explicação das telas na parte final do manual.
-Uma vez instalado, o uso das telas está explicado no manual. Tendo dúvidas pode nos perguntar. --}}
-        <tr>
-            <td>Seguimos à disposição para dúvidas</td>
-        </tr>
-        <tr>
-            <td>Att.</td>
-        </tr>
-        <tr>
-            <td>Radar Zênite.</td>
-        </tr>
         <hr>
         <tr class="footer">
             <td style="text-align: center;">

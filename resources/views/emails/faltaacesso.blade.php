@@ -35,8 +35,6 @@
         <tr class="body" style="text-align: center;">
             <td>
                 <div style="white-space: pre-wrap;">{!! $mensagem !!}</div>
-                <br>
-                <br>
             </td>
         </tr>
         <hr>
