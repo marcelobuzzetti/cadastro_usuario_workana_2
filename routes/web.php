@@ -31,12 +31,12 @@ Route::get('/inativo', function () {
     return view('inactive');
 })->name('inativo');
 
+Route::resource('cadastros', CadastroController::class);
 
 Route::group(['middleware' => ['auth']], function() {
 
     Route::group(['middleware' => ['emailAtivacao']], function() {
 
-        Route::resource('cadastros', CadastroController::class);
         Route::get('/usuarios/inativos', [UsuarioController::class, 'inativos'])->middleware(['acl'])->name('inativos');
         Route::put('/usuarios/ativar', [UsuarioController::class, 'ativar'])->middleware(['acl'])->name('ativar');
         Route::resource('registros', RegistroController::class);
