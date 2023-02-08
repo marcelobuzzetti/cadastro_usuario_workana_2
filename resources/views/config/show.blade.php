@@ -15,7 +15,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Mensagem do Email de Ativação:</strong>
-                    <div style="white-space: pre-wrap;">{!! $config->corpo_email !!}</div>
+                    <div>{!! $config->corpo_email !!}</div>
                 </div>
             </div>
             <div class="row mt-2">
