@@ -271,7 +271,7 @@ class CadastroController extends Controller
             $mensagem->corpo_email = str_replace("[data_limite]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
             $mensagem->corpo_email = str_replace("[data_ult_ent]",date('d/m/Y - H:i:s', strtotime($registro->Data_ult_ent)), $mensagem->corpo_email);
 
-            $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo, $mensagem))
+            $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo, $mensagem->corpo_email))
                 ->delay(now()->addSeconds(2));
 
             dispatch($job);
@@ -289,13 +289,15 @@ class CadastroController extends Controller
         $registro = Registro::first();
         /* dd($registro->Login); */
         $mensagem = Config::latest()->first();
-        $mensagem->corpo_email = str_replace("[login]", ($registro->Login) , $mensagem->corpo_email);
-        $mensagem->corpo_email = str_replace("[data]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
-        $mensagem->corpo_email = str_replace("[link]",$mensagem->link, $mensagem->corpo_email);
-
+        $mensagem->corpo_email = str_replace("[nome]", $registro->Nome , $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[login]", $registro->Login , $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[cpf]", $registro->CPF , $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[data_inicial]",date('d/m/Y - H:i:s', strtotime($registro->Data_inicial)), $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[data_limite]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[data_ult_ent]",date('d/m/Y - H:i:s', strtotime($registro->Data_ult_ent)), $mensagem->corpo_email);
 
         try {
-            Mail::to($mensagem->email, "Marcelo")->send(new Ativacao($mensagem, "Teste"));
+            Mail::to($mensagem->email, "Marcelo")->send(new Ativacao($mensagem->corpo_email, "Teste"));
         } catch (Exception $e) {
             dd($e->getMessage());
         }
