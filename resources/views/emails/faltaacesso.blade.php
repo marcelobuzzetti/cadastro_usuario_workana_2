@@ -32,9 +32,9 @@
             </td>
         </tr>
         <hr>
-        <tr class="body" style="text-align: center;">
+        <tr class="body">
             <td>
-                <div style="white-space: pre-wrap;">{!! $mensagem !!}</div>
+                {!! $mensagem !!}
             </td>
         </tr>
         <hr>

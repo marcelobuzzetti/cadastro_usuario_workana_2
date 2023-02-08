@@ -40,7 +40,7 @@
         </tr>
         <hr>
         <tr>
-            <td><div style="white-space: pre-wrap;">{!! $mensagem->corpo_email !!}</div></td>
+            <td>{!! $mensagem->corpo_email !!}</td>
         </tr>
         <hr>
         <tr class="footer">

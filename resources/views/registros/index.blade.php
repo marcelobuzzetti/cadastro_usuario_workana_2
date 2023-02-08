@@ -136,8 +136,8 @@
                             <input type="text" class="form-control" id="recipient-assunto">
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Menssagem:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <label for="message" class="col-form-label">Menssagem:</label>
+                            <textarea id="message" name="message"></textarea>
                         </div>
                     </form>
                 </div>
@@ -170,7 +170,7 @@
                 $('#loader_email').show()
 
                 let id = $('#recipient-id').val();
-                let mensagem = $('#message-text').val();
+                let mensagem = CKEDITOR.instances.message.getData();
                 let assunto = $('#recipient-assunto').val();
 
                 $.ajax({
@@ -197,6 +197,11 @@
                         $("#email_acesso")[0].reset();
                     },
                 });
+            });
+
+            CKEDITOR.replace( 'message', {
+                filebrowserUploadUrl: "{{route('ckeditor.image-upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form'
             });
         })
     </script>
