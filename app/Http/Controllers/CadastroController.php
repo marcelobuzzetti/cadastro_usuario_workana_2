@@ -248,7 +248,6 @@ class CadastroController extends Controller
             $ipAddress = $request->ip();
 
             $request->validate([
-                'CPF' => 'required',
                 'Nome' => 'required',
                 'Login' => 'required',
                 'Data_limite' => 'required',
@@ -256,7 +255,6 @@ class CadastroController extends Controller
                 'Telefone' => 'required',
             ]);
 
-            $CPF = $request->old('CPF');
             $Nome = $request->old('Nome');
             $Login = $request->old('Login');
             $Data_limite = $request->old('Data_limite');
