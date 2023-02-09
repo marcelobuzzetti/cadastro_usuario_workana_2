@@ -52,20 +52,32 @@ class CadastroController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'nome_completo' => 'required|max:255',
-            'email' => 'required|email|unique:cadastros',
-            'telefone' => 'required|numeric|unique:cadastros',
-            'cpf' => 'required|cpf|unique:cadastros|max:11',
-            'has_corretora' => 'required|boolean',
-            'nome_corretora' => 'required|max:255',
-            'nr_conta_corretora' => 'required|numeric|digits_between:1,20',
-            'use_metatrader' => 'required|boolean',
-            'has_auth_use_metatrader' => 'required|boolean',
-            'mercado' => 'required|between:1,4',
-        ]);
-
+        if($request->cpf){
+            $validator = Validator::make($request->all(), [
+                'nome_completo' => 'required|max:255',
+                'email' => 'required|email|unique:cadastros',
+                'telefone' => 'required|numeric|unique:cadastros',
+                'has_corretora' => 'required|boolean',
+                'nome_corretora' => 'required|max:255',
+                'nr_conta_corretora' => 'required|numeric|digits_between:1,20',
+                'use_metatrader' => 'required|boolean',
+                'has_auth_use_metatrader' => 'required|boolean',
+                'mercado' => 'required|between:1,4',
+                'cpf' => 'required|cpf|unique:cadastros|max:11',
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'nome_completo' => 'required|max:255',
+                'email' => 'required|email|unique:cadastros',
+                'telefone' => 'required|numeric|unique:cadastros',
+                'has_corretora' => 'required|boolean',
+                'nome_corretora' => 'required|max:255',
+                'nr_conta_corretora' => 'required|numeric|digits_between:1,20',
+                'use_metatrader' => 'required|boolean',
+                'has_auth_use_metatrader' => 'required|boolean',
+                'mercado' => 'required|between:1,4',
+            ]);
+        }
 
         if ($validator->fails()) {
             return response()->json([

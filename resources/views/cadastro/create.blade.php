@@ -272,7 +272,8 @@
 
                 <section>
                     <p class="title">Informações Complementares</p>
-                    <p>Você receberá uma email com informações assim que sua conta for ativada</p>
+                    <p>Você receberá uma email com informações assim que sua conta for ativada.</p>
+                    <p>Seus dados estarão seguros, conforme a Lei Geral de Proteção de Dados.</p>
                 </section>
 
                 <div class="butoes">
