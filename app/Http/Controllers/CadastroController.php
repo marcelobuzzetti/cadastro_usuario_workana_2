@@ -275,7 +275,7 @@ class CadastroController extends Controller
         $mensagem->corpo_email .= "<a href=". route('cadastros.zenitlic', 1) .">Teste</a>";
 
         try {
-            Mail::to($mensagem->email, "Marcelo")->send(new Ativacao($mensagem->corpo_email, "Teste"));
+            Mail::to("marcelobuzzetti@gmail.com", "Marcelo")->send(new Ativacao($mensagem->corpo_email, "Teste"));
         } catch (Exception $e) {
             dd($e->getMessage());
         }
