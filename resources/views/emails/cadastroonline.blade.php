@@ -72,6 +72,9 @@
         <tr>
             <td>Tem interesse em qual mercado para o RADAR? {{ $cadastro->mercado }}</td>
         </tr>
+        <tr>
+            <td>Em breve seu acesso será liberado!!!</td>
+        </tr>
         <hr>
         <tr class="footer">
             <td style="text-align: center;">
