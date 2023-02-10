@@ -63,7 +63,7 @@ class CadastroController extends Controller
                 'use_metatrader' => 'required|boolean',
                 'has_auth_use_metatrader' => 'required|boolean',
                 'mercado' => 'required|between:1,4',
-                'cpf' => 'required|max:11|numeric',
+                'cpf' => 'required|numeric',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
