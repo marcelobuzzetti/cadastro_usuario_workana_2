@@ -272,6 +272,7 @@ class CadastroController extends Controller
         $mensagem->corpo_email = str_replace("[data_inicial]",date('d/m/Y - H:i:s', strtotime($registro->Data_inicial)), $mensagem->corpo_email);
         $mensagem->corpo_email = str_replace("[data_limite]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
         $mensagem->corpo_email = str_replace("[data_ult_ent]",date('d/m/Y - H:i:s', strtotime($registro->Data_ult_ent)), $mensagem->corpo_email);
+        $mensagem->corpo_email .= "<a href=". route('cadastros.zenitlic', 1) .">Teste</a>";
 
         try {
             Mail::to($mensagem->email, "Marcelo")->send(new Ativacao($mensagem->corpo_email, "Teste"));
