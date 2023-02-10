@@ -108,41 +108,6 @@ class CadastroController extends Controller
                 break;
         }
 
-        /* $dados = Array(
-            'CPF' => $request->cpf,
-            'Nome' => $request->nome_completo,
-            'Login' => $request->nr_conta_corretora,
-            'Origem_registro' => "Web",
-            'Email' => $request->email,
-            'Telefone' => $request->telefone,
-        );
-
-        $zenite = new Registro();
-
-        try {
-            $id = $zenite::create($dados);
-            $request->merge([
-                'zenitelic_id' => $id
-            ]);
-        } catch (Exception $e) {
-            return response()->json(['error' => json_encode($e->getMessage())]);
-        } */
-
-
-
-        $mensagem = nl2br("Você se cadastrou na Radar Zenite
-        \nDados Cadastrados:
-        Nome Completo: $request->nome_completo \n
-        Email: $request->email \n
-        Telefone: $request->telefone \n
-        Tem Corretora?" . ($request->has_corretora ? "Sim" : "Não") .
-            "Nome da Corretora: $request->nome_corretora
-        Nr da Corretora: $request->nr_conta_corretora
-        \nUsa o Metatrader 5? " . ($request->use_metatrader ? "Sim" : "Não") .
-            "\nEstá com autorização da corretora para rotear pelo METATRADER 5? " . ($request->has_auth_use_metatrader ? "Sim" : "Não") .
-            "\nTem interesse em qual mercado para o RADAR? " . $request->mercado);
-
-
         try {
             $cadastro = Cadastro::create($request->all());
         } catch (Exception $e) {
@@ -249,6 +214,7 @@ class CadastroController extends Controller
 
             $request->validate([
                 'Nome' => 'required',
+                'CPF' => 'required',
                 'Login' => 'required',
                 'Data_limite' => 'required',
                 'Email' => 'required',
@@ -256,6 +222,7 @@ class CadastroController extends Controller
             ]);
 
             $Nome = $request->old('Nome');
+            $CPF = $request->old('CPF');
             $Login = $request->old('Login');
             $Data_limite = $request->old('Data_limite');
             $Data_ult_ent = $request->old('Data_ult_ent');

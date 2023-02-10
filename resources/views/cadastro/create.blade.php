@@ -180,7 +180,7 @@
         <div
             style="z-index:1; background-color:rgba(255, 255, 255, 0.5); width: fit-content; margin: 0 auto; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-top:10px;">
             <p style="font-weight: 800; text-align: center; font-size: 4rem; color:rgb(38, 135, 184); padding: 0 10px;">
-                Cadastro Online</p>
+                Cadastro Beta Testers</p>
         </div>
         <div id="cadastro_radar">
             <div class="alert alert-danger print-error-msg" style="display:none">
