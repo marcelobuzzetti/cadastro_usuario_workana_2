@@ -21,7 +21,7 @@ use App\Http\Controllers\CKEditorController;
 */
 
 Route::get('/', function () {
-     return redirect('/cadastros');
+     return redirect('/registros');
     /*return view('cadastro.create');*/
 });
 
