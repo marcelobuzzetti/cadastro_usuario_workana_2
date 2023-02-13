@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FaltaDeAcesso;
 use App\Models\Registro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller
 {
@@ -15,10 +17,14 @@ class EmailController extends Controller
 
     public function store(Request $request){
 
-        $job = (new \App\Jobs\SendQueueEmail($request->assunto, $request->emails, $request->mensagem))
+        /*$job = (new \App\Jobs\SendQueueEmail($request->assunto, $request->emails, $request->mensagem))
             	->delay(now()->addSeconds(2));
 
-        dispatch($job);
+        dispatch($job);*/
+
+        foreach($request->emails as $email){
+            Mail::to($email)->send(new FaltaDeAcesso($request->mensagem, $request->assunto));
+        }
 
         return redirect()->route('emailMarketing.index')->with('success', 'Emails enviados!');
     }
