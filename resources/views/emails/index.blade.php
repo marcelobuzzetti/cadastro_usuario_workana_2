@@ -13,6 +13,10 @@
             display: none;
         }
     </style>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <lottie-player class="loader_email" id="loader_email"
+                   src="https://assets1.lottiefiles.com/datafiles/OisWNdtMtC7TR1b/data.json" background="transparent" speed="1"
+                   style="width: 100vw; height: 100vh;" loop autoplay></lottie-player>
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -58,7 +62,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" id="submit" class="btn btn-primary">Enviar</button>
             </div>
         </div>
     </form>
@@ -116,37 +120,7 @@
             })
 
             $('#submit').on('click', function(e) {
-                e.preventDefault();
                 $('#loader_email').show()
-
-                let id = $('#recipient-id').val();
-                let mensagem = $('#message-text').val();
-                let assunto = $('#recipient-assunto').val();
-
-                $.ajax({
-                    url: "/email",
-                    type: "POST",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        id: id,
-                        mensagem: mensagem,
-                        assunto: assunto,
-                    },
-                    success: function(response) {
-                        toastr.success(response.success)
-                        console.log(response);
-                        $('#exampleModal').modal('toggle');
-                        $('#loader_email').hide()
-                        $("#email_acesso")[0].reset();
-                    },
-                    error: function(response) {
-                        toastr.error(response.error)
-                        console.log(response);
-                        $('#exampleModal').modal('toggle');
-                        $('#loader_email').hide()
-                        $("#email_acesso")[0].reset();
-                    },
-                });
             });
 
             CKEDITOR.replace( 'mensagem', {
