@@ -26,15 +26,13 @@ Route::get('/', function () {
     /*return view('cadastro.create');*/
 });
 
-Route::get('/schedule', function() {
+/*Route::get('/schedule', function() {
     Artisan::call('schedule:run');
-    // Do whatever you want either a print a message or exit
 });
 
 Route::get('/retry', function() {
     Artisan::call('queue:retry all');
-    // Do whatever you want either a print a message or exit
-});
+});*/
 
 Route::get('/teste', [CadastroController::class, 'teste'])->name('teste');
 
