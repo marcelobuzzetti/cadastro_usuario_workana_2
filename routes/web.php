@@ -8,6 +8,7 @@ use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\CKEditorController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,11 @@ use App\Http\Controllers\CKEditorController;
 Route::get('/', function () {
      return redirect('/registros');
     /*return view('cadastro.create');*/
+});
+
+Route::get('/schedule', function() {
+    Artisan::call('schedule:run');
+    // Do whatever you want either a print a message or exit
 });
 
 Route::get('/teste', [CadastroController::class, 'teste'])->name('teste');
