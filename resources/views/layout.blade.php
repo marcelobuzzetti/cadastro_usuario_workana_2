@@ -149,9 +149,9 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('registros.index') }}">Lista de Registros</a>
                         <a class="dropdown-item" href="{{ route('registros.create') }}">Adicionar Registro</a>
-                        @if (Auth::user()->perfil_id == 1)
+                        {{--@if (Auth::user()->perfil_id == 1)
                             <a class="dropdown-item" href="{{ url('/acessos') }}">Usuários que ainda não acessaram</a>
-                        @endif
+                        @endif--}}
                     </div>
                 </li>
                 @auth
