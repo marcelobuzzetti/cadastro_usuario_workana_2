@@ -4,9 +4,9 @@
     <div class="card-glass">
         <div class="text-center">
             @if (isset($dataInicio))
-                <h2>Relatótio do período de {{ $dataInicio }} a {{ $dataFim }}</h2>
+                <h2>Relatório do período de {{ $dataInicio }} a {{ $dataFim }}</h2>
             @else
-                <h2>Relatótio de todo o Período</h2>
+                <h2>Relatório de todo o Período</h2>
             @endif
             <table id="table" name="table" class="table table-striped table-bordered" style="width:100%">
                 <thead>
