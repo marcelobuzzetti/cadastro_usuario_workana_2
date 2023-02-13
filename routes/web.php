@@ -31,6 +31,11 @@ Route::get('/schedule', function() {
     // Do whatever you want either a print a message or exit
 });
 
+Route::get('/retry', function() {
+    Artisan::call('queue:retry all');
+    // Do whatever you want either a print a message or exit
+});
+
 Route::get('/teste', [CadastroController::class, 'teste'])->name('teste');
 
 Route::get('/inativo', function () {
