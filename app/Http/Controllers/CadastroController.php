@@ -255,10 +255,12 @@ class CadastroController extends Controller
             $mensagem->corpo_email = str_replace("[data_limite]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
             $mensagem->corpo_email = str_replace("[data_ult_ent]",date('d/m/Y - H:i:s', strtotime($registro->Data_ult_ent)), $mensagem->corpo_email);
 
-            $job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo, $mensagem->corpo_email))
+            Mail::to($request->Email, $request->nome_completo)->cc($mensagem->email)->send(new Ativacao($mensagem->corpo_email, "Ativação de Conta"));
+
+            /*$job = (new \App\Jobs\AtivacaoQueue("Ativação de Conta", $request->Email, $registro, $request->nome_completo, $mensagem->corpo_email))
                 ->delay(now()->addSeconds(2));
 
-            dispatch($job);
+            dispatch($job);*/
 
 
             return redirect()->route('cadastros.index')
