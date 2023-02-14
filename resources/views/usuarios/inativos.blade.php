@@ -35,6 +35,7 @@
                             @method('PUT')
                             <input type="hidden" name="id" value="{{ $usuario->id }}">
                             <button type="submit" class="btn btn-info">Ativar</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
