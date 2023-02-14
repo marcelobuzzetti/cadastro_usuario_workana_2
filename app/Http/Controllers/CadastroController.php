@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Ativacao;
+use App\Mail\CadastroOnline;
 use App\Mail\FaltaDeAcesso;
+use App\Mail\NovoCadastro;
 use App\Models\Cadastro;
 use App\Models\Config;
 use App\Models\Registro;
@@ -114,17 +116,22 @@ class CadastroController extends Controller
             return response()->json(['error' => json_encode($e->getMessage())]);
         }
 
-        $job = (new \App\Jobs\CadastroOnlineQueue("Cadastro na Radar Zenite", $request->email, $cadastro, $request->nome_completo))
-            ->delay(now()->addSeconds(2));
-
-        dispatch($job);
+        Mail::to($request->email, $request->nome_completo)->send(new CadastroOnline($cadastro, "Cadastro na Radar Zenite"));
 
         $mensagem = Config::latest()->first();
 
-        $job = (new \App\Jobs\NovoCadastroQueue("Novo Cadastro na Radar Zenite", $mensagem->email, $cadastro, $request->nome_completo))
+        Mail::to($mensagem->email, $request->nome_completo)->send(new NovoCadastro($cadastro, "Novo Cadastro na Radar Zenite"));
+
+        /*$job = (new \App\Jobs\CadastroOnlineQueue("Cadastro na Radar Zenite", $request->email, $cadastro, $request->nome_completo))
             ->delay(now()->addSeconds(2));
 
-        dispatch($job);
+        dispatch($job);*/
+
+
+        /*$job = (new \App\Jobs\NovoCadastroQueue("Novo Cadastro na Radar Zenite", $mensagem->email, $cadastro, $request->nome_completo))
+            ->delay(now()->addSeconds(2));
+
+        dispatch($job);*/
 
         return response()->json(['success' => "Cadastro realizado com sucesso!!!"]);
     }
