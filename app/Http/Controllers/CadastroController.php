@@ -66,6 +66,13 @@ class CadastroController extends Controller
                 'has_auth_use_metatrader' => 'required|boolean',
                 'mercado' => 'required|between:1,4',
                 'cpf' => 'required|numeric',
+            ],
+            [
+                'has_corretora.required' => 'O campo Tem Corretora é obrigatório',
+                'nome_corretora.required' => 'O campo Nome da Corretora é obrigatório',
+                'nr_conta_corretora.required' => 'O campo Número da Conta na Corretora é obrigatório',
+                'use_metatrader.required' => 'O campo Utiliza Plataforma METATRADER é obrigatório',
+                'has_auth_use_metatrader.required' => 'O campo Está com autorização para rotear pelo METATRADER é obrigatório',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -78,6 +85,13 @@ class CadastroController extends Controller
                 'use_metatrader' => 'required|boolean',
                 'has_auth_use_metatrader' => 'required|boolean',
                 'mercado' => 'required|between:1,4',
+            ],
+            [
+                'has_corretora.required' => 'O campo Tem Corretora é obrigatório',
+                'nome_corretora.required' => 'O campo Nome da Corretora é obrigatório',
+                'nr_conta_corretora.required' => 'O campo Número da Conta na Corretora é obrigatório',
+                'use_metatrader.required' => 'O campo Utiliza Plataforma METATRADER é obrigatório',
+                'has_auth_use_metatrader.required' => 'O campo Está com autorização para rotear pelo METATRADER é obrigatório',
             ]);
         }
 
