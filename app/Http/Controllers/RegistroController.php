@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Ativacao;
 use App\Models\Cadastro;
+use App\Models\Config;
 use App\Models\Registro;
 use App\Http\Requests\StoreRegistroRequest;
 use App\Http\Requests\UpdateRegistroRequest;
@@ -100,7 +102,17 @@ class RegistroController extends Controller
             'Origem_registro' => Auth::user()->email
         ]);
 
-        Registro::create($request->all() /* + ['IP' => $ipAddress] + ['usuario' => Auth::id()] */);
+        $registro = Registro::create($request->all() /* + ['IP' => $ipAddress] + ['usuario' => Auth::id()] */);
+
+        $mensagem = Config::latest()->first();
+        $mensagem->corpo_email = str_replace("[nome]", $registro->Nome , $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[login]", $registro->Login , $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[cpf]", $registro->CPF , $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[data_inicial]",date('d/m/Y - H:i:s', strtotime($registro->Data_inicial)), $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[data_limite]",date('d/m/Y - H:i:s', strtotime($registro->Data_limite)), $mensagem->corpo_email);
+        $mensagem->corpo_email = str_replace("[data_ult_ent]",date('d/m/Y - H:i:s', strtotime($registro->Data_ult_ent)), $mensagem->corpo_email);
+
+        Mail::to($request->Email, $request->Nome)->cc($mensagem->email)->send(new Ativacao($mensagem->corpo_email, "Ativação de Conta"));
 
         return redirect()->route('registros.index')
             ->with('success', 'Registro criado com sucesso.');
