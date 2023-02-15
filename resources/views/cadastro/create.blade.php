@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Registros</title>
+    <title>Radar Zenite</title>
     {{--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
         rel="stylesheet"> --}}
     <link rel="icon" type="image/x-icon" href="{{ asset('img/ico.jpg') }}">
