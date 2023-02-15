@@ -75,12 +75,6 @@ class UsuarioController extends Controller
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
                     'perfil_id' => ['required', Rule::in([1, 2, 3])]
-                ],
-                [
-                    'name.required' => 'O nome deve ser digitado.',
-                    'email.required' => 'O email deve ser digitado.',
-                    'password.required' => 'O password deve ser digitado',
-                    'perfil_id.required' => 'O perfil deve ser selecionado',
                 ]
             );
         }
@@ -98,12 +92,6 @@ class UsuarioController extends Controller
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password' => ['required', 'confirmed', Password::min(10)->letters()->mixedCase()->numbers()->symbols()],
                     'perfil_id' => ['required', Rule::in([2, 3])],
-                ],
-                [
-                    'name.required' => 'O nome deve ser digitado.',
-                    'email.required' => 'O email deve ser digitado.',
-                    'password.required' => 'O password deve ser digitado',
-                    'perfil_id.required' => 'O perfil deve ser selecionado',
                 ]
             );
         }
