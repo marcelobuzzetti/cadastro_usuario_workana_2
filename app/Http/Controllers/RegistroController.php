@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cadastro;
 use App\Models\Registro;
 use App\Http\Requests\StoreRegistroRequest;
 use App\Http\Requests\UpdateRegistroRequest;
@@ -201,6 +202,10 @@ class RegistroController extends Controller
 
         if (Auth::user()->email === $registro->Origem_registro || Auth::user()->perfil_id === 1 || $criador[0]->usuario_criador_id === $criador_usuario[0]->id) {
             $registro->delete();
+            $cadastro = Cadastro::where('zenitelic_id', '=', $registro->ID_usuario)->first();
+            if($cadastro){
+                $cadastro->delete();
+            }
         } else {
             return redirect()->route('registros.index')
                 ->with('error', 'Você não tem permissão para deletar este registro.');
