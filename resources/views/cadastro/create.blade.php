@@ -161,7 +161,7 @@
     </style>
 </head>
 
-<body>
+<body class="pb-5">
     @if ($message = Session::get('message'))
         @if ($message['type'] == 'success')
             <script>
