@@ -22,17 +22,9 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Route::get('/', function () {
-     return redirect('/registros');
-    /*return view('cadastro.create');*/
+    /* return redirect('/registros');*/
+    return view('cadastro.create');
 });
-
-/*Route::get('/schedule', function() {
-    Artisan::call('schedule:run');
-});
-
-Route::get('/retry', function() {
-    Artisan::call('queue:retry all');
-});*/
 
 Route::get('/teste', [CadastroController::class, 'teste'])->name('teste');
 
