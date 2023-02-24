@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateRegistroRequest;
 use App\Mail\FaltaDeAcesso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
@@ -36,23 +37,27 @@ class RegistroController extends Controller
     {
         $registros = NULL;
         if (Auth::user()->perfil_id === 1) {
-            $registros = Registro::all();
+            $registros = cache()->rememberForever('registros', function (){
+               return Registro::all();
+            });
         }
 
         if (Auth::user()->perfil_id === 2) {
-
-            $registros = DB::select('SELECT * FROM ZeniteLic, users
-            WHERE users.email = ZeniteLic.Origem_registro
-            AND users.email =  ?', [Auth::user()->email]);
+            $registros = cache()->rememberForever('registros', function (){
+                DB::select('SELECT * FROM ZeniteLic, users
+                WHERE users.email = ZeniteLic.Origem_registro
+                AND users.email =  ?', [Auth::user()->email]);
+            });
         }
 
         if (Auth::user()->perfil_id === 3) {
 
             $emails = DB::select('SELECT email FROM users WHERE usuario_criador_id = ?', [Auth::id()]);
 
-            $registros = DB::select("SELECT DISTINCT ID_usuario, CPF, Nome, Login, Data_inicial, Data_limite, Data_ult_ent, Contador, Origem_registro, Cod_admin, Email, Telefone FROM ZeniteLic
-            WHERE ZeniteLic.Origem_registro IN (SELECT email FROM users WHERE usuario_criador_id = ? OR ZeniteLic.Origem_registro = ?)"
-            , [Auth::id(), Auth::user()->email]);
+            $registros = cache()->rememberForever('registros', function (){
+                DB::select("SELECT DISTINCT ID_usuario, CPF, Nome, Login, Data_inicial, Data_limite, Data_ult_ent, Contador, Origem_registro, Cod_admin, Email, Telefone FROM ZeniteLic
+                WHERE ZeniteLic.Origem_registro IN (SELECT email FROM users WHERE usuario_criador_id = ? OR ZeniteLic.Origem_registro = ?)", [Auth::id(), Auth::user()->email]);
+            });
         }
 
         return view('registros.index')->with('registros', $registros);
@@ -113,6 +118,8 @@ class RegistroController extends Controller
         $mensagem->corpo_email = str_replace("[data_ult_ent]",date('d/m/Y - H:i:s', strtotime($registro->Data_ult_ent)), $mensagem->corpo_email);
 
         Mail::to($request->Email, $request->Nome)->cc($mensagem->email)->send(new Ativacao($mensagem->corpo_email, "Ativação de Conta"));
+
+        Cache::forget('registros');
 
         return redirect()->route('registros.index')
             ->with('success', 'Registro criado com sucesso.');
@@ -186,6 +193,8 @@ class RegistroController extends Controller
                 ->with('error', 'Você não tem permissão para editar este registro.');
         }
 
+        Cache::forget('registros');
+
         return redirect()->route('registros.index')
             ->with('success', 'Registro atualizado com sucesso');
     }
@@ -222,6 +231,8 @@ class RegistroController extends Controller
             return redirect()->route('registros.index')
                 ->with('error', 'Você não tem permissão para deletar este registro.');
         }
+
+        Cache::forget('registros');
 
         return redirect()->route('registros.index')
             ->with('success', 'Registro apagado com sucesso');

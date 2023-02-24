@@ -8,10 +8,17 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
+
+    public function __construct()
+    {
+        Cache::flush();
+    }
+
     /**
      * Display the login view.
      *
