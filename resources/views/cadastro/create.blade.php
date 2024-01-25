@@ -395,7 +395,7 @@
                 $('.btn').addClass("disabled");
 
                 $.ajax({
-                    url: "/cadastros",
+                    url: '{{ URL::to('/cadastros') }}',
                     type: "POST",
                     data: $('#cadastro').serialize(),
                     success: function(response) {
